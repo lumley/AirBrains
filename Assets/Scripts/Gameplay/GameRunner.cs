@@ -88,6 +88,7 @@ public class Game : MonoBehaviour {
 		//Update positions based on input
 		//Check validity, and make push-backs if the occupancy rules are violated
 		//Handle the conversions of humans to donors
+		yield return 0;
 	}
 
 	private void CollectPoints() {
@@ -101,6 +102,7 @@ public class Game : MonoBehaviour {
 		if (lastRoundNumber > 0 && lastRoundNumber >= roundNumber) {
 			gameRunning = false;
 		}
+		yield return 0;
 	}
 
 	private void SetupVictoryScreen() {
