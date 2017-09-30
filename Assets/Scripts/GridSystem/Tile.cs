@@ -60,4 +60,33 @@ public class Tile : MonoBehaviour {
 		}
 		return neighbors [direction];
 	}
+
+	public void AcceptVisitor(TileVisitor visitor) {
+		if (!visitors.ContainsKey (visitor.Tag)) {
+			visitors.Add (visitor.Tag, new List<TileVisitor> ());
+		}
+		visitors [visitor.Tag].Add (visitor);
+	}
+
+	public void BidVisitorFarewell(TileVisitor visitor) {
+		string tag = visitor.Tag;
+		if (!visitors.ContainsKey (tag)) {
+			Debug.LogError ("This tile doesn't contain the given visitor");
+		}
+		if (!visitors [tag].Contains (visitor)) {
+			Debug.LogError ("This tile doesn't contain the given visitor");
+		}
+		visitors [tag].Remove (visitor);
+		if (visitors [tag].Count <= 0) {
+			visitors.Remove (tag);
+		}
+	}
+
+	public int GetTotalNumberOfVisitors() {
+		int total = 0;
+		foreach(List<TileVisitor> list in visitors.Values){
+			total += list.Count;
+		}
+		return total;
+	}
 }
