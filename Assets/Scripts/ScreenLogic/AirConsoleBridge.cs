@@ -1,13 +1,11 @@
 ﻿using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ScreenLogic
 {
     public class AirConsoleBridge : MonoBehaviour
     {
-        public Text UiText;
 #if !DISABLE_AIRCONSOLE
 
         private void Awake()
@@ -33,10 +31,6 @@ namespace ScreenLogic
                 if (AirConsole.instance.GetControllerDeviceIds().Count > 0)
                 {
                     StartGame();
-                }
-                else
-                {
-                    UiText.text = "Need at least a player";
                 }
             }
         }
@@ -75,7 +69,7 @@ namespace ScreenLogic
         private void StartGame()
         {
             AirConsole.instance.SetActivePlayers(1);
-            UiText.text = "Game started";
+            Debug.Log("Game started");
         }
 
         private void OnDestroy()
