@@ -8,7 +8,7 @@ public sealed class LobbyController : MonoBehaviour
 	[SerializeField]
 	public LobbyView View;
 
-	public readonly LobbyModel Model = new LobbyModel(10);
+	public readonly LobbyModel Model = new LobbyModel(10, 2);
 
 	public event Action<List<CharacterType>> OnAvailableCharactersChanged; 
 

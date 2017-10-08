@@ -12,7 +12,7 @@ public sealed class LobbyModel
 		CharacterType.Crocodile,
 		CharacterType.Eagle,
 		CharacterType.Monkey,
-		CharacterType.Monster07,
+		CharacterType.Parrot,
 		CharacterType.Monster08,
 		CharacterType.Monster09,
 		CharacterType.Seal,
@@ -20,8 +20,11 @@ public sealed class LobbyModel
 		CharacterType.Tiger
 	};
 
-	public LobbyModel(int playerAmount)
+	public readonly int NeedReadyPlayers;
+
+	public LobbyModel(int playerAmount, int waitingForReadyPlayers)
 	{
+		NeedReadyPlayers = waitingForReadyPlayers;
 		Players = new List<LobbyPlayerData>(playerAmount);
 
 		for (int i = 0; i < playerAmount; i++) 
@@ -68,9 +71,17 @@ public sealed class LobbyModel
 		existingPlayer.Character = playerData.Character;
 		existingPlayer.IsReady = playerData.IsReady;
 
+		int readyPlayers = 0;
+		for (int i = 0; i < Players.Count; i++) {
+			readyPlayers += Players [i].IsReady ? 1 : 0;
+		}
+
+		IsGameReadyToStart = readyPlayers >= NeedReadyPlayers;
+
 		OnModelChanged ();
 
-		if (availableCharactersChanged) {
+		if (availableCharactersChanged)
+		{
 			OnModelAvailableCharactersChanged ();
 		}
 	}
@@ -99,5 +110,10 @@ public sealed class LobbyModel
 		{
 			OnAvailableCharactersChanged (AvailableCharacters);
 		}
+	}
+
+	public bool IsGameReadyToStart {
+		private set;
+		get;
 	}
 }

@@ -16,6 +16,9 @@ public sealed class LobbyPlayerView : MonoBehaviour
 
 	[SerializeField]
 	private GameObject _isReadyContainer;
+
+	[SerializeField]
+	private Image _isReadyBackground;
 	
 	private LobbyPlayerData _model;
 	private CharacterVisualData _visualData;
@@ -34,5 +37,7 @@ public sealed class LobbyPlayerView : MonoBehaviour
 		_isReadyText.text = _model.IsReady ? "Ready" : "Not ready";
 		_isReadyContainer.SetActive (_model.Character != CharacterType.None);
 		_playerIdText.text = string.Format ("PLAYER {0}", _model.Id + 1);
+
+		_isReadyBackground.color = _model.IsReady ? Color.green : Color.red;
 	}
 }

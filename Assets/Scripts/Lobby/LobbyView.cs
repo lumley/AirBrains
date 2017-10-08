@@ -13,9 +13,14 @@ public class LobbyView : MonoBehaviour
 	[SerializeField]
 	private Transform _portraitGrid;
 
+	[SerializeField]
+	private GameObject _readyToStartGame;
+
 	private List<LobbyPlayerView> _players = new List<LobbyPlayerView>();
 	
 	public LobbyModel Model;
+
+	private Coroutine _startGameCoroutine;
 
 	public void ApplyModel(LobbyModel model)
 	{
@@ -23,6 +28,8 @@ public class LobbyView : MonoBehaviour
 		{
 			Model.OnChanged -= OnModelChanged;
 			Model = null;
+
+			RemoveCoroutine ();
 		}
 
 		Model = model;
@@ -31,6 +38,25 @@ public class LobbyView : MonoBehaviour
 		{
 			Model.OnChanged += OnModelChanged;
 			OnModelChanged ();
+		}
+	}
+
+	private void RemoveCoroutine()
+	{
+		if (_startGameCoroutine != null) {
+			_readyToStartGame.SetActive (false);
+			StopCoroutine (_startGameCoroutine);
+			_startGameCoroutine = null;
+		}
+	}
+
+	private IEnumerator StartGameCoroutine()
+	{
+		while (true) {
+			_readyToStartGame.SetActive (true);
+			yield return new WaitForSeconds (0.5f);
+			_readyToStartGame.SetActive (false);
+			yield return new WaitForSeconds (0.25f);
 		}
 	}
 
@@ -57,15 +83,26 @@ public class LobbyView : MonoBehaviour
 
 			_players.RemoveRange (Model.Players.Count, _players.Count - Model.Players.Count);
 		}
+
+		if (Model.IsGameReadyToStart) 
+		{
+			if (_startGameCoroutine == null) 
+			{
+				_startGameCoroutine = StartCoroutine ("StartGameCoroutine");
+			}
+		}
+		else
+		{
+			RemoveCoroutine ();
+		}
 	}
 
 	private LobbyPlayerView GetPlayer(int index)
 	{
 		LobbyPlayerView player = _players.Count > index ? _players [index] : null;
-		if (player == null) 
-		{
+		if (player == null) {
 			var playerObject = Instantiate (_playerPortraitPrefab);
-			playerObject.transform.SetParent(_portraitGrid);
+			playerObject.transform.SetParent (_portraitGrid);
 			player = playerObject.GetComponent<LobbyPlayerView> ();
 
 			_players.Add (player);

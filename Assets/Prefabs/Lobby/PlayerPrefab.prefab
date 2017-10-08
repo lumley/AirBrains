@@ -303,6 +303,7 @@ MonoBehaviour:
   _playerIdText: {fileID: 114945465738653012}
   _isReadyText: {fileID: 114345207061384704}
   _isReadyContainer: {fileID: 1251808183278908}
+  _isReadyBackground: {fileID: 114689667125042888}
 --- !u!222 &222153385079386240
 CanvasRenderer:
   m_ObjectHideFlags: 1

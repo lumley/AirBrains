@@ -8,7 +8,7 @@
 	Bulldog = 5,
 	Eagle = 6,
 	Seal = 7,
-	Monster07 = 8,
+	Parrot = 8,
 	Monster08 = 9,
 	Monster09 = 10,
 	Human = 11,
