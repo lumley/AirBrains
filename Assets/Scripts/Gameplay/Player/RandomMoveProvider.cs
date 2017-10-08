@@ -6,13 +6,12 @@ using UnityEngine;
 public class RandomMoveProvider : MoveProvider {
 
 	private List<Move> myMoves = new List<Move> ();
-	private System.Random random = new System.Random();
 	private Array moveValues = Enum.GetValues(typeof(Move));
 
 	public override void StartCollectingMoves(){
 		myMoves.Clear ();
 		for (int moveIndex = 0; moveIndex < numberOfMovesPerRound; moveIndex++) {
-			Move randomMove = (Move)moveValues.GetValue(random.Next(moveValues.Length));
+			Move randomMove = (Move)moveValues.GetValue(UnityEngine.Random.Range(0, moveValues.Length - 1));
 			myMoves.Add (randomMove);
 		}
 	}

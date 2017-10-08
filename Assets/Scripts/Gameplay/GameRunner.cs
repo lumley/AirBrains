@@ -113,23 +113,10 @@ public class GameRunner : MonoBehaviour {
 	private IEnumerator ProcessTurn() {
 		//TODO:
 		SaveOriginalPositions();
-		//Update positions based on input
-		//Check validity, and make push-backs if the occupancy rules are violated
+		UpdatePositionsBasedOnInput ();
+		CheckValidityAndHandlePushBacks ();
 		//Handle the conversions of humans to donors
-
-		//DUMMY
-		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
-			Move currentMove = entry.Value [currentTurn];
-			if (currentMove == Move.STAY) {
-				continue;
-			}
-			TileVisitor visitor = entry.Key.gameObject.GetComponent<TileVisitor> ();
-			Direction moveIn = MoveUtils.GetDirectionFor (currentMove);
-			if (visitor.CurrentlyVisiting.canMove (moveIn)) {
-				visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor (moveIn);
-			}
-		}
-		yield return new WaitForSeconds(.3f);
+		yield return new WaitForSeconds(.1f);
 		//END DUMMY
 
 		currentTurn++;
@@ -147,7 +134,7 @@ public class GameRunner : MonoBehaviour {
 			gameRunning = false;
 		}
 		//DUMMY
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.3f);
 		//END DUMMY
 	}
 
@@ -160,6 +147,46 @@ public class GameRunner : MonoBehaviour {
 		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
 			TileVisitor visitor = entry.Key.gameObject.GetComponent<TileVisitor> ();
 			originalPositions.Add (visitor.gameObject, visitor.CurrentlyVisiting);
+		}
+	}
+
+	private void UpdatePositionsBasedOnInput() {
+		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
+			Move currentMove = entry.Value [currentTurn];
+			if (currentMove == Move.STAY) {
+				continue;
+			}
+			TileVisitor visitor = entry.Key.gameObject.GetComponent<TileVisitor> ();
+			Direction moveIn = MoveUtils.GetDirectionFor (currentMove);
+			if (visitor.CurrentlyVisiting.canMove (moveIn)) {
+				visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor (moveIn);
+			}
+		}
+	}
+
+	private void CheckValidityAndHandlePushBacks() {
+		int conflicts = 1;
+		while (conflicts > 0) {
+			conflicts = 0;
+			List<TileVisitor> toPushBack = new List<TileVisitor> ();
+			foreach (KeyValuePair<GameObject, Tile> pair in originalPositions) {
+				GameObject dude = pair.Key;
+				TileVisitor tileVisitor = dude.GetComponent<TileVisitor> ();
+				if (tileVisitor.CurrentlyVisiting.GetTotalNumberOfVisitors (tileVisitor.Tag) > 1) {
+					conflicts++;
+					toPushBack.AddRange(tileVisitor.CurrentlyVisiting.GetVisitorsOfTag (tileVisitor.Tag));
+				}
+			}
+			foreach (TileVisitor visitor in toPushBack) {
+				if (originalPositions.ContainsKey (visitor.gameObject)) {
+					Tile sourceTile = originalPositions [visitor.gameObject];
+					if (visitor.CurrentlyVisiting != sourceTile) {
+						visitor.CurrentlyVisiting = originalPositions [visitor.gameObject];
+					}
+				} else {
+					Debug.LogError ("Unable to push back " + visitor.gameObject.name + " because their original position isn't known!");
+				}
+			}
 		}
 	}
 }
