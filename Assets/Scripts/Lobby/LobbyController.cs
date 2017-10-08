@@ -15,7 +15,7 @@ public sealed class LobbyController : MonoBehaviour
 		View.ApplyModel (Model);
 	}
 
-	public void OnPlayerConnected(LobbyPlayerData playerData)
+	public void OnLobbyPlayerConnected(LobbyPlayerData playerData)
 	{
 		var existingPlayer = Model.GetPlayer (playerData.Character);
 
@@ -28,7 +28,7 @@ public sealed class LobbyController : MonoBehaviour
 	}
 
 
-	public void OnPlayerDisconnected(int playerId)
+	public void OnLobbyPlayerDisconnected(int playerId)
 	{
 		var existingPlayer = Model.GetPlayer (playerId);
 		
@@ -40,7 +40,7 @@ public sealed class LobbyController : MonoBehaviour
 		Model.RemovePlayer (playerId);
 	}
 
-	public void OnPlayerReadyStateChanged(LobbyPlayerData player)
+	public void OnLobbyPlayerReadyStateChanged(LobbyPlayerData player)
 	{
 		var existingPlayer = Model.GetPlayer (player.Id);
 
