@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212631383721382218}
   - component: {fileID: 114267544617497182}
   - component: {fileID: 114508646923430226}
+  - component: {fileID: 114988991604359418}
   m_Layer: 0
   m_Name: RandomTigerMan
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: player
-  offset: {x: -0.2, y: 0, z: -0.1}
+  offset: {x: -0.25, y: -0.15, z: -0.1}
 --- !u!114 &114508646923430226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,6 +65,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb102418873a846689c4da5b9e552c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114988991604359418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1968329381407834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a0289cb6504616beb93ceb0ca788b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212631383721382218

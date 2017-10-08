@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212170209071514996}
   - component: {fileID: 114789867285357714}
   - component: {fileID: 114404969466604798}
+  - component: {fileID: 114677560262640888}
   m_Layer: 0
   m_Name: RandomLeezardMan
   m_TagString: Untagged
@@ -53,6 +54,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb102418873a846689c4da5b9e552c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114677560262640888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676140513789064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a0289cb6504616beb93ceb0ca788b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114789867285357714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: player
-  offset: {x: -0.2, y: 0, z: -0.1}
+  offset: {x: -0.25, y: -0.15, z: -0.1}
 --- !u!212 &212170209071514996
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 19c34b7d4668c4d2fbabc5a449ac5c59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f62bf1a31196468e81aefc98c15d2f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

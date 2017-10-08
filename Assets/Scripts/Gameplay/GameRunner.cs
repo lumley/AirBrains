@@ -6,7 +6,10 @@ public class GameRunner : MonoBehaviour {
 
 	public int turnsPerRound = 4;
 	public float secondsToWaitForInput = 30f;
+	public int scoreThreshold = 15;
 	public int wrapUpRounds;
+
+	public string tagForPoints = "human";
 
 	private bool gameRunning = false;
 	private bool isFirstRound = false;
@@ -15,12 +18,19 @@ public class GameRunner : MonoBehaviour {
 	private int currentTurn = 0;
 
 	private List<MoveProvider> moveProviders = new List<MoveProvider>();
+	private List<ScoreTracker> scoreTrackers = new List<ScoreTracker>();
+	private List<PointsGiver> pointsGivers = new List<PointsGiver>();
+
 	private Dictionary<MoveProvider, List<Move>> movesPerProvider = new Dictionary<MoveProvider, List<Move>>();
 	private Dictionary<GameObject, Tile> originalPositions = new Dictionary<GameObject, Tile>();
 
 	public void StartGame() {
 		moveProviders.Clear ();
 		moveProviders.AddRange(GameObject.FindObjectsOfType<MoveProvider> ());
+		scoreTrackers.Clear ();
+		scoreTrackers.AddRange (GameObject.FindObjectsOfType<ScoreTracker> ());
+		pointsGivers.Clear ();
+		pointsGivers.AddRange (GameObject.FindObjectsOfType<PointsGiver> ());
 		foreach (MoveProvider moveProvider in moveProviders) {
 			moveProvider.SetMoveCount (turnsPerRound);
 		}
@@ -111,11 +121,10 @@ public class GameRunner : MonoBehaviour {
 	}
 
 	private IEnumerator ProcessTurn() {
-		//TODO:
 		SaveOriginalPositions();
 		UpdatePositionsBasedOnInput ();
 		CheckValidityAndHandlePushBacks ();
-		//Handle the conversions of humans to donors
+		ChangeOwnership ();
 
 		//DUMMY
 		yield return new WaitForSeconds(.1f);
@@ -125,24 +134,54 @@ public class GameRunner : MonoBehaviour {
 	}
 
 	private void CollectPoints() {
-		//TODO:
-		//Add the number of donors to the points that each player currently has
-		//Check and see if anyone has crossed the funding threshold. If they have, set the last round number
+		Dictionary<ScoreTracker, int> roundPointsForPlayer = new Dictionary<ScoreTracker, int> ();
+		foreach (PointsGiver giver in pointsGivers) {
+			if (giver.OwnedBy != null) {
+				if (!roundPointsForPlayer.ContainsKey (giver.OwnedBy)) {
+					roundPointsForPlayer.Add (giver.OwnedBy, 0);
+				}
+				roundPointsForPlayer [giver.OwnedBy] += giver.pointValue;
+			}
+		}
+		foreach (KeyValuePair<ScoreTracker, int> entry in roundPointsForPlayer) {
+			entry.Key.ChangeScore (entry.Value);
+			if (lastRoundNumber == -1 && entry.Key.Score >= scoreThreshold) {
+				//TODO: trigger the wrap-up notification
+				lastRoundNumber = roundNumber + wrapUpRounds;
+			}
+		}
+
+		//DUMMY
+		foreach (ScoreTracker tracker in scoreTrackers) {
+			if (tracker.Score > 0) {
+				Debug.Log (tracker.gameObject.name + " currently has " + tracker.Score + " points");
+			}
+		}
+		//END DUMMY
 	}
 
 	private IEnumerator HandleRoundEndDisplay() {
 		//TODO: SHOW THE PLAYERS THE RESULTS AT THE END OF THE ROUND
-		if (lastRoundNumber > 0 && lastRoundNumber >= roundNumber) {
+		if (lastRoundNumber > 0 && lastRoundNumber <= roundNumber) {
 			gameRunning = false;
+			//TODO: keep going if there is a tie for highest points?
 		}
 
 		//DUMMY
-		yield return new WaitForSeconds(.3f);
+		yield return new WaitForSeconds(.5f);
 		//END DUMMY
 	}
 
 	private void SetupVictoryScreen() {
-		//TODO: DO THIS
+		ScoreTracker highestScore = null;
+
+		foreach (ScoreTracker tracker in scoreTrackers) {
+			if (highestScore == null || tracker.Score > highestScore.Score) {
+				highestScore = tracker;
+			}
+		}
+		Debug.Log (highestScore.gameObject.name + " wins with " + highestScore.Score + " points!");
+		//TODO: Set up the victory screen
 	}
 
 	private void SaveOriginalPositions() {
@@ -189,6 +228,23 @@ public class GameRunner : MonoBehaviour {
 					}
 				} else {
 					Debug.LogError ("Unable to push back " + visitor.gameObject.name + " because their original position isn't known!");
+				}
+			}
+		}
+	}
+
+	private void ChangeOwnership(){
+		foreach (ScoreTracker tracker in scoreTrackers) {
+			TileVisitor trackerVisitor = tracker.gameObject.GetComponent<TileVisitor> ();
+			if (trackerVisitor.CurrentlyVisiting.GetTotalNumberOfVisitors (tagForPoints) > 0) {
+				foreach (TileVisitor otherOccupant in trackerVisitor.CurrentlyVisiting.GetVisitorsOfTag(tagForPoints)) {
+					PointsGiver pointsGiver = otherOccupant.gameObject.GetComponent<PointsGiver> ();
+					if (pointsGiver != null) {
+						//TODO: Handle line of sight exclusion!
+						pointsGiver.OwnedBy = tracker;
+					} else {
+						Debug.LogError ("Gameobject: " + otherOccupant.gameObject.name + " is tagged as " + tagForPoints + " but doesn't have a pointsgiver object!");
+					}
 				}
 			}
 		}
