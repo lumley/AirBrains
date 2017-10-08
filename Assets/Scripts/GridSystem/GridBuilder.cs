@@ -47,7 +47,7 @@ public class GridBuilder : MonoBehaviour {
 						GetTileFrom (xPos, yPos, Direction.SOUTH),
 						GetTileFrom (xPos, yPos, Direction.WEST),
 						GetTileFrom (xPos, yPos, Direction.EAST));
-					thisTile.transform.SetPositionAndRotation (new Vector3 (xPos * gridSize.x, yPos * gridSize.y, 0f), Quaternion.identity);
+					thisTile.transform.SetPositionAndRotation (new Vector3 (xPos * gridSize.x, yPos * gridSize.y, xPos * .001f + yPos * .001f), Quaternion.identity);
 				}
 			}
 		}
