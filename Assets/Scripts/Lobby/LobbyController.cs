@@ -8,11 +8,23 @@ public sealed class LobbyController : MonoBehaviour
 	[SerializeField]
 	public LobbyView View;
 
-	public LobbyModel Model = new LobbyModel();
+	public readonly LobbyModel Model = new LobbyModel();
+
+	public event Action<List<CharacterType>> OnAvailableCharactersChanged; 
 
 	private void Awake()
 	{
 		View.ApplyModel (Model);
+		Model.OnAvailableCharactersChanged += SendAvailableCharacters;
+
+		//for test
+		SendAvailableCharacters (Model.AvailableCharacters);
+	}
+
+	private void OnDestroy()
+	{
+		View.ApplyModel (null);
+		Model.OnAvailableCharactersChanged -= SendAvailableCharacters;
 	}
 
 	public void OnLobbyPlayerConnected(LobbyPlayerData playerData)
@@ -40,7 +52,7 @@ public sealed class LobbyController : MonoBehaviour
 		Model.RemovePlayer (playerId);
 	}
 
-	public void OnLobbyPlayerReadyStateChanged(LobbyPlayerData player)
+	public void OnLobbyPlayerDataChanged(LobbyPlayerData player)
 	{
 		var existingPlayer = Model.GetPlayer (player.Id);
 
@@ -51,5 +63,12 @@ public sealed class LobbyController : MonoBehaviour
 
 		Model.OnPlayerDataChanged (player);
 	}
-		
+
+	private void SendAvailableCharacters(List<CharacterType> characters)
+	{
+		if (OnAvailableCharactersChanged != null) 
+		{
+			OnAvailableCharactersChanged (characters);
+		}
+	}
 }

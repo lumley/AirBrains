@@ -3,40 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
 public sealed class LobbyModel
 {
-	private List<LobbyPlayerData> _players = new List<LobbyPlayerData>();
+	public readonly List<LobbyPlayerData> Players = new List<LobbyPlayerData>();
+	public readonly List<CharacterType> AvailableCharacters = new List<CharacterType>
+	{
+		CharacterType.Bulldog,
+		CharacterType.Crocodile,
+		CharacterType.Eagle,
+		CharacterType.Monkey,
+		CharacterType.Monster07,
+		CharacterType.Monster08,
+		CharacterType.Monster09,
+		CharacterType.Seal,
+		CharacterType.Shark,
+		CharacterType.Tiger
+	};
 
-	public Action OnChanged;
+	public event Action OnChanged;
+	public event Action<List<CharacterType>> OnAvailableCharactersChanged;
 
 	public void AddPlayer(LobbyPlayerData playerData)
 	{
-		_players.Add (playerData);
+		Players.Add (playerData);
+
+		AvailableCharacters.Remove (playerData.Character);
+
+		OnModelChanged ();
+		OnModelAvailableCharactersChanged ();
 	}
 		
 	public void RemovePlayer(int playerId)
 	{
 		var existingPlayer = GetPlayer (playerId);
-		_players.Remove (existingPlayer);
+		AvailableCharacters.Add (existingPlayer.Character);
+		Players.Remove (existingPlayer);
+
+		OnModelChanged ();
+		OnModelAvailableCharactersChanged ();
 	}
 
 	public void OnPlayerDataChanged(LobbyPlayerData playerData)
 	{
 		var existingPlayer = GetPlayer (playerData.Id);
+
+		bool availableCharactersChanged = existingPlayer.Character != playerData.Character;
+		if (availableCharactersChanged)
+		{
+			AvailableCharacters.Add (existingPlayer.Character);
+			AvailableCharacters.Remove (playerData.Character);
+		}
+
 		existingPlayer.Character = playerData.Character;
 		existingPlayer.IsReady = playerData.IsReady;
+
 		OnModelChanged ();
+
+		if (availableCharactersChanged) {
+			OnModelAvailableCharactersChanged ();
+		}
 	}
 		
 	public LobbyPlayerData GetPlayer(int playerId)
 	{
-		return _players.Find (temp => temp.Id == playerId);
+		return Players.Find (temp => temp.Id == playerId);
 	}
 
 	public LobbyPlayerData GetPlayer(CharacterType character)
 	{
-		return _players.Find (temp => temp.Character == character);
+		return Players.Find (temp => temp.Character == character);
 	}
 
 	private void OnModelChanged()
@@ -44,6 +79,14 @@ public sealed class LobbyModel
 		if (OnChanged != null) 
 		{
 			OnChanged ();
+		}
+	}
+
+	private void OnModelAvailableCharactersChanged()
+	{
+		if (OnAvailableCharactersChanged != null) 
+		{
+			OnAvailableCharactersChanged (AvailableCharacters);
 		}
 	}
 }

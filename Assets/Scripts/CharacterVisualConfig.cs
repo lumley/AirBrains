@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class CharacterVisualData
 {
 	public CharacterType Character;
 	public Sprite Portrait;
 }
 
+[CreateAssetMenu(fileName = "CharacterVisualConfig", menuName = "Config/CharacterVisualConfig", order = 1)]
 public sealed class CharacterVisualConfig : ScriptableObject 
 {
 	[SerializeField]
@@ -33,5 +36,12 @@ public sealed class CharacterVisualConfig : ScriptableObject
 		}
 
 		return result;
+	}
+
+	public List<CharacterVisualData> Characters
+	{
+		get {
+			return _config;
+		}
 	}
 }
