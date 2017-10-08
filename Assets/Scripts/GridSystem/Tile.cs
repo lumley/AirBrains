@@ -89,4 +89,18 @@ public class Tile : MonoBehaviour {
 		}
 		return total;
 	}
+
+	public int GetTotalNumberOfVisitors(string tag) {
+		if (!visitors.ContainsKey (tag)) {
+			return 0;
+		}
+		return visitors [tag].Count;
+	}
+
+	public List<TileVisitor> GetVisitorsOfTag(string tag) {
+		if (!visitors.ContainsKey (tag)) {
+			return new List<TileVisitor>();
+		}
+		return visitors [tag];
+	}
 }
