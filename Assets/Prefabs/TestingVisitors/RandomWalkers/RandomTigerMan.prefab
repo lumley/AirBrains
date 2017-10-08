@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: player
-  offset: {x: -0.2, y: 0, z: -0.1}
+  offset: {x: -0.25, y: -0.15, z: -0.1}
 --- !u!114 &114508646923430226
 MonoBehaviour:
   m_ObjectHideFlags: 1

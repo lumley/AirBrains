@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tag: player
-  offset: {x: -0.2, y: 0, z: -0.1}
+  offset: {x: -0.25, y: -0.15, z: -0.1}
 --- !u!212 &212170209071514996
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -98,7 +98,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 19c34b7d4668c4d2fbabc5a449ac5c59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f62bf1a31196468e81aefc98c15d2f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
