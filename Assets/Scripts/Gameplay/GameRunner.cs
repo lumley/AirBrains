@@ -115,6 +115,8 @@ public class GameRunner : MonoBehaviour {
 		//Update positions based on input
 		//Check validity, and make push-backs if the occupancy rules are violated
 		//Handle the conversions of humans to donors
+
+		//DUMMY
 		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
 			Move currentMove = entry.Value [currentTurn];
 			if (currentMove == Move.STAY) {
@@ -126,7 +128,9 @@ public class GameRunner : MonoBehaviour {
 				visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor (moveIn);
 			}
 		}
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(.3f);
+		//END DUMMY
+
 		currentTurn++;
 	}
 
@@ -141,7 +145,9 @@ public class GameRunner : MonoBehaviour {
 		if (lastRoundNumber > 0 && lastRoundNumber >= roundNumber) {
 			gameRunning = false;
 		}
-		yield return 0;
+		//DUMMY
+		yield return new WaitForSeconds(.5f);
+		//END DUMMY
 	}
 
 	private void SetupVictoryScreen() {
