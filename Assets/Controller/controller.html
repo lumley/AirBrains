@@ -95,6 +95,38 @@
         }
       }
     }
+
+    // - - - - - - GAME API SECTION - - - - - - 
+    App.prototype.sendDeviceIsReady = function(isReady) {
+      var jsonMessage = {
+        'type' : 'SetReady',
+        'isReady' : isReady
+      } 
+
+      var msg = JSON.stringify(jsonMessage);
+      this.airconsole.message(AirConsole.SCREEN, msg);
+    }
+
+    App.prototype.sendStartGame = function() {
+      var jsonMessage = {
+        'type' : 'StartGame'
+      } 
+
+      var msg = JSON.stringify(jsonMessage);
+      this.airconsole.message(AirConsole.SCREEN, msg);
+    }
+
+    App.prototype.sendSendChosenActions = function(chosenActions) {
+      var jsonMessage = {
+        'type' : 'SendChosenActions',
+        'actions' : chosenActions // Array of strings with  "up", "down", "left", "right" or "wait" (all actions for one round)
+      }
+
+      var msg = JSON.stringify(jsonMessage);
+      this.airconsole.message(AirConsole.SCREEN, msg);
+    }
+
+    // - - - - - - END GAME API SECTION - - - - - - 
     
     App.prototype.displayDeviceId = function() {
        var id = this.airconsole.getDeviceId();
@@ -155,7 +187,7 @@
          <button class="button button-right" ontouchstart="window.app.displayDeviceId()">Show my Device Id</button>
          <button class="button button-left" ontouchstart="window.app.displayNickname()">Show my Nickname</button>
          <button class="button button-right" ontouchstart="window.app.displayProfilePicture()">Show Profile Picture</button>
-         <button class="button" ontouchstart="window.app.displayNumberOfControllers()">Show Number of connected Controllers</button>
+         <button class="button button-left" ontouchstart="window.app.displayNumberOfControllers()">Show Number of connected Controllers</button>
          <button class="button" ontouchstart="window.app.showPlayerNumber()">Show my Player Number</button>
          <button class="button button-left" ontouchstart="window.app.showServerTime()">Show Server Time</button>
          <button class="button button-right" ontouchstart="window.app.showLoginStatus()">Am I logged in?</button>
