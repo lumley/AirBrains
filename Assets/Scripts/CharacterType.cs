@@ -9,7 +9,7 @@
 	Eagle = 6,
 	Seal = 7,
 	Parrot = 8,
-	Monster08 = 9,
+	Rino = 9,
 	Monster09 = 10,
 	Human = 11,
 	Journalist = 12

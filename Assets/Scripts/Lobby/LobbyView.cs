@@ -43,8 +43,11 @@ public class LobbyView : MonoBehaviour
 
 	private void RemoveCoroutine()
 	{
-		if (_startGameCoroutine != null) {
-			_readyToStartGame.SetActive (false);
+		if (_startGameCoroutine != null)
+		{
+			if (_readyToStartGame != null) {
+				_readyToStartGame.SetActive (false);
+			}
 			StopCoroutine (_startGameCoroutine);
 			_startGameCoroutine = null;
 		}

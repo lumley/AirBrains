@@ -13,7 +13,7 @@ public sealed class LobbyModel
 		CharacterType.Eagle,
 		CharacterType.Monkey,
 		CharacterType.Parrot,
-		CharacterType.Monster08,
+		CharacterType.Rino,
 		CharacterType.Monster09,
 		CharacterType.Seal,
 		CharacterType.Shark,

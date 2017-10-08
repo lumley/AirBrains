@@ -24,3 +24,5 @@ MonoBehaviour:
     Portrait: {fileID: 21300000, guid: 9b090ecae10f249639cc709869eead0c, type: 3}
   - Character: 2
     Portrait: {fileID: 21300000, guid: 291c705249fc64785b7e4bd11843bba2, type: 3}
+  - Character: 9
+    Portrait: {fileID: 21300000, guid: ff2676f30ac1243ca8bf72bddc6083c6, type: 3}
