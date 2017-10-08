@@ -1,13 +1,12 @@
 ﻿using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
+using ScreenLogic.Messages;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ScreenLogic
 {
     public class AirConsoleBridge : MonoBehaviour
     {
-        public Text UiText;
 #if !DISABLE_AIRCONSOLE
 
         private void Awake()
@@ -34,23 +33,19 @@ namespace ScreenLogic
                 {
                     StartGame();
                 }
-                else
-                {
-                    UiText.text = "Need at least a player";
-                }
             }
         }
 
         private void OnDeviceDisconnected(int deviceId)
         {
             var activePlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(deviceId);
-            
+
             // No active player disconnected, ignore!
             if (activePlayer == -1)
             {
                 return;
             }
-            
+
             // TODO (slumley): Pass down what happened
         }
 
@@ -62,20 +57,34 @@ namespace ScreenLogic
         private void OnMessage(int deviceId, JToken data)
         {
             var activePlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(deviceId);
-            
+
             // Ignore non-active player messages
             if (activePlayer == -1)
             {
                 return;
             }
-            
+
             // TODO (slumley): Send actual data to the device controller
+            var actionType = (string) data["type"];
+            switch (actionType.ToLowerInvariant())
+            {
+                case "setready":
+                    new SetReadyMessage(data);
+                    break;
+                case "startgame":
+                    new StartGameMessage();
+                    break;
+                case "sendchosenactions":
+                    new SendChosenActionsMessage(data);
+                    break;
+            }
+            
         }
 
         private void StartGame()
         {
             AirConsole.instance.SetActivePlayers(1);
-            UiText.text = "Game started";
+            Debug.Log("Game started");
         }
 
         private void OnDestroy()
