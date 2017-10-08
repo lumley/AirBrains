@@ -16,6 +16,7 @@ public class GameRunner : MonoBehaviour {
 
 	private List<MoveProvider> moveProviders = new List<MoveProvider>();
 	private Dictionary<MoveProvider, List<Move>> movesPerProvider = new Dictionary<MoveProvider, List<Move>>();
+	private Dictionary<GameObject, Tile> originalPositions = new Dictionary<GameObject, Tile>();
 
 	public void StartGame() {
 		moveProviders.Clear ();
@@ -111,7 +112,7 @@ public class GameRunner : MonoBehaviour {
 
 	private IEnumerator ProcessTurn() {
 		//TODO:
-		//Save original positions
+		SaveOriginalPositions();
 		//Update positions based on input
 		//Check validity, and make push-backs if the occupancy rules are violated
 		//Handle the conversions of humans to donors
@@ -152,5 +153,13 @@ public class GameRunner : MonoBehaviour {
 
 	private void SetupVictoryScreen() {
 		//TODO: DO THIS
+	}
+
+	private void SaveOriginalPositions() {
+		originalPositions.Clear ();
+		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
+			TileVisitor visitor = entry.Key.gameObject.GetComponent<TileVisitor> ();
+			originalPositions.Add (visitor.gameObject, visitor.CurrentlyVisiting);
+		}
 	}
 }
