@@ -22,7 +22,6 @@ public sealed class LobbyController : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		View.ApplyModel (null);
 		Model.OnAvailableCharactersChanged -= SendAvailableCharacters;
 	}
 

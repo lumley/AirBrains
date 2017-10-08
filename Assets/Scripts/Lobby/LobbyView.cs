@@ -41,6 +41,11 @@ public class LobbyView : MonoBehaviour
 		}
 	}
 
+	private void OnDestoy()
+	{
+		ApplyModel (null);
+	}
+
 	private void RemoveCoroutine()
 	{
 		if (_startGameCoroutine != null)
