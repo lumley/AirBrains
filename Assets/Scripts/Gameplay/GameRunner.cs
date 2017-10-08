@@ -116,6 +116,8 @@ public class GameRunner : MonoBehaviour {
 		UpdatePositionsBasedOnInput ();
 		CheckValidityAndHandlePushBacks ();
 		//Handle the conversions of humans to donors
+
+		//DUMMY
 		yield return new WaitForSeconds(.1f);
 		//END DUMMY
 
@@ -133,6 +135,7 @@ public class GameRunner : MonoBehaviour {
 		if (lastRoundNumber > 0 && lastRoundNumber >= roundNumber) {
 			gameRunning = false;
 		}
+
 		//DUMMY
 		yield return new WaitForSeconds(.3f);
 		//END DUMMY
@@ -173,6 +176,7 @@ public class GameRunner : MonoBehaviour {
 				GameObject dude = pair.Key;
 				TileVisitor tileVisitor = dude.GetComponent<TileVisitor> ();
 				if (tileVisitor.CurrentlyVisiting.GetTotalNumberOfVisitors (tileVisitor.Tag) > 1) {
+					//TODO: Mark this as a conflict, and notify the animation handler...somehow, so we can play the fight animations
 					conflicts++;
 					toPushBack.AddRange(tileVisitor.CurrentlyVisiting.GetVisitorsOfTag (tileVisitor.Tag));
 				}
