@@ -1,0 +1,162 @@
+html, body {
+  margin: 0;
+  height: 100%;
+
+  background-color: gray;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+button:focus {
+  outline:0;
+}
+
+.bar {
+  height: 8%;
+
+  background-color: dimgray;
+}
+
+.slots {
+  height: 57%;
+}
+
+.slots-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slot {
+  text-align: center;
+  margin-bottom: 16px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slot-label {
+  position: absolute;
+  margin-left: -72px;
+  line-height: 32px;
+  margin-bottom: 16px;
+  border: solid white 1px;
+  overflow: visible;
+  padding: 0 8px;
+  color: white;
+}
+
+.slot-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  border: none;
+  font-size: 1.5em;
+  background-color: dimgray;
+  color: white;
+  font-weight: bold;
+}
+
+.options {
+  height: 35%;
+  margin: 0;
+  background-color: dimgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  width: 264px;
+  flex-wrap: wrap;
+}
+
+.option-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  border: solid white 1px;
+  background-color: red;
+  color: white;
+  font-size: 1.5em;
+}
+
+.option {
+  text-align: center;
+  padding: 12px;
+}
+
+.option-space-filler {
+  width: 88px;
+  height: 88px;
+}
+
+.option-active > .option-button {
+  background-color: green;
+  animation: activate-option .5s;
+}
+
+@keyframes activate-option {
+  0% { background-color: red; }
+  10% { background-color: white; }
+  100% { background-color: green; }
+}
+
+.ready {
+  position: absolute;
+  right: 8px;
+  top: 65%;
+  transform: translateY(-50%);
+}
+
+.ready-button {
+  width: 96px;
+  height: 96px;
+  border-radius: 48px;
+  border: solid white 1px;
+  color: white;
+  background-color: red;
+  font-size: 3em;
+}
+
+.ready-button--disabled {
+  background-color: gray;
+}
+
+.ready-button--active {
+  background-color: green;
+}
+
+.slot-active > .slot-button {
+  width: 72px;
+  height: 72px;
+  z-index: 100;
+  border-radius: 36px;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+.slot-active > .slot-label {
+  background-color: green;
+  animation: activate-slot-label .5s;
+}
+
+@keyframes activate-slot-label {
+  0% { background-color: transparent; }
+  10% { background-color: white; }
+  100% { background-color: green; }
+}
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 24px rgba(255, 255, 255, 0);
+
+  }
+}
