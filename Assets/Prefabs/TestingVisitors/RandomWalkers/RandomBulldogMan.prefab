@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114603845576100486}
   - component: {fileID: 114274003710329690}
   - component: {fileID: 114858806323684462}
+  - component: {fileID: 114904069632469662}
   m_Layer: 0
   m_Name: RandomBulldogMan
   m_TagString: Untagged
@@ -83,6 +84,17 @@ MonoBehaviour:
   downCode: 0
   leftCode: 0
   rightCode: 0
+--- !u!114 &114904069632469662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493396158791068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a0289cb6504616beb93ceb0ca788b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212607742593893184
 SpriteRenderer:
   m_ObjectHideFlags: 1

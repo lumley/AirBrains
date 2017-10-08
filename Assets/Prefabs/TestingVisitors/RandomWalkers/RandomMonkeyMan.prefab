@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212434688109499736}
   - component: {fileID: 114353085915537524}
   - component: {fileID: 114331451745901526}
+  - component: {fileID: 114172188347097572}
   m_Layer: 0
   m_Name: RandomMonkeyMan
   m_TagString: Untagged
@@ -42,6 +43,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114172188347097572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501133348909324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37a0289cb6504616beb93ceb0ca788b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114331451745901526
 MonoBehaviour:
   m_ObjectHideFlags: 1
