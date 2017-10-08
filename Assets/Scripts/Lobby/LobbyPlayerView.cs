@@ -9,7 +9,13 @@ public sealed class LobbyPlayerView : MonoBehaviour
 	private Image _portrait;
 
 	[SerializeField]
+	private Text _playerIdText;
+
+	[SerializeField]
 	private Text _isReadyText;
+
+	[SerializeField]
+	private GameObject _isReadyContainer;
 	
 	private LobbyPlayerData _model;
 	private CharacterVisualData _visualData;
@@ -24,15 +30,9 @@ public sealed class LobbyPlayerView : MonoBehaviour
 
 	private void RefreshView()
 	{
-		_portrait.sprite = _visualData.Portrait;
+		_portrait.sprite = _model.Character == CharacterType.None ? null :  _visualData.Portrait;
 		_isReadyText.text = _model.IsReady ? "Ready" : "Not ready";
-	}
-
-	public int PlayerId
-	{
-		get 
-		{
-			return _model != null ? _model.Id : -1;
-		}
+		_isReadyContainer.SetActive (_model.Character != CharacterType.None);
+		_playerIdText.text = string.Format ("PLAYER {0}", _model.Id + 1);
 	}
 }

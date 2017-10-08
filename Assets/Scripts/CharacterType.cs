@@ -1,14 +1,16 @@
 ﻿public enum CharacterType
 {
-	Tiger = 0,
-	Crocodile = 1,
-	Shark = 2,
-	Monkey = 3,
-	Bulldog = 4,
-	Eagle = 5,
-	Seal = 6,
-	Monster07 = 7,
-	Monster08 = 8,
-	Monster09 = 9,
-	Human = 10
+	None = 0,
+	Tiger = 1,
+	Crocodile = 2,
+	Shark = 3,
+	Monkey = 4,
+	Bulldog = 5,
+	Eagle = 6,
+	Seal = 7,
+	Monster07 = 8,
+	Monster08 = 9,
+	Monster09 = 10,
+	Human = 11,
+	Journalist = 12
 }

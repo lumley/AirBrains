@@ -41,7 +41,10 @@ public class LobbyView : MonoBehaviour
 		{
 			var playerModel = Model.Players [i];
 			var player = GetPlayer (i);
-			player.ApplyModel(playerModel, Config.GetConfiguration(playerModel.Character));
+			var configuration = playerModel.Character != CharacterType.None ?
+				Config.GetConfiguration (playerModel.Character) : null;
+			
+			player.ApplyModel(playerModel, configuration);
 		}
 
 		//remove unused player portraits if disconnected

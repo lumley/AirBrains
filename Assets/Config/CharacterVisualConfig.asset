@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: CharacterVisualConfig
   m_EditorClassIdentifier: 
   _config:
-  - Character: 0
+  - Character: 1
     Portrait: {fileID: 21300000, guid: ec15a2a3e733e4080a9696964baede78, type: 3}
-  - Character: 4
+  - Character: 5
     Portrait: {fileID: 21300000, guid: 3665e3cc9dda54672bd63cf7ad624336, type: 3}
-  - Character: 3
+  - Character: 4
     Portrait: {fileID: 21300000, guid: a9b0905c425d6457f80cc113db2cd069, type: 3}
-  - Character: 6
+  - Character: 7
     Portrait: {fileID: 21300000, guid: 916c8d90104f14296870a244a7d563e5, type: 3}

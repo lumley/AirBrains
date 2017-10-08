@@ -8,7 +8,7 @@ public sealed class LobbyController : MonoBehaviour
 	[SerializeField]
 	public LobbyView View;
 
-	public readonly LobbyModel Model = new LobbyModel();
+	public readonly LobbyModel Model = new LobbyModel(10);
 
 	public event Action<List<CharacterType>> OnAvailableCharactersChanged; 
 
@@ -17,7 +17,6 @@ public sealed class LobbyController : MonoBehaviour
 		View.ApplyModel (Model);
 		Model.OnAvailableCharactersChanged += SendAvailableCharacters;
 
-		//for test
 		SendAvailableCharacters (Model.AvailableCharacters);
 	}
 
@@ -33,7 +32,7 @@ public sealed class LobbyController : MonoBehaviour
 
 		if (existingPlayer != null) 
 		{
-			throw new CharacterAlreadyExistException (playerData.Character);
+			throw new CharacterAlreadyUsedException (playerData.Character);
 		}
 
 		Debug.LogFormat ("OnLobbyPlayerConnected: {0}", playerData);

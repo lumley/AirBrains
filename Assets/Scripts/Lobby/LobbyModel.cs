@@ -5,7 +5,7 @@ using System;
 
 public sealed class LobbyModel
 {
-	public readonly List<LobbyPlayerData> Players = new List<LobbyPlayerData>();
+	public readonly List<LobbyPlayerData> Players;
 	public readonly List<CharacterType> AvailableCharacters = new List<CharacterType>
 	{
 		CharacterType.Bulldog,
@@ -20,13 +20,23 @@ public sealed class LobbyModel
 		CharacterType.Tiger
 	};
 
+	public LobbyModel(int playerAmount)
+	{
+		Players = new List<LobbyPlayerData>(playerAmount);
+
+		for (int i = 0; i < playerAmount; i++) 
+		{
+			Players.Add(new LobbyPlayerData ().Set (i, CharacterType.None));
+		}
+	}
+
 	public event Action OnChanged;
 	public event Action<List<CharacterType>> OnAvailableCharactersChanged;
 
 	public void AddPlayer(LobbyPlayerData playerData)
 	{
-		Players.Add (playerData);
-
+		var existingPlayer = GetPlayer (playerData.Id);
+		existingPlayer.Character = playerData.Character;
 		AvailableCharacters.Remove (playerData.Character);
 
 		OnModelChanged ();
@@ -37,7 +47,8 @@ public sealed class LobbyModel
 	{
 		var existingPlayer = GetPlayer (playerId);
 		AvailableCharacters.Add (existingPlayer.Character);
-		Players.Remove (existingPlayer);
+		existingPlayer.Character = CharacterType.None;
+		existingPlayer.IsReady = false;
 
 		OnModelChanged ();
 		OnModelAvailableCharactersChanged ();
@@ -66,12 +77,12 @@ public sealed class LobbyModel
 		
 	public LobbyPlayerData GetPlayer(int playerId)
 	{
-		return Players.Find (temp => temp.Id == playerId);
+		return Players.Find (temp =>  temp != null && temp.Id == playerId);
 	}
 
 	public LobbyPlayerData GetPlayer(CharacterType character)
 	{
-		return Players.Find (temp => temp.Character == character);
+		return Players.Find (temp => temp != null && temp.Character == character);
 	}
 
 	private void OnModelChanged()
