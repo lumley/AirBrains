@@ -3,14 +3,13 @@
 	None = 0,
 	Tiger = 1,
 	Crocodile = 2,
-	Shark = 3,
+	Shark = 3, // no shark yet
 	Monkey = 4,
 	Bulldog = 5,
-	Eagle = 6,
-	Seal = 7,
-	Parrot = 8,
-	Rino = 9,
-	Monster09 = 10,
-	Human = 11,
-	Journalist = 12
+	Seal = 6,
+	Parrot = 7,
+	Rino = 8,
+	Crow = 9,
+	Cat = 10,
+	Human = 11
 }

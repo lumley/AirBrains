@@ -19,10 +19,16 @@ MonoBehaviour:
   - Character: 4
     Portrait: {fileID: 21300000, guid: a9b0905c425d6457f80cc113db2cd069, type: 3}
   - Character: 7
-    Portrait: {fileID: 21300000, guid: 916c8d90104f14296870a244a7d563e5, type: 3}
-  - Character: 8
     Portrait: {fileID: 21300000, guid: 9b090ecae10f249639cc709869eead0c, type: 3}
+  - Character: 8
+    Portrait: {fileID: 21300000, guid: ff2676f30ac1243ca8bf72bddc6083c6, type: 3}
   - Character: 2
     Portrait: {fileID: 21300000, guid: 291c705249fc64785b7e4bd11843bba2, type: 3}
+  - Character: 6
+    Portrait: {fileID: 21300000, guid: 916c8d90104f14296870a244a7d563e5, type: 3}
+  - Character: 10
+    Portrait: {fileID: 21300000, guid: 4f0a8018bf8a64a61a4eea042f54a0f7, type: 3}
   - Character: 9
-    Portrait: {fileID: 21300000, guid: ff2676f30ac1243ca8bf72bddc6083c6, type: 3}
+    Portrait: {fileID: 21300000, guid: cff28f9824b524244ab79fa80e19a834, type: 3}
+  - Character: 3
+    Portrait: {fileID: 21300000, guid: ec15a2a3e733e4080a9696964baede78, type: 3}

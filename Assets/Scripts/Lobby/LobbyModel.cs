@@ -10,11 +10,11 @@ public sealed class LobbyModel
 	{
 		CharacterType.Bulldog,
 		CharacterType.Crocodile,
-		CharacterType.Eagle,
+		CharacterType.Cat,
 		CharacterType.Monkey,
 		CharacterType.Parrot,
 		CharacterType.Rino,
-		CharacterType.Monster09,
+		CharacterType.Crow,
 		CharacterType.Seal,
 		CharacterType.Shark,
 		CharacterType.Tiger
