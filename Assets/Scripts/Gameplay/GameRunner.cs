@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour {
+public class GameRunner : MonoBehaviour {
 
+	public int turnsPerRound = 4;
 	public float secondsToWaitForInput = 30f;
 	public int wrapUpRounds;
 
@@ -11,8 +12,17 @@ public class Game : MonoBehaviour {
 	private bool isFirstRound = false;
 	private int roundNumber = 0;
 	private int lastRoundNumber = -1;
+	private int currentTurn = 0;
+
+	private List<MoveProvider> moveProviders = new List<MoveProvider>();
+	private Dictionary<MoveProvider, List<Move>> movesPerProvider = new Dictionary<MoveProvider, List<Move>>();
 
 	public void StartGame() {
+		moveProviders.Clear ();
+		moveProviders.AddRange(GameObject.FindObjectsOfType<MoveProvider> ());
+		foreach (MoveProvider moveProvider in moveProviders) {
+			moveProvider.SetMoveCount (turnsPerRound);
+		}
 		SetupGameVariables ();
 		StartCoroutine (RunGame ());
 	}
@@ -31,6 +41,8 @@ public class Game : MonoBehaviour {
 		while (gameRunning) {
 			roundNumber++;
 			isFirstRound = roundNumber == 1;
+			currentTurn = 0;
+			Debug.Log ("Starting Round " + roundNumber);
 			yield return StartCoroutine (WaitForReadyOrTime ());
 			yield return CollectPlayerInput ();
 			while (HaveTurnToProcess ()) {
@@ -45,6 +57,9 @@ public class Game : MonoBehaviour {
 	private IEnumerator WaitForReadyOrTime() {
 		bool readyToMoveOn = false;
 		float startTime = Time.timeSinceLevelLoad;
+		foreach (MoveProvider moveProvider in moveProviders) {
+			moveProvider.StartCollectingMoves ();
+		}
 		while (!readyToMoveOn) {
 			if (!isFirstRound) {
 				if (Time.timeSinceLevelLoad - startTime > secondsToWaitForInput) {
@@ -62,24 +77,36 @@ public class Game : MonoBehaviour {
 	}
 
 	private bool AreAllPlayersReady() {
-		//TODO: DO THIS!
-		return false;
+		foreach (MoveProvider provider in moveProviders) {
+			if (!provider.FinishedPlanningMoves ()) {
+				return false;
+			}
+		}
+		Debug.Log ("All players ready!");
+		return true;
 	}
 
 	private IEnumerator CollectPlayerInput() {
 		bool allInputCollected = false;
+		movesPerProvider.Clear ();
+
 		while (!allInputCollected) {
-			//TODO: DO THIS
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				allInputCollected = true;
 			}
+			foreach (MoveProvider provider in moveProviders) {
+				if (movesPerProvider.ContainsKey (provider)) {
+					continue;
+				}
+				movesPerProvider.Add (provider, provider.GetPlannedMoves ());
+			}
+			allInputCollected = movesPerProvider.Count >= moveProviders.Count;
 			yield return new WaitForEndOfFrame ();
 		}
 	}
 
 	private bool HaveTurnToProcess() {
-		//TODO: GET THIS INFO FROM...SOMEWHERE
-		return false;
+		return currentTurn < turnsPerRound;
 	}
 
 	private IEnumerator ProcessTurn() {
@@ -88,7 +115,19 @@ public class Game : MonoBehaviour {
 		//Update positions based on input
 		//Check validity, and make push-backs if the occupancy rules are violated
 		//Handle the conversions of humans to donors
-		yield return 0;
+		foreach (KeyValuePair<MoveProvider, List<Move>> entry in movesPerProvider) {
+			Move currentMove = entry.Value [currentTurn];
+			if (currentMove == Move.STAY) {
+				continue;
+			}
+			TileVisitor visitor = entry.Key.gameObject.GetComponent<TileVisitor> ();
+			Direction moveIn = MoveUtils.GetDirectionFor (currentMove);
+			if (visitor.CurrentlyVisiting.canMove (moveIn)) {
+				visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor (moveIn);
+			}
+		}
+		yield return new WaitForSeconds(1f);
+		currentTurn++;
 	}
 
 	private void CollectPoints() {
