@@ -40,7 +40,7 @@ public class LobbyView : MonoBehaviour
 		for (int i = 0; i < Model.Players.Count; i++) 
 		{
 			var playerModel = Model.Players [i];
-			var player = GetPlayer (playerModel);
+			var player = GetPlayer (i);
 			player.ApplyModel(playerModel, Config.GetConfiguration(playerModel.Character));
 		}
 
@@ -56,9 +56,9 @@ public class LobbyView : MonoBehaviour
 		}
 	}
 
-	private LobbyPlayerView GetPlayer(LobbyPlayerData playerData)
+	private LobbyPlayerView GetPlayer(int index)
 	{
-		LobbyPlayerView player = _players.Find (temp => temp.PlayerId == playerData.Id);
+		LobbyPlayerView player = _players.Count > index ? _players [index] : null;
 		if (player == null) 
 		{
 			var playerObject = Instantiate (_playerPortraitPrefab);

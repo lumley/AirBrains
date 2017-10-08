@@ -58,16 +58,19 @@ public sealed class LobbyMobileTest : MonoBehaviour
 
 	private void OnPlayerTryToConnect(LobbyPlayerViewTest playerView)
 	{
+		Debug.LogFormat ("OnPlayerTryToConnect: {0}", playerView);
 		LobbyController.OnLobbyPlayerConnected (GetPlayerData(playerView));
 	}
 
 	private void OnPlayerTryToDisconnect(LobbyPlayerViewTest playerView)
 	{
+		Debug.LogFormat ("OnPlayerTryToDisconnect: {0}", playerView);
 		LobbyController.OnLobbyPlayerDisconnected (playerView.PlayerId);
 	}
 
 	private void OnPlayerReadyStateChanged(LobbyPlayerViewTest playerView)
 	{
+		Debug.LogFormat ("OnPlayerReadyStateChanged: {0}", playerView);
 		LobbyController.OnLobbyPlayerDataChanged (GetPlayerData (playerView));
 	}
 

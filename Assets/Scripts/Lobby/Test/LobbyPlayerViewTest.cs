@@ -106,4 +106,9 @@ public class LobbyPlayerViewTest : MonoBehaviour
 		private set;
 		get;
 	}
+
+	public override string ToString ()
+	{
+		return string.Format ("[LobbyPlayerViewTest: PlayerId={2} Character={1} IsReady={0} ]", IsReady, Character, PlayerId);
+	}
 }

@@ -36,6 +36,7 @@ public sealed class LobbyController : MonoBehaviour
 			throw new CharacterAlreadyExistException (playerData.Character);
 		}
 
+		Debug.LogFormat ("OnLobbyPlayerConnected: {0}", playerData);
 		Model.AddPlayer (playerData);
 	}
 
@@ -49,6 +50,7 @@ public sealed class LobbyController : MonoBehaviour
 			throw new PlayerDoesntExistException(playerId);
 		}
 
+		Debug.LogFormat ("OnLobbyPlayerDisconnected: {0}", existingPlayer);
 		Model.RemovePlayer (playerId);
 	}
 
@@ -61,6 +63,7 @@ public sealed class LobbyController : MonoBehaviour
 			throw new PlayerDoesntExistException(player.Id);
 		}
 
+		Debug.LogFormat ("OnLobbyPlayerDataChanged: {0} -> {1}", existingPlayer, player);
 		Model.OnPlayerDataChanged (player);
 	}
 
