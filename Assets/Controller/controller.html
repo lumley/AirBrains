@@ -96,6 +96,7 @@
       }
     }
 
+    // - - - - - - GAME API SECTION - - - - - - 
     App.prototype.sendDeviceIsReady = function(isReady) {
       var jsonMessage = {
         'type' : 'SetReady',
@@ -105,6 +106,27 @@
       var msg = JSON.stringify(jsonMessage);
       this.airconsole.message(AirConsole.SCREEN, msg);
     }
+
+    App.prototype.sendStartGame = function() {
+      var jsonMessage = {
+        'type' : 'StartGame'
+      } 
+
+      var msg = JSON.stringify(jsonMessage);
+      this.airconsole.message(AirConsole.SCREEN, msg);
+    }
+
+    App.prototype.sendSendChosenActions = function(chosenActions) {
+      var jsonMessage = {
+        'type' : 'SendChosenActions',
+        'actions' : chosenActions // Array of strings with  "up", "down", "left", "right" or "wait" (all actions for one round)
+      }
+
+      var msg = JSON.stringify(jsonMessage);
+      this.airconsole.message(AirConsole.SCREEN, msg);
+    }
+
+    // - - - - - - END GAME API SECTION - - - - - - 
     
     App.prototype.displayDeviceId = function() {
        var id = this.airconsole.getDeviceId();
