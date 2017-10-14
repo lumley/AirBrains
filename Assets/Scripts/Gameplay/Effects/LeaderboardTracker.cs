@@ -12,6 +12,8 @@ public class LeaderboardTracker : MonoBehaviour {
 	public RectTransform thresholdBackground;
 	public float perLineHeight = 98.18f;
 
+	public bool liveUpdate = true;
+
 	private Dictionary<ScoreTracker, LeaderboardEntry> leaderboardEntries = new Dictionary<ScoreTracker, LeaderboardEntry>();
 	private float thresholdBackgroundSize = 0f;
 	private float currentTBS = 0f;
@@ -51,8 +53,14 @@ public class LeaderboardTracker : MonoBehaviour {
 	}
 
 	void Update() {
-		SortEntries ();
+		if (liveUpdate) {
+			SortEntries ();
+		}
 		currentTBS = Mathf.Lerp (currentTBS, thresholdBackgroundSize, .3f);
 		thresholdBackground.SetSizeWithCurrentAnchors (RectTransform.Axis.Vertical, currentTBS);
+	}
+
+	public void TriggerScoreUpdate(){
+		SortEntries ();
 	}
 }
