@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public sealed class LobbyController : MonoBehaviour 
 {
@@ -10,7 +9,12 @@ public sealed class LobbyController : MonoBehaviour
 
 	public readonly LobbyModel Model = new LobbyModel(10, 2);
 
-	public event Action<List<CharacterType>> OnAvailableCharactersChanged; 
+	public event Action<List<CharacterType>> OnAvailableCharactersChanged;
+	
+	public static LobbyController FindInScene()
+	{
+		return FindObjectOfType<LobbyController>();
+	}
 
 	private void Awake()
 	{
