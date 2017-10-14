@@ -12,6 +12,7 @@ public class LeaderboardTracker : MonoBehaviour {
 	public RectTransform thresholdBackground;
 	public float perLineHeight = 98.18f;
 
+	public bool launchOnStart = true;
 	public bool liveUpdate = true;
 
 	private Dictionary<ScoreTracker, LeaderboardEntry> leaderboardEntries = new Dictionary<ScoreTracker, LeaderboardEntry>();
@@ -21,6 +22,12 @@ public class LeaderboardTracker : MonoBehaviour {
 	void Start () {
 		thresholdBackgroundSize = perLineHeight;
 		currentTBS = perLineHeight;
+		if (launchOnStart) {
+			OnGameStart ();
+		}
+	}
+
+	public void OnGameStart() {
 		GetTrackers ();
 	}
 
