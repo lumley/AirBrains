@@ -7,6 +7,7 @@ namespace ScreenLogic
 {
     public class AirConsoleBridge : MonoBehaviour
     {
+        [SerializeField] private GameStateController _gameStateController;
 #if !DISABLE_AIRCONSOLE
 
         private void Awake()
@@ -27,26 +28,12 @@ namespace ScreenLogic
         /// <param name="deviceId">The device_id that connected</param>
         private void OnConnect(int deviceId)
         {
-            if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
-            {
-                if (AirConsole.instance.GetControllerDeviceIds().Count > 0)
-                {
-                    StartGame();
-                }
-            }
+            _gameStateController.OnDeviceConnected(deviceId);
         }
 
         private void OnDeviceDisconnected(int deviceId)
         {
-            var activePlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(deviceId);
-
-            // No active player disconnected, ignore!
-            if (activePlayer == -1)
-            {
-                return;
-            }
-
-            // TODO (slumley): Pass down what happened
+            _gameStateController.OnDeviceDisconnected(deviceId);
         }
 
         /// <summary>
@@ -78,7 +65,6 @@ namespace ScreenLogic
                     new SendChosenActionsMessage(data);
                     break;
             }
-            
         }
 
         private void StartGame()

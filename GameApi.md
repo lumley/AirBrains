@@ -1,3 +1,9 @@
+# Air Console Player Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| avatarIndex | int | Index of the avatar of this player |
+
 # Air Console Messaging
 ## Mobile
 
@@ -30,7 +36,7 @@
 | fundingGoal | int | Amount of funds required to trigger the round countdown |
 | roundsRemaining | int | Amount of rounds that are remaining from now, just in case there is no funding goal |
 
- - StartRound: A new round has started, client should remove the previously selected actions.
+ - StartRound: A new round has started, client should block any input.
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
