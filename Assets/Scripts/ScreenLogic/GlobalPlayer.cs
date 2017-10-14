@@ -1,4 +1,6 @@
-﻿namespace ScreenLogic
+﻿using UnityEngine;
+
+namespace ScreenLogic
 {
     public class GlobalPlayer
     {

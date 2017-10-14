@@ -43,13 +43,20 @@ namespace ScreenLogic
         private void OnMessage(int deviceId, JToken data)
         {
             var actionType = (string) data["type"];
+            if (actionType == null)
+            {
+                return;
+            }
+            
             switch (actionType.ToLowerInvariant())
             {
-                case "setready":
-                    new SetReadyMessage(data);
+                case SetReadyMessage.MessageTypeInvariant:
+                    var setReadyMessage = data.ToObject<SetReadyMessage>();
+                    _gameStateController.OnSetReadyMessage(deviceId, setReadyMessage);
                     break;
-                case "startgame":
-                    new StartGameMessage();
+                case StartGameMessage.MessageTypeInvariant:
+                    var startGameMessage = data.ToObject<StartGameMessage>();
+                    _gameStateController.OnStartGameMessage(deviceId, startGameMessage);
                     break;
                 case "sendchosenactions":
                     new SendChosenActionsMessage(data);

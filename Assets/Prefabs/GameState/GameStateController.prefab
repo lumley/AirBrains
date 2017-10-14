@@ -53,4 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentGameState: 0
   _lobbyScreenIndex: 1
-  _gameScreenIndex: 0
+  _gameScreenIndex: 2

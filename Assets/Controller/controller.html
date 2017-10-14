@@ -37,7 +37,7 @@
             bottom: 5%;
         }
         
-        #avatar {
+        .white-text {
             font-family: Arial;
             color: white;
         }
@@ -119,8 +119,7 @@
                 'isReady': isReady
             };
 
-            var msg = JSON.stringify(jsonMessage);
-            this.airconsole.message(AirConsole.SCREEN, msg);
+            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
 
         App.prototype.sendStartGame = function () {
@@ -128,8 +127,7 @@
                 'type': 'StartGame'
             };
 
-            var msg = JSON.stringify(jsonMessage);
-            this.airconsole.message(AirConsole.SCREEN, msg);
+            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
 
         App.prototype.sendSetAvatarIndex = function (avatarIndex) {
@@ -138,7 +136,6 @@
                 'avatarIndex': avatarIndex
             };
 
-            var msg = JSON.stringify(jsonMessage);
             this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
 
@@ -148,8 +145,7 @@
                 'actions': chosenActions // Array of strings with  "up", "down", "left", "right" or "wait" (all actions for one round)
             };
 
-            var msg = JSON.stringify(jsonMessage);
-            this.airconsole.message(AirConsole.SCREEN, msg);
+            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
 
         // - - - - - - END GAME API SECTION - - - - - - 
@@ -173,7 +169,7 @@
     <div style="float:left">
         <button class="button button-right" ontouchstart="window.app.displayDeviceId()">Show my Device Id</button>
         <button class="button button-left" ontouchstart="window.app.displayNickname()">Show my Nickname</button>
-        <div id="avatar">No avatar chosen</div>
+        <div id="avatar" class="white-text">No avatar chosen</div>
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(1)">1</button>
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(2)">2</button>
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(3)">3</button>
@@ -184,6 +180,35 @@
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(8)">8</button>
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(9)">9</button>
         <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(10)">10</button>
+        <p/>
+        <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Set ready</button>
+        <button class="button button-right" ontouchstart="window.app.sendStartGame()">Start game</button>
+
+        <div class="white-text">Turn 1: wait</div>
+        <button class="mini-button">Wait</button>
+        <button class="mini-button">Left</button>
+        <button class="mini-button">Up</button>
+        <button class="mini-button">Right</button>
+        <button class="mini-button">Down</button>
+        <div class="white-text">Turn 2: wait</div>
+        <button class="mini-button">Wait</button>
+        <button class="mini-button">Left</button>
+        <button class="mini-button">Up</button>
+        <button class="mini-button">Right</button>
+        <button class="mini-button">Down</button>
+        <div class="white-text">Turn 3: wait</div>
+        <button class="mini-button">Wait</button>
+        <button class="mini-button">Left</button>
+        <button class="mini-button">Up</button>
+        <button class="mini-button">Right</button>
+        <button class="mini-button">Down</button>
+        <div class="white-text">Turn 4: wait</div>
+        <button class="mini-button">Wait</button>
+        <button class="mini-button">Left</button>
+        <button class="mini-button">Up</button>
+        <button class="mini-button">Right</button>
+        <button class="mini-button">Down</button>
+        <button class="button">Ready for turn</button>
 
     </div>
 
