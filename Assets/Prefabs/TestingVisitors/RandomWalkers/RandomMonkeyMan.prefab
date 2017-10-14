@@ -121,9 +121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 95615281086364444}
-  _tileSize: {x: 0.2, y: 0.2, z: 0}
+  _tileSize: {x: 1, y: 1, z: 0}
   _reverseLocalScale: {x: -1, y: 1, z: 1}
   _normalLocalScale: {x: 1, y: 1, z: 1}
+  _moveOffset: {x: -0.25, y: -0.15, z: -0.1}
   _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
     type: 2}
   _character: 4

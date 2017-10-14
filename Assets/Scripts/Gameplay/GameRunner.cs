@@ -135,7 +135,7 @@ public class GameRunner : MonoBehaviour {
 		ChangeOwnership ();
 
 		//DUMMY
-		yield return new WaitForSeconds(.1f);
+		yield return new WaitForSeconds(2f);
 		//END DUMMY
 
 		currentTurn++;
@@ -210,6 +210,8 @@ public class GameRunner : MonoBehaviour {
 			Direction moveIn = MoveUtils.GetDirectionFor (currentMove);
 			if (visitor.CurrentlyVisiting.canMove (moveIn)) {
 				visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor (moveIn);
+				
+				visitor.GetComponent<CharacterAnimationController>().ApplyState(StateType.Walk, moveIn, visitor.CurrentlyVisiting.transform.position);
 			}
 		}
 	}

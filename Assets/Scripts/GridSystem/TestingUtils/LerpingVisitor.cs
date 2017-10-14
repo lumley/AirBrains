@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class LerpingVisitor : TileVisitor {
 
-	void Update() { 
+	void Update()
+	{
+		return;
 		transform.position = Vector3.Lerp (transform.position, currentlyVisiting.transform.position + offset, .5f);
 	}
 }

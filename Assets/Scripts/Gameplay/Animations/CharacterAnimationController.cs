@@ -16,13 +16,16 @@ public abstract class CharacterAnimationController : MonoBehaviour
 	[SerializeField] private Animator _animator;
 	
 	[SerializeField]
-	private Vector3 _tileSize = new Vector3(0.2f, 0.2f, 0f);
+	private Vector3 _tileSize = new Vector3(1f, 1f, 0f);
 	
 	[SerializeField]
 	private Vector3 _reverseLocalScale = new Vector3(-1, 1, 1);
 	
 	[SerializeField]
 	private Vector3 _normalLocalScale = new Vector3(1, 1, 1);
+	 
+	[SerializeField] 
+	private Vector3 _moveOffset = new Vector3(0, 0, 0);
 	
 	private StateType _currentState = StateType.None;
 	private Vector3 _endPosition;
@@ -75,18 +78,20 @@ public abstract class CharacterAnimationController : MonoBehaviour
 			switch (direction)
 			{
 				case Direction.SOUTH:
-					_endPosition = gameObject.transform.position - new Vector3(0, _tileSize.y, 0);
+					_endPosition = gameObject.transform.position - new Vector3(0, _tileSize.y, 0) + _moveOffset;
 					break;
 				case Direction.WEST:
-					_endPosition = gameObject.transform.position - new Vector3(_tileSize.x, 0, 0);
+					_endPosition = gameObject.transform.position - new Vector3(_tileSize.x, 0, 0) + _moveOffset;
 					break;
 				case Direction.EAST:
-					_endPosition = gameObject.transform.position + new Vector3(_tileSize.x, 0, 0);
+					_endPosition = gameObject.transform.position + new Vector3(_tileSize.x, 0, 0) + _moveOffset;
 					break;
 				case Direction.NORTH:
-					_endPosition = gameObject.transform.position + new Vector3(0, _tileSize.y, 0);
+					_endPosition = gameObject.transform.position + new Vector3(0, _tileSize.y, 0) + _moveOffset;
 					break;
 			}
+
+			_endPosition = (Vector3) args[1] + _moveOffset;
 			
 			_isMoving = true;
 		}
