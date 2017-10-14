@@ -1,6 +1,8 @@
 ﻿using NDream.AirConsole;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ScreenLogic.Messages;
+using ScreenLogic.Requests;
 using UnityEngine;
 
 namespace ScreenLogic
@@ -8,14 +10,57 @@ namespace ScreenLogic
     public class AirConsoleBridge : MonoBehaviour
     {
         [SerializeField] private GameStateController _gameStateController;
+        private static AirConsoleBridge _bridgeInstance;
+
+        public static AirConsoleBridge Instance
+        {
+            get { return _bridgeInstance; }
+        }
 #if !DISABLE_AIRCONSOLE
 
         private void Awake()
         {
+            _bridgeInstance = this;
             AirConsole.instance.onMessage += OnMessage;
             AirConsole.instance.onConnect += OnConnect;
             AirConsole.instance.onDisconnect += OnDeviceDisconnected;
         }
+
+        private void OnDestroy()
+        {
+            // unregister airconsole events on scene change
+            if (AirConsole.instance != null)
+            {
+                AirConsole.instance.onMessage -= OnMessage;
+            }
+        }
+
+        /// <summary>
+        /// We check which one of the active players has moved the paddle.
+        /// </summary>
+        /// <param name="deviceId">From.</param>
+        /// <param name="data">Data.</param>
+        private void OnMessage(int deviceId, JToken data)
+        {
+            var actionType = (string) data["type"];
+            switch (actionType.ToLowerInvariant())
+            {
+                case "setready":
+                    new SetReadyMessage(data);
+                    break;
+                case "startgame":
+                    new StartGameMessage();
+                    break;
+                case "sendchosenactions":
+                    new SendChosenActionsMessage(data);
+                    break;
+                case SetAvatarIndexMessage.MessageTypeInvariant:
+                    var globalPlayerState = data.ToObject<SetAvatarIndexMessage>();
+                    _gameStateController.OnSetAvatarIndexMessage(deviceId, globalPlayerState);
+                    break;
+            }
+        }
+#endif
 
         /// <summary>
         /// We start the game if 2 players are connected and the game is not already running (activePlayers == null).
@@ -36,51 +81,17 @@ namespace ScreenLogic
             _gameStateController.OnDeviceDisconnected(deviceId);
         }
 
-        /// <summary>
-        /// We check which one of the active players has moved the paddle.
-        /// </summary>
-        /// <param name="deviceId">From.</param>
-        /// <param name="data">Data.</param>
-        private void OnMessage(int deviceId, JToken data)
+        public void SendOrUpdateAvatarForPlayer(GlobalPlayer globalPlayer)
         {
-            var activePlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(deviceId);
-
-            // Ignore non-active player messages
-            if (activePlayer == -1)
+#if !DISABLE_AIRCONSOLE
+            var avatarChosenMessage = new AvatarChosenMessage
             {
-                return;
-            }
-
-            // TODO (slumley): Send actual data to the device controller
-            var actionType = (string) data["type"];
-            switch (actionType.ToLowerInvariant())
-            {
-                case "setready":
-                    new SetReadyMessage(data);
-                    break;
-                case "startgame":
-                    new StartGameMessage();
-                    break;
-                case "sendchosenactions":
-                    new SendChosenActionsMessage(data);
-                    break;
-            }
-        }
-
-        private void StartGame()
-        {
-            AirConsole.instance.SetActivePlayers(1);
-            Debug.Log("Game started");
-        }
-
-        private void OnDestroy()
-        {
-            // unregister airconsole events on scene change
-            if (AirConsole.instance != null)
-            {
-                AirConsole.instance.onMessage -= OnMessage;
-            }
-        }
+                Type = AvatarChosenMessage.MessageType,
+                AvatarIndex = globalPlayer.AvatarIndex
+            };
+            AirConsole.instance.Message(globalPlayer.LobbyPlayerData.Id,
+                JsonConvert.SerializeObject(avatarChosenMessage));
 #endif
+        }
     }
 }

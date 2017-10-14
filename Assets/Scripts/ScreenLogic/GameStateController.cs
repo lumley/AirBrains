@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ScreenLogic;
+using ScreenLogic.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,6 +47,7 @@ public class GameStateController : MonoBehaviour
 
                 var lobbyController = LobbyController.FindInScene();
                 lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
+                AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
             }
         }
     }
@@ -68,6 +70,50 @@ public class GameStateController : MonoBehaviour
         }
     }
 
+    public void OnSetAvatarIndexMessage(int deviceId, SetAvatarIndexMessage setAvatarIndexMessage)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (playerIndex < 0)
+        {
+            return;
+        }
+
+        var globalPlayer = _globalPlayers[playerIndex];
+        if (globalPlayer.AvatarIndex != setAvatarIndexMessage.AvatarIndex)
+        {
+            if (_currentGameState == GameState.OnLobby && IsAvatarAvailable(setAvatarIndexMessage.AvatarIndex))
+            {
+                globalPlayer.AvatarIndex = setAvatarIndexMessage.AvatarIndex;
+                var lobbyController = LobbyController.FindInScene();
+
+                lobbyController.OnLobbyPlayerDataChanged(globalPlayer.LobbyPlayerData);
+            }
+            AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+        }
+    }
+
+    private bool IsAvatarAvailable(int avatarIndex)
+    {
+        var characterTypeValues = Enum.GetValues(typeof(CharacterType));
+        var amountOfCharacterValues = characterTypeValues.Length;
+        if (avatarIndex <= (int) CharacterType.None || avatarIndex >= amountOfCharacterValues)
+        {
+            return false;
+        }
+
+        var isAvatarTaken = false;
+        for (var i = 0; i < _globalPlayers.Count; i++)
+        {
+            var globalPlayer = _globalPlayers[i];
+            if (globalPlayer.AvatarIndex == avatarIndex)
+            {
+                isAvatarTaken = true;
+                break;
+            }
+        }
+        return !isAvatarTaken;
+    }
+
     private CharacterType FindAvailableAvatar()
     {
         var characterTypeValues = Enum.GetValues(typeof(CharacterType));
@@ -76,18 +122,8 @@ public class GameStateController : MonoBehaviour
             characterValueIndex < amountOfCharacterValues;
             characterValueIndex++)
         {
-            var isAvatarTaken = false;
-            for (var i = 0; i < _globalPlayers.Count; i++)
-            {
-                var globalPlayer = _globalPlayers[i];
-                if (globalPlayer.AvatarIndex == characterValueIndex)
-                {
-                    isAvatarTaken = true;
-                    break;
-                }
-            }
-
-            if (!isAvatarTaken)
+            var isAvatarAvailable = IsAvatarAvailable(characterValueIndex);
+            if (isAvatarAvailable)
             {
                 return (CharacterType) characterValueIndex;
             }

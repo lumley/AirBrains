@@ -4,6 +4,7 @@
     {
         public readonly LobbyPlayerData LobbyPlayerData;
 
+        public const string AvatarIndexMessage = "avatarIndex";
         public int AvatarIndex
         {
             get { return (int) LobbyPlayerData.Character; }
