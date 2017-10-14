@@ -13,10 +13,11 @@ public class PrefabReplacer : MonoBehaviour {
 		}
 	}
 
-	public void SpawnPrefab() {
+	public GameObject SpawnPrefab() {
 		GameObject newObject = Instantiate (prefabToSpawn);
 		newObject.transform.SetParent (transform.parent);
 		newObject.transform.localPosition = transform.localPosition;
 		Destroy (gameObject);
+		return newObject;
 	}
 }

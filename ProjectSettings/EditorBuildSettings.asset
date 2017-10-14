@@ -4,4 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 7e169e19fa75dfd48add7c7d1a16b17f
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: b199d0861684a4edab9729a760d8b771
+  - enabled: 1
+    path: Assets/Scenes/Gameplay.unity
+    guid: 606367f2406a646848fd858274a8b6c9
+  - enabled: 1
+    path: Assets/Scenes/MonstrousPianos.unity
+    guid: c2ee019da68c04cd0a4d311c5538903c
+  - enabled: 1
+    path: Assets/Scenes/MonstrousSynapse.unity
+    guid: af0cdb64ff2f549619bcb9ab9afe0e7c
+  - enabled: 1
+    path: Assets/Scenes/MonstrousTriptych.unity
+    guid: 08dfe4f4aec144c67916c2bf735b0707
