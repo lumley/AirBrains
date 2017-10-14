@@ -7,12 +7,13 @@ public class LeaderboardEntry : MonoBehaviour {
 
 	public Image portrait;
 	public Text scoreText;
+	public string beforeText = "$";
+	public string afterText = "k";
 
 	private ScoreTracker tracker;
 	private RectTransform _transform;
 	private float targetYPos = 0f;
-	public string beforeText = "$";
-	public string afterText = "k";
+	private int displayScore = 0;
 
 	void Start() { 
 		_transform = GetComponent<RectTransform> ();
@@ -28,9 +29,10 @@ public class LeaderboardEntry : MonoBehaviour {
 	}
 
 	void Update(){
+		displayScore = tracker.Score;
 		if (Mathf.Abs(_transform.anchoredPosition.y + targetYPos) > .25f) {
 			_transform.anchoredPosition = Vector2.Lerp (_transform.anchoredPosition, Vector2.down * targetYPos, .3f);
 		}
-		scoreText.text = beforeText + tracker.Score.ToString() + afterText;
+		scoreText.text = beforeText + displayScore.ToString() + afterText;
 	}
 }
