@@ -250,9 +250,9 @@ MonoBehaviour:
   _normalLocalScale: {x: 1, y: 1, z: 1}
   _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
     type: 2}
-  _character: 1
+  _character: 7
   _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
-  _stickerAnimationLocalScale: {x: 0.33, y: 0.155, z: -0.0001}
+  _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
 --- !u!212 &426102753
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1176024424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.018, z: -0.001}
+  m_LocalPosition: {x: 0.15, y: 0.1, z: -0.001}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 404526299}
