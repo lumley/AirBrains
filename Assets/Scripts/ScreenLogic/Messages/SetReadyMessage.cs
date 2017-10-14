@@ -1,14 +1,18 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace ScreenLogic.Messages
 {
-    public struct SetReadyMessage
+    [Serializable]
+    public class SetReadyMessage
     {
+        public const string MessageType = "SetReady";
+        public const string MessageTypeInvariant = "setready";
+        
+        [JsonProperty("type")]
+        public string Type;
+        
+        [JsonProperty("isReady")]
         public bool IsReady;
-
-        public SetReadyMessage(JToken data)
-        {
-            IsReady = (bool) data["isReady"];
-        }
     }
 }
