@@ -89,8 +89,11 @@ MonoBehaviour:
   _tileSize: {x: 0.2, y: 0.2, z: 0}
   _reverseLocalScale: {x: -1, y: 1, z: 1}
   _normalLocalScale: {x: 1, y: 1, z: 1}
-  _stickerAnimation: {fileID: 0}
-  _character: 0
+  _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
+    type: 2}
+  _character: 1
+  _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
+  _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
 --- !u!114 &114499603689424756
 MonoBehaviour:
   m_ObjectHideFlags: 1

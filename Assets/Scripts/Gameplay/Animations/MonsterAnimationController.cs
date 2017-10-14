@@ -12,7 +12,7 @@ public sealed class MonsterAnimationController : CharacterAnimationController
     private Vector3 _stickerAnimationOffset = new Vector3(0.33f, 0.155f, -0.0001f);
     
     [SerializeField] 
-    private Vector3 _stickerAnimationLocalScale = new Vector3(0.33f, 0.155f, -0.0001f);
+    private Vector3 _stickerAnimationLocalScale = new Vector3(0.6f, 0.6f, 1f);
 
     private StickerAnimation _stickerAnimation;
     

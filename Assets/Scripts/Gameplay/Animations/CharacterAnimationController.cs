@@ -30,6 +30,11 @@ public abstract class CharacterAnimationController : MonoBehaviour
 	
 	protected virtual void Start()
 	{
+		if (_animator == null)
+		{
+			_animator = GetComponent<Animator>();
+		}
+		
 		ApplyState(StateType.Idle);
 	}
 
