@@ -54,7 +54,7 @@ public class HumanAnimationController : CharacterAnimationController
 		base.UpdateDirection(direction);
 
 		var newLocalScale = _startSpriteLocalScale;
-		newLocalScale.x *= direction == Direction.EAST ? -1 : 1;
+		newLocalScale.x = newLocalScale.x * transform.localScale.x;
 		_stickerSprite.transform.localScale = newLocalScale;
 	}
 }

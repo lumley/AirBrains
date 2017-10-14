@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 114508646923430226}
   - component: {fileID: 114988991604359418}
   - component: {fileID: 114807707490443882}
-  - component: {fileID: 95740122650086970}
-  - component: {fileID: 114462321134701124}
+  - component: {fileID: 95152461141913336}
+  - component: {fileID: 114390346500655650}
   m_Layer: 0
   m_Name: RandomTigerMan
   m_TagString: Untagged
@@ -46,7 +46,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95740122650086970
+--- !u!95 &95152461141913336
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
---- !u!114 &114462321134701124
+--- !u!114 &114390346500655650
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd90e7f76ea54367a7f2a9972bf4abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 95740122650086970}
+  _animator: {fileID: 95152461141913336}
   _tileSize: {x: 1, y: 1, z: 0}
   _reverseLocalScale: {x: -1, y: 1, z: 1}
   _normalLocalScale: {x: 1, y: 1, z: 1}

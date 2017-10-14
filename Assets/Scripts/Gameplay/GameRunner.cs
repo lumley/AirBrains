@@ -131,11 +131,19 @@ public class GameRunner : MonoBehaviour {
 	private IEnumerator ProcessTurn() {
 		SaveOriginalPositions();
 		UpdatePositionsBasedOnInput ();
+		
+		//give time to walk somewhere
+		yield return new WaitForSeconds(0.5f);
+		
 		CheckValidityAndHandlePushBacks ();
+		
+		//give time to walk back
+		yield return new WaitForSeconds(0.5f);
+		
 		ChangeOwnership ();
 
 		//DUMMY
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(0.2f);
 		//END DUMMY
 
 		currentTurn++;
@@ -234,7 +242,13 @@ public class GameRunner : MonoBehaviour {
 				if (originalPositions.ContainsKey (visitor.gameObject)) {
 					Tile sourceTile = originalPositions [visitor.gameObject];
 					if (visitor.CurrentlyVisiting != sourceTile) {
+						
+						//sorry, you need to walk back.... need to get direction somehow
+						Direction moveToDirection = visitor.CurrentlyVisiting.GetMoveDirectionForNeighbor(originalPositions[visitor.gameObject]);
+							
 						visitor.CurrentlyVisiting = originalPositions [visitor.gameObject];
+						
+						visitor.GetComponent<CharacterAnimationController>().ApplyState(StateType.Walk, moveToDirection, visitor.CurrentlyVisiting.transform.position);
 					}
 				} else {
 					Debug.LogError ("Unable to push back " + visitor.gameObject.name + " because their original position isn't known!");
@@ -256,8 +270,13 @@ public class GameRunner : MonoBehaviour {
 					PointsGiver pointsGiver = otherOccupant.gameObject.GetComponent<PointsGiver>();
 					if (pointsGiver != null)
 					{
-						//TODO: Handle line of sight exclusion!
-						pointsGiver.OwnedBy = tracker;
+						if (pointsGiver.OwnedBy != tracker)
+						{
+							//TODO: Handle line of sight exclusion!
+							pointsGiver.OwnedBy = tracker;
+						
+							tracker.GetComponent<CharacterAnimationController>().ApplyState(StateType.Sticker, pointsGiver.GetComponent<HumanAnimationController>());
+						}
 					}
 					else
 					{

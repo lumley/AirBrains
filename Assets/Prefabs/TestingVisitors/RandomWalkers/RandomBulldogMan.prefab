@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 114274003710329690}
   - component: {fileID: 114904069632469662}
   - component: {fileID: 114460246718082198}
-  - component: {fileID: 95358733487968682}
-  - component: {fileID: 114799730044553706}
+  - component: {fileID: 95177342397327428}
+  - component: {fileID: 114654085657034756}
   m_Layer: 0
   m_Name: RandomBulldogMan
   m_TagString: Untagged
@@ -46,7 +46,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95358733487968682
+--- !u!95 &95177342397327428
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
---- !u!114 &114799730044553706
+--- !u!114 &114654085657034756
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd90e7f76ea54367a7f2a9972bf4abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 95358733487968682}
+  _animator: {fileID: 95177342397327428}
   _tileSize: {x: 1, y: 1, z: 0}
   _reverseLocalScale: {x: -1, y: 1, z: 1}
   _normalLocalScale: {x: 1, y: 1, z: 1}

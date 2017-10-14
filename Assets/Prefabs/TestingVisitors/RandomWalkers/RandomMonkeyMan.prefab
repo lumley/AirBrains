@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 114331451745901526}
   - component: {fileID: 114172188347097572}
   - component: {fileID: 114833460727858132}
-  - component: {fileID: 95615281086364444}
-  - component: {fileID: 114938460215676716}
+  - component: {fileID: 95032618901767478}
+  - component: {fileID: 114408329682551820}
   m_Layer: 0
   m_Name: RandomMonkeyMan
   m_TagString: Untagged
@@ -46,7 +46,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95615281086364444
+--- !u!95 &95032618901767478
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -98,6 +98,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
+--- !u!114 &114408329682551820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501133348909324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd90e7f76ea54367a7f2a9972bf4abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95032618901767478}
+  _tileSize: {x: 1, y: 1, z: 0}
+  _reverseLocalScale: {x: -1, y: 1, z: 1}
+  _normalLocalScale: {x: 1, y: 1, z: 1}
+  _moveOffset: {x: -0.25, y: -0.15, z: -0.1}
+  _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
+    type: 2}
+  _character: 4
+  _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
+  _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
 --- !u!114 &114833460727858132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,27 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8d752d5d69948e495de2837257fcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114938460215676716
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1501133348909324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd90e7f76ea54367a7f2a9972bf4abe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 95615281086364444}
-  _tileSize: {x: 1, y: 1, z: 0}
-  _reverseLocalScale: {x: -1, y: 1, z: 1}
-  _normalLocalScale: {x: 1, y: 1, z: 1}
-  _moveOffset: {x: -0.25, y: -0.15, z: -0.1}
-  _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
-    type: 2}
-  _character: 4
-  _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
-  _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
 --- !u!212 &212434688109499736
 SpriteRenderer:
   m_ObjectHideFlags: 1

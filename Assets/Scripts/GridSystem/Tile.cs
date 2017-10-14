@@ -54,6 +54,17 @@ public class Tile : MonoBehaviour {
 		return false;
 	}
 
+	public Direction GetMoveDirectionForNeighbor(Tile neighbor)
+	{
+		foreach (var keyValue in neighbors)
+		{
+			if (keyValue.Value == neighbor)
+				return keyValue.Key;
+		}
+
+		return Direction.WEST;
+	}
+
 	public Tile GetNeighbor(Direction direction) {
 		if(!neighbors.ContainsKey(direction)) {
 			return null;
