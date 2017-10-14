@@ -23,14 +23,19 @@ public class GameRunner : MonoBehaviour {
 
 	private Dictionary<MoveProvider, List<Move>> movesPerProvider = new Dictionary<MoveProvider, List<Move>>();
 	private Dictionary<GameObject, Tile> originalPositions = new Dictionary<GameObject, Tile>();
+	
+	public static GameRunner FindInScene()
+	{
+		return FindObjectOfType<GameRunner>();
+	}
 
 	public void StartGame() {
 		moveProviders.Clear ();
-		moveProviders.AddRange(GameObject.FindObjectsOfType<MoveProvider> ());
+		moveProviders.AddRange(FindObjectsOfType<MoveProvider> ());
 		scoreTrackers.Clear ();
-		scoreTrackers.AddRange (GameObject.FindObjectsOfType<ScoreTracker> ());
+		scoreTrackers.AddRange (FindObjectsOfType<ScoreTracker> ());
 		pointsGivers.Clear ();
-		pointsGivers.AddRange (GameObject.FindObjectsOfType<PointsGiver> ());
+		pointsGivers.AddRange (FindObjectsOfType<PointsGiver> ());
 		foreach (MoveProvider moveProvider in moveProviders) {
 			moveProvider.SetMoveCount (turnsPerRound);
 		}
@@ -236,17 +241,26 @@ public class GameRunner : MonoBehaviour {
 		}
 	}
 
-	private void ChangeOwnership(){
-		foreach (ScoreTracker tracker in scoreTrackers) {
-			TileVisitor trackerVisitor = tracker.gameObject.GetComponent<TileVisitor> ();
-			if (trackerVisitor.CurrentlyVisiting.GetTotalNumberOfVisitors (tagForPoints) > 0) {
-				foreach (TileVisitor otherOccupant in trackerVisitor.CurrentlyVisiting.GetVisitorsOfTag(tagForPoints)) {
-					PointsGiver pointsGiver = otherOccupant.gameObject.GetComponent<PointsGiver> ();
-					if (pointsGiver != null) {
+	private void ChangeOwnership()
+	{
+		for (var i = 0; i < scoreTrackers.Count; i++)
+		{
+			ScoreTracker tracker = scoreTrackers[i];
+			TileVisitor trackerVisitor = tracker.gameObject.GetComponent<TileVisitor>();
+			if (trackerVisitor.CurrentlyVisiting.GetTotalNumberOfVisitors(tagForPoints) > 0)
+			{
+				foreach (TileVisitor otherOccupant in trackerVisitor.CurrentlyVisiting.GetVisitorsOfTag(tagForPoints))
+				{
+					PointsGiver pointsGiver = otherOccupant.gameObject.GetComponent<PointsGiver>();
+					if (pointsGiver != null)
+					{
 						//TODO: Handle line of sight exclusion!
 						pointsGiver.OwnedBy = tracker;
-					} else {
-						Debug.LogError ("Gameobject: " + otherOccupant.gameObject.name + " is tagged as " + tagForPoints + " but doesn't have a pointsgiver object!");
+					}
+					else
+					{
+						Debug.LogError("Gameobject: " + otherOccupant.gameObject.name + " is tagged as " + tagForPoints +
+						               " but doesn't have a pointsgiver object!");
 					}
 				}
 			}

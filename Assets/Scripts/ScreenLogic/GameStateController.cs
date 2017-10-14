@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gameplay.Player;
 using ScreenLogic;
+using ScreenLogic.Messages;
 using ScreenLogic.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +29,12 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private int _gameScreenIndex;
 
     private readonly List<GlobalPlayer> _globalPlayers = new List<GlobalPlayer>(MaxAmountOfPlayersAllowed);
+
+    private readonly HashSet<PlayerToGameStateControllerBridge> _gameCharacterReferences =
+        new HashSet<PlayerToGameStateControllerBridge>();
+
+    private readonly Dictionary<int, PlayerToGameStateControllerBridge> _deviceIdToGameCharacterMap =
+        new Dictionary<int, PlayerToGameStateControllerBridge>(MaxAmountOfPlayersAllowed);
 
     private void Start()
     {
@@ -92,6 +100,60 @@ public class GameStateController : MonoBehaviour
         }
     }
 
+    public void OnSetReadyMessage(int deviceId, SetReadyMessage setReadyMessage)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (playerIndex < 0)
+        {
+            return;
+        }
+
+        if (_currentGameState == GameState.OnLobby)
+        {
+            var globalPlayer = _globalPlayers[playerIndex];
+            globalPlayer.LobbyPlayerData.IsReady = setReadyMessage.IsReady;
+
+            var lobbyController = LobbyController.FindInScene();
+            lobbyController.OnLobbyPlayerDataChanged(globalPlayer.LobbyPlayerData);
+        }
+        else if (_currentGameState == GameState.OnGame)
+        {
+            // TODO (slumley): Communicate with Gameplay controller
+        }
+    }
+
+    public void OnStartGameMessage(int deviceId, StartGameMessage startGameMessage)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (playerIndex < 0)
+        {
+            return;
+        }
+
+        if (_currentGameState == GameState.OnLobby)
+        {
+            for (var i = 0; i < _globalPlayers.Count; i++)
+            {
+                var globalPlayer = _globalPlayers[i];
+                if (!globalPlayer.LobbyPlayerData.IsReady)
+                {
+                    return;
+                }
+            }
+
+            StartGameWithCurrentPlayers();
+        }
+    }
+
+    private void StartGameWithCurrentPlayers()
+    {
+        _gameCharacterReferences.Clear();
+        _deviceIdToGameCharacterMap.Clear();
+
+        _currentGameState = GameState.OnGame;
+        SceneManager.LoadScene(_gameScreenIndex, LoadSceneMode.Single);
+    }
+
     private bool IsAvatarAvailable(int avatarIndex)
     {
         var characterTypeValues = Enum.GetValues(typeof(CharacterType));
@@ -142,5 +204,22 @@ public class GameStateController : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public int GrabDeviceId(PlayerToGameStateControllerBridge identifierGrabber)
+    {
+        int deviceIdToGrab;
+        if (_gameCharacterReferences.Add(identifierGrabber))
+        {
+            // TODO (slumley): Find unassigned player and assign it
+            deviceIdToGrab = 0;
+        }
+        else
+        {
+            // TODO (slumley): Find which was the Id that maps to this game object
+            // Was already present
+            deviceIdToGrab = 0;
+        }
+        return deviceIdToGrab;
     }
 }
