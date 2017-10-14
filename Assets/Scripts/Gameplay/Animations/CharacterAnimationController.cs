@@ -9,6 +9,8 @@ public enum StateType
 	Sticker
 }
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class CharacterAnimationController : MonoBehaviour
 {
 	[SerializeField] private Animator _animator;
