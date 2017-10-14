@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114508646923430226}
   - component: {fileID: 114988991604359418}
   - component: {fileID: 114807707490443882}
+  - component: {fileID: 95152461141913336}
+  - component: {fileID: 114390346500655650}
   m_Layer: 0
   m_Name: RandomTigerMan
   m_TagString: Untagged
@@ -44,6 +46,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95152461141913336
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1968329381407834}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f64fee738329441c91a0732c47f25d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114267544617497182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,6 +76,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
+--- !u!114 &114390346500655650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1968329381407834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd90e7f76ea54367a7f2a9972bf4abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95152461141913336}
+  _tileSize: {x: 1, y: 1, z: 0}
+  _reverseLocalScale: {x: -1, y: 1, z: 1}
+  _normalLocalScale: {x: 1, y: 1, z: 1}
+  _moveOffset: {x: -0.25, y: -0.15, z: -0.1}
+  _stickerAnimationPrefab: {fileID: 1192508655922866, guid: f9ceeceaa946c4ae9ab03d25d6a77ac0,
+    type: 2}
+  _character: 1
+  _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
+  _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
 --- !u!114 &114508646923430226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +143,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c3baf0b7e20ae4d4f851064cf94beaa1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,12 +162,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6eeaab95e91cc42d38054d1792649148, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08bc72dd2fb83471da06e35f3d8e1819, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.73142856, y: 0.73142856}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
