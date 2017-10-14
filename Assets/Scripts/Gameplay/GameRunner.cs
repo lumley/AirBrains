@@ -167,7 +167,7 @@ public class GameRunner : MonoBehaviour {
 		//TODO: SHOW THE PLAYERS THE RESULTS AT THE END OF THE ROUND
 		if (lastRoundNumber > 0 && lastRoundNumber <= roundNumber) {
 			gameRunning = false;
-			//TODO: keep going if there is a tie for highest points?
+			CheckForTiedScores ();
 		}
 
 		//DUMMY
@@ -250,6 +250,22 @@ public class GameRunner : MonoBehaviour {
 					}
 				}
 			}
+		}
+	}
+
+	private void CheckForTiedScores() {
+		int currentHighscore = 0;
+		int numberWithHighscore = 0;
+		foreach (ScoreTracker tracker in scoreTrackers) {
+			if (tracker.Score > currentHighscore) {
+				currentHighscore = tracker.Score;
+				numberWithHighscore = 1;
+			} else if (tracker.Score == currentHighscore) {
+				numberWithHighscore++;
+			}
+		}
+		if (numberWithHighscore > 1) {
+			gameRunning = true;
 		}
 	}
 
