@@ -30,11 +30,11 @@ public class GameStateController : MonoBehaviour
 
     private readonly List<GlobalPlayer> _globalPlayers = new List<GlobalPlayer>(MaxAmountOfPlayersAllowed);
 
-    private readonly HashSet<PlayerToGameStateControllerBridge> _gameCharacterReferences =
-        new HashSet<PlayerToGameStateControllerBridge>();
+    private readonly HashSet<IPlayerToGameStateBridge> _gameCharacterReferences =
+        new HashSet<IPlayerToGameStateBridge>();
 
-    private readonly Dictionary<int, PlayerToGameStateControllerBridge> _deviceIdToGameCharacterMap =
-        new Dictionary<int, PlayerToGameStateControllerBridge>(MaxAmountOfPlayersAllowed);
+    private readonly Dictionary<int, IPlayerToGameStateBridge> _deviceIdToGameCharacterMap =
+        new Dictionary<int, IPlayerToGameStateBridge>(MaxAmountOfPlayersAllowed);
 
     private void Start()
     {
@@ -206,7 +206,7 @@ public class GameStateController : MonoBehaviour
         return -1;
     }
 
-    public int GrabDeviceId(PlayerToGameStateControllerBridge identifierGrabber)
+    public int GrabDeviceId(IPlayerToGameStateBridge identifierGrabber)
     {
         int deviceIdToGrab;
         if (_gameCharacterReferences.Add(identifierGrabber))

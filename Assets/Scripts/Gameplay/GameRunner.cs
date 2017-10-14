@@ -56,6 +56,8 @@ public class GameRunner : MonoBehaviour {
 		gameRunning = true;
 		while (gameRunning) {
 			roundNumber++;
+			// TODO (slumley): Tell every player the current turn
+			
 			isFirstRound = roundNumber == 1;
 			currentTurn = 0;
 			Debug.Log ("Starting Round " + roundNumber);
@@ -151,6 +153,8 @@ public class GameRunner : MonoBehaviour {
 
 	private void CollectPoints() {
 		Dictionary<ScoreTracker, int> roundPointsForPlayer = new Dictionary<ScoreTracker, int> ();
+		
+		// TODO (slumley): Tell every player their donor count
 		foreach (PointsGiver giver in pointsGivers) {
 			if (giver.OwnedBy != null) {
 				if (!roundPointsForPlayer.ContainsKey (giver.OwnedBy)) {
@@ -182,7 +186,7 @@ public class GameRunner : MonoBehaviour {
 			gameRunning = false;
 			CheckForTiedScores ();
 		}
-
+		
 		//DUMMY
 		yield return new WaitForSeconds(.5f);
 		//END DUMMY
