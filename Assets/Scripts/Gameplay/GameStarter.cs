@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ScreenLogic;
 
 public class GameStarter : MonoBehaviour {
 
@@ -9,7 +10,7 @@ public class GameStarter : MonoBehaviour {
 	public Canvas[] toWireToCamera;
 	public int humansToSpawnPerPlayer = 2; //TODO: Make this to a scene-specific variable?
 
-	void Start () {
+	public void StartGame (List<GlobalPlayer> players) {
 		SceneManager.LoadScene (availableLevelScenes[Mathf.RoundToInt(Random.value * availableLevelScenes.Length)], LoadSceneMode.Additive);
 		foreach (Canvas canvas in toWireToCamera) {
 			canvas.worldCamera = Camera.main;
@@ -24,12 +25,14 @@ public class GameStarter : MonoBehaviour {
 				playerSpawns.Add (replacer);
 			}
 		}
-		int playersToSpawn = 0; //TODO: Get this value
+
+		int playersToSpawn = players.Count;
 		for (int playerId = 0; playerId < playersToSpawn; playerId++) {
 			PrefabReplacer replacer = playerSpawns [Mathf.RoundToInt (Random.value * playerSpawns.Count)];
 			playerSpawns.Remove (replacer);
 			GameObject newPlayer = replacer.SpawnPrefab ();
-			//TODO: Tie this player object to a player controller instance
+			GlobalPlayer thisPlayer = players [playerId];
+			//TODO: Update the player object with animations based on thisPlayer.AvatarIndex
 		}
 		foreach (PrefabReplacer replacer in playerSpawns) {
 			Destroy (replacer.gameObject);
