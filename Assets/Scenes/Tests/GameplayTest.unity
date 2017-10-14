@@ -964,11 +964,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114858806323684462, guid: 36aed579cb01c496d8070620f709890b,
-        type: 2}
-      propertyPath: grid
-      value: 
-      objectReference: {fileID: 997281319}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 36aed579cb01c496d8070620f709890b, type: 2}
   m_IsPrefabParent: 0
@@ -3726,27 +3721,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4733313529150826, guid: 50448b7173efb4010859a7e67806e772,
     type: 2}
   m_PrefabInternal: {fileID: 1487545574}
---- !u!1 &363800363 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1676140513789064, guid: 9c86598a8704b4e9daf8b27d3b7d9be2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1701097999}
---- !u!114 &363800364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 363800363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ac1a009d0f4b2097e0e114f579dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 997281319}
-  upCode: 0
-  downCode: 0
-  leftCode: 0
-  rightCode: 0
 --- !u!1 &367259135 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1148098713264420, guid: 1f8b56b091a14467895262fc8589c3b8,
@@ -6889,10 +6863,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1501133348909324, guid: e99c136c3c8c943fbb27d4ddd0d15fae, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e99c136c3c8c943fbb27d4ddd0d15fae, type: 2}
   m_IsPrefabParent: 0
@@ -9846,27 +9816,6 @@ Prefab:
     - {fileID: 114685942843046868, guid: 1f8b56b091a14467895262fc8589c3b8, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1f8b56b091a14467895262fc8589c3b8, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &929330746 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1968329381407834, guid: c9f08978d356f43d3838b94be5e1188a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1114371137}
---- !u!114 &929330747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 929330746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ac1a009d0f4b2097e0e114f579dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 997281319}
-  upCode: 0
-  downCode: 0
-  leftCode: 0
-  rightCode: 0
 --- !u!1 &937833067 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1370520694540336, guid: f4f07479af5b04ce49fef1d8d8c04c73,
@@ -12475,10 +12424,6 @@ Prefab:
     - target: {fileID: 4845895404994148, guid: c9f08978d356f43d3838b94be5e1188a, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1968329381407834, guid: c9f08978d356f43d3838b94be5e1188a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9f08978d356f43d3838b94be5e1188a, type: 2}
@@ -18645,27 +18590,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4194658912453058, guid: 1f8b56b091a14467895262fc8589c3b8,
     type: 2}
   m_PrefabInternal: {fileID: 1621099459}
---- !u!1 &1621503880 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1501133348909324, guid: e99c136c3c8c943fbb27d4ddd0d15fae,
-    type: 2}
-  m_PrefabInternal: {fileID: 650984757}
---- !u!114 &1621503881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1621503880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ac1a009d0f4b2097e0e114f579dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 997281319}
-  upCode: 0
-  downCode: 0
-  leftCode: 0
-  rightCode: 0
 --- !u!1 &1629611785 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1148098713264420, guid: 1f8b56b091a14467895262fc8589c3b8,

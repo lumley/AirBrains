@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114353085915537524}
   - component: {fileID: 114331451745901526}
   - component: {fileID: 114172188347097572}
+  - component: {fileID: 114833460727858132}
   m_Layer: 0
   m_Name: RandomMonkeyMan
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501133348909324}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.03, y: 1.95, z: -0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.11, y: 0.96, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,6 +79,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
+--- !u!114 &114833460727858132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501133348909324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8d752d5d69948e495de2837257fcb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212434688109499736
 SpriteRenderer:
   m_ObjectHideFlags: 1
