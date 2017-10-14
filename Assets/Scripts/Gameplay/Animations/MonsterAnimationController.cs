@@ -8,21 +8,14 @@ public sealed class MonsterAnimationController : CharacterAnimationController
     [SerializeField] 
     private CharacterType _character;
 
-    private HumanAnimationController _activeTarget;
-
-    public void ApplyCurrentTarget(HumanAnimationController human)
+    protected override void OnStateChange(StateType oldState, StateType newState, params object[] args)
     {
-        _activeTarget = human;
-    }
-
-    protected override void OnStateChange(StateType oldState, StateType newState)
-    {
-        if (newState == StateType.Sticker && _activeTarget != null)
+        if (newState == StateType.Sticker && args.Length > 0)
         {
-            _activeTarget.ApplySticker(_stickerAnimation);
+            var target = (HumanAnimationController) args[0];
+            
+            target.ApplySticker(_stickerAnimation);
             _stickerAnimation.PlayAnimation(_character);
-
-            _activeTarget = null;
         }
     }
 }

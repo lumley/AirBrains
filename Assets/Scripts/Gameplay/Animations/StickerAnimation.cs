@@ -6,7 +6,6 @@ public class StickerAnimation : MonoBehaviour
 	[SerializeField]
 	private Animator _animator;
 	
-	public Action OnStart;
 	public Action<Sprite> OnSticker;
 
 	public void PlayAnimation(CharacterType character)
@@ -16,10 +15,6 @@ public class StickerAnimation : MonoBehaviour
 	
 	private void OnStartPlay()
 	{
-		if (OnStart != null)
-		{
-			OnStart();
-		}
 	}
 	
 	private void OnShowSticker(UnityEngine.Object stickerSprite)

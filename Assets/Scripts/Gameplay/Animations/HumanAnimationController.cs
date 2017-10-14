@@ -18,7 +18,6 @@ public class HumanAnimationController : CharacterAnimationController
 	{
 		if (_stickerAnimation != null)
 		{
-			_stickerAnimation.OnStart = null;
 			_stickerAnimation.OnSticker = null;
 			_stickerAnimation = null;
 		}
@@ -27,17 +26,12 @@ public class HumanAnimationController : CharacterAnimationController
 
 		if (_stickerAnimation != null)
 		{
-			_stickerAnimation.OnStart = OnCleanSticker;
 			_stickerAnimation.OnSticker = SetSticker;
-		}
-		else
-		{
-			OnCleanSticker();
 		}
 	}
 
-	private void OnCleanSticker()
+	public void OnCleanSticker()
 	{
-		//SetSticker(null);
+		SetSticker(null);
 	}
 }
