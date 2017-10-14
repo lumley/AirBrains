@@ -1,3 +1,9 @@
+# Air Console Player Properties
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+
+
 # Air Console Messaging
 ## Mobile
 
@@ -7,6 +13,13 @@
 | -------- | ---- | ----------- |
 | type | string | Type of this message |
 | isReady | boolean | Indicates if the player is ready or not |
+
+ - SetAvatarIndex: chooses the avatar index for a given player, the screen will reply with the actual avatar of the player.
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| type | string | Type of this message |
+| avatarIndex | int | Index of the avatar of this player |
 
  - StartGame: a player requests to start the game, only succeedes when all players are actually ready.
 
@@ -22,6 +35,14 @@
 | actions | string[] | "up", "down", "left", "right", "wait" |
 
 ## TV
+
+ - AvatarChosen: Screen indicates the device which is its avatar. This message is sent when the device connects or whenever it requests to change its avatar.
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| type | string | Type of this message |
+| avatarIndex | int | Index of the avatar of this player |
+
  - GameStarted: Screen indicates the devices that a new game has started, indicate all the rules, etc.
 
 | Property | Type | Description |
@@ -30,7 +51,7 @@
 | fundingGoal | int | Amount of funds required to trigger the round countdown |
 | roundsRemaining | int | Amount of rounds that are remaining from now, just in case there is no funding goal |
 
- - StartRound: A new round has started, client should remove the previously selected actions.
+ - StartRound: A new round has started, client should block any input.
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |

@@ -3,7 +3,7 @@
 	None = 0,
 	Tiger = 1,
 	Crocodile = 2,
-	Shark = 3, // no shark yet
+	Shark = 3,
 	Monkey = 4,
 	Bulldog = 5,
 	Seal = 6,
