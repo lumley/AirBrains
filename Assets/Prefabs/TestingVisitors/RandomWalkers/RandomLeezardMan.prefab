@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114789867285357714}
   - component: {fileID: 114404969466604798}
   - component: {fileID: 114677560262640888}
+  - component: {fileID: 114499603689424756}
   - component: {fileID: 95308735325618572}
   m_Layer: 0
   m_Name: RandomLeezardMan
@@ -37,8 +38,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1676140513789064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.03, y: 1.95, z: -0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.96, y: 1.06, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -70,6 +71,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb102418873a846689c4da5b9e552c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114499603689424756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676140513789064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8d752d5d69948e495de2837257fcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114677560262640888

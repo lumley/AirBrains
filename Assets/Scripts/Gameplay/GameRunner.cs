@@ -68,6 +68,7 @@ public class GameRunner : MonoBehaviour {
 	private IEnumerator WaitForReadyOrTime() {
 		bool readyToMoveOn = false;
 		float startTime = Time.timeSinceLevelLoad;
+		FireEvent (StartCollectingMoves);
 		foreach (MoveProvider moveProvider in moveProviders) {
 			moveProvider.StartCollectingMoves ();
 		}
@@ -85,6 +86,7 @@ public class GameRunner : MonoBehaviour {
 			}
 			yield return new WaitForEndOfFrame ();
 		}
+		yield return new WaitForSeconds (1f); //TODO: REMOVE! JUST FOR TESTING THE THOUGHT BUBBLE EFFECT!
 	}
 
 	private bool AreAllPlayersReady() {
@@ -114,6 +116,7 @@ public class GameRunner : MonoBehaviour {
 			allInputCollected = movesPerProvider.Count >= moveProviders.Count;
 			yield return new WaitForEndOfFrame ();
 		}
+		FireEvent (EndCollectingMoves);
 	}
 
 	private bool HaveTurnToProcess() {
@@ -249,4 +252,15 @@ public class GameRunner : MonoBehaviour {
 			}
 		}
 	}
+
+	private void FireEvent(GameEvent myEvent) {
+		if (myEvent != null) {
+			myEvent.Invoke ();
+		}
+	}
+
+	public event GameEvent StartCollectingMoves;
+	public event GameEvent EndCollectingMoves;
 }
+
+public delegate void GameEvent();

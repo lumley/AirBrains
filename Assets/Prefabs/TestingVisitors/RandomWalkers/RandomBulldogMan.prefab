@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212607742593893184}
   - component: {fileID: 114603845576100486}
   - component: {fileID: 114274003710329690}
-  - component: {fileID: 114858806323684462}
   - component: {fileID: 114904069632469662}
+  - component: {fileID: 114460246718082198}
   - component: {fileID: 95677893098320908}
   m_Layer: 0
   m_Name: RandomBulldogMan
@@ -73,6 +73,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb102418873a846689c4da5b9e552c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114460246718082198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493396158791068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8d752d5d69948e495de2837257fcb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114603845576100486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,22 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tag: player
   offset: {x: -0.25, y: -0.15, z: -0.1}
---- !u!114 &114858806323684462
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1493396158791068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 910ac1a009d0f4b2097e0e114f579dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  upCode: 0
-  downCode: 0
-  leftCode: 0
-  rightCode: 0
 --- !u!114 &114904069632469662
 MonoBehaviour:
   m_ObjectHideFlags: 1
