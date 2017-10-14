@@ -11,7 +11,7 @@ public class RandomMoveProvider : MoveProvider {
 	public override void StartCollectingMoves(){
 		myMoves.Clear ();
 		for (int moveIndex = 0; moveIndex < numberOfMovesPerRound; moveIndex++) {
-			Move randomMove = (Move)moveValues.GetValue(UnityEngine.Random.Range(0, moveValues.Length - 1));
+			Move randomMove = (Move)moveValues.GetValue(UnityEngine.Random.Range(0, moveValues.Length));
 			myMoves.Add (randomMove);
 		}
 	}
