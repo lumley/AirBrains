@@ -49,12 +49,12 @@ public class HumanAnimationController : CharacterAnimationController
 		
 	}
 
-	protected override void UpdateDirection(MoveDirection direction)
+	protected override void UpdateDirection(Direction direction)
 	{
 		base.UpdateDirection(direction);
 
 		var newLocalScale = _startSpriteLocalScale;
-		newLocalScale.x *= direction == MoveDirection.Left ? -1 : 1;
+		newLocalScale.x *= direction == Direction.EAST ? -1 : 1;
 		_stickerSprite.transform.localScale = newLocalScale;
 	}
 }

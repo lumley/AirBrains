@@ -69,21 +69,21 @@ public abstract class CharacterAnimationController : MonoBehaviour
 	{
 		if (args.Length > 0)
 		{		
-			MoveDirection direction = (MoveDirection)args[0];
+			Direction direction = (Direction)args[0];
 			UpdateDirection(direction);
 			
 			switch (direction)
 			{
-				case MoveDirection.Down:
+				case Direction.SOUTH:
 					_endPosition = gameObject.transform.position - new Vector3(0, _tileSize.y, 0);
 					break;
-				case MoveDirection.Left:
+				case Direction.WEST:
 					_endPosition = gameObject.transform.position - new Vector3(_tileSize.x, 0, 0);
 					break;
-				case MoveDirection.Right:
+				case Direction.EAST:
 					_endPosition = gameObject.transform.position + new Vector3(_tileSize.x, 0, 0);
 					break;
-				case MoveDirection.Top:
+				case Direction.NORTH:
 					_endPosition = gameObject.transform.position + new Vector3(0, _tileSize.y, 0);
 					break;
 			}
@@ -92,14 +92,14 @@ public abstract class CharacterAnimationController : MonoBehaviour
 		}
 	}
 
-	protected virtual void UpdateDirection(MoveDirection direction)
+	protected virtual void UpdateDirection(Direction direction)
 	{
 		switch (direction)
 		{
-			case MoveDirection.Left:
+			case Direction.WEST:
 				gameObject.transform.localScale = _reverseLocalScale;
 				break;
-			case MoveDirection.Right:
+			case Direction.EAST:
 				gameObject.transform.localScale = _normalLocalScale;
 				break;
 			default:

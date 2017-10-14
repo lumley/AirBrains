@@ -1,15 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
-
-public enum MoveDirection
-{
-	Left,
-	Right,
-	Top, 
-	Down
-}
+﻿using UnityEngine;
 
 public class AnimationTest : MonoBehaviour
 {
@@ -31,22 +20,22 @@ public class AnimationTest : MonoBehaviour
 		
 		if (GUI.Button(new Rect(0, 100, 400, 40), "Monster Walk Top"))
 		{
-			Monster.ApplyState(StateType.Walk, MoveDirection.Top);
+			Monster.ApplyState(StateType.Walk, Direction.NORTH);
 		}
 		
 		if (GUI.Button(new Rect(0, 150, 400, 40), "Monster Walk Left"))
 		{
-			Monster.ApplyState(StateType.Walk, MoveDirection.Left);
+			Monster.ApplyState(StateType.Walk, Direction.WEST);
 		}
 		
 		if (GUI.Button(new Rect(0, 200, 400, 40), "Monster Walk Right"))
 		{
-			Monster.ApplyState(StateType.Walk, MoveDirection.Right);
+			Monster.ApplyState(StateType.Walk, Direction.EAST);
 		}
 		
 		if (GUI.Button(new Rect(0, 250, 400, 40), "Monster Walk Down"))
 		{
-			Monster.ApplyState(StateType.Walk, MoveDirection.Down);
+			Monster.ApplyState(StateType.Walk, Direction.SOUTH);
 		}
 		
 		if (GUI.Button(new Rect(0, 300, 400, 40), "Monster Sticker"))
@@ -67,22 +56,22 @@ public class AnimationTest : MonoBehaviour
 		
 		if (GUI.Button(new Rect(0, 500, 400, 40), "Human Walk Top"))
 		{
-			Human.ApplyState(StateType.Walk, MoveDirection.Top);
+			Human.ApplyState(StateType.Walk, Direction.NORTH);
 		}
 		
 		if (GUI.Button(new Rect(0, 550, 400, 40), "Human Walk Left"))
 		{
-			Human.ApplyState(StateType.Walk, MoveDirection.Left);
+			Human.ApplyState(StateType.Walk, Direction.WEST);
 		}
 		
 		if (GUI.Button(new Rect(0, 600, 400, 40), "Human Walk Right"))
 		{
-			Human.ApplyState(StateType.Walk, MoveDirection.Right);
+			Human.ApplyState(StateType.Walk, Direction.EAST);
 		}
 		
 		if (GUI.Button(new Rect(0, 650, 400, 40), "Human Walk Down"))
 		{
-			Human.ApplyState(StateType.Walk, MoveDirection.Down);
+			Human.ApplyState(StateType.Walk, Direction.SOUTH);
 		}
 	}
 }
