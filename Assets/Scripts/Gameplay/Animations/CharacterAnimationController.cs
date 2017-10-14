@@ -9,15 +9,24 @@ public enum StateType
 	Sticker
 }
 
-public class CharacterAnimationController : MonoBehaviour
+public abstract class CharacterAnimationController : MonoBehaviour
 {
 	[SerializeField] private Animator _animator;
-
-	private StateType _currentState = StateType.None;
 	
+	[SerializeField]
 	private Vector3 _tileSize = new Vector3(0.2f, 0.2f, 0f);
 	
-	private void Start()
+	[SerializeField]
+	private Vector3 _reverseLocalScale = new Vector3(-1, 1, 1);
+	
+	[SerializeField]
+	private Vector3 _normalLocalScale = new Vector3(1, 1, 1);
+	
+	private StateType _currentState = StateType.None;
+	private Vector3 _endPosition;
+	private bool _isMoving = false;
+	
+	protected virtual void Start()
 	{
 		ApplyState(StateType.Idle);
 	}
@@ -45,34 +54,26 @@ public class CharacterAnimationController : MonoBehaviour
 		}
 	}
 
-	protected virtual void OnStateChange(StateType oldState, StateType newState, params object[] args)
-	{
-		
-	}
+	protected abstract void OnStateChange(StateType oldState, StateType newState, params object[] args);
 
-	private Vector3 _endPosition;
-	private bool _isMoving = false;
-	
-	private Vector3 _reverseLocalScale = new Vector3(-1, 1, 1);
-	private Vector3 _normalLocalScale = new Vector3(1, 1, 1);
+
 	
 	private void OnWalk(params object[] args)
 	{
 		if (args.Length > 0)
 		{		
 			MoveDirection direction = (MoveDirection)args[0];
-
+			UpdateDirection(direction);
+			
 			switch (direction)
 			{
 				case MoveDirection.Down:
 					_endPosition = gameObject.transform.position - new Vector3(0, _tileSize.y, 0);
 					break;
 				case MoveDirection.Left:
-					gameObject.transform.localScale = _reverseLocalScale;
 					_endPosition = gameObject.transform.position - new Vector3(_tileSize.x, 0, 0);
 					break;
 				case MoveDirection.Right:
-					gameObject.transform.localScale = _normalLocalScale;
 					_endPosition = gameObject.transform.position + new Vector3(_tileSize.x, 0, 0);
 					break;
 				case MoveDirection.Top:
@@ -81,6 +82,21 @@ public class CharacterAnimationController : MonoBehaviour
 			}
 			
 			_isMoving = true;
+		}
+	}
+
+	protected virtual void UpdateDirection(MoveDirection direction)
+	{
+		switch (direction)
+		{
+			case MoveDirection.Left:
+				gameObject.transform.localScale = _reverseLocalScale;
+				break;
+			case MoveDirection.Right:
+				gameObject.transform.localScale = _normalLocalScale;
+				break;
+			default:
+				break;
 		}
 	}
 

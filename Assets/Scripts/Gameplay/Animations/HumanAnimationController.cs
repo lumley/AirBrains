@@ -5,7 +5,16 @@ public class HumanAnimationController : CharacterAnimationController
 	[SerializeField]
 	public SpriteRenderer _stickerSprite;
 
+	private Vector3 _startSpriteLocalScale;
+
 	private StickerAnimation _stickerAnimation;
+
+	protected override void Start()
+	{
+		base.Start();
+
+		_startSpriteLocalScale = _stickerSprite.gameObject.transform.localScale;
+	}
 
 	private void SetSticker(Sprite sprite)
 	{
@@ -33,5 +42,19 @@ public class HumanAnimationController : CharacterAnimationController
 	public void OnCleanSticker()
 	{
 		SetSticker(null);
+	}
+
+	protected override void OnStateChange(StateType oldState, StateType newState, params object[] args)
+	{
+		
+	}
+
+	protected override void UpdateDirection(MoveDirection direction)
+	{
+		base.UpdateDirection(direction);
+
+		var newLocalScale = _startSpriteLocalScale;
+		newLocalScale.x *= direction == MoveDirection.Left ? -1 : 1;
+		_stickerSprite.transform.localScale = newLocalScale;
 	}
 }
