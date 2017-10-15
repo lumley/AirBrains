@@ -47,7 +47,7 @@ namespace ScreenLogic
             {
                 return;
             }
-            
+
             switch (actionType.ToLowerInvariant())
             {
                 case SetReadyMessage.MessageTypeInvariant:
@@ -93,11 +93,17 @@ namespace ScreenLogic
 #if !DISABLE_AIRCONSOLE
             var avatarChosenMessage = new AvatarChosenMessage
             {
-                Type = AvatarChosenMessage.MessageType,
                 AvatarIndex = globalPlayer.AvatarIndex
             };
             AirConsole.instance.Message(globalPlayer.LobbyPlayerData.Id,
                 JsonConvert.SerializeObject(avatarChosenMessage));
+#endif
+        }
+
+        public void SendStartRound(int deviceId, StartRoundMessage startRoundMessage)
+        {
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Message(deviceId, JsonConvert.SerializeObject(startRoundMessage));
 #endif
         }
     }

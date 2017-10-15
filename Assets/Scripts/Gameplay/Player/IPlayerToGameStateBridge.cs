@@ -7,5 +7,7 @@ namespace Gameplay.Player
         void OnSetReadyMessage(SetReadyMessage setReadyMessage);
 
         void SetDeviceId(int deviceId);
+
+        int CurrentRound { set; }
     }
 }

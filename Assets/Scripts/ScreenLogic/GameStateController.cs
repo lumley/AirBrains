@@ -211,14 +211,33 @@ public class GameStateController : MonoBehaviour
         int deviceIdToGrab;
         if (_gameCharacterReferences.Add(identifierGrabber))
         {
-            // TODO (slumley): Find unassigned player and assign it
             deviceIdToGrab = 0;
+            for (var i = 0; i < _globalPlayers.Count; i++)
+            {
+                var globalPlayer = _globalPlayers[i];
+                var deviceId = globalPlayer.LobbyPlayerData.Id;
+                if (!_deviceIdToGameCharacterMap.ContainsKey(deviceId))
+                {
+                    _deviceIdToGameCharacterMap[deviceId] = identifierGrabber;
+                    deviceIdToGrab = deviceId;
+                    break;
+                }
+            }
         }
         else
         {
-            // TODO (slumley): Find which was the Id that maps to this game object
             // Was already present
             deviceIdToGrab = 0;
+            foreach (var playerToGameStateBridge in _deviceIdToGameCharacterMap)
+            {
+                var reference = playerToGameStateBridge.Value;
+                if (reference == identifierGrabber)
+                {
+                    var deviceId = playerToGameStateBridge.Key;
+                    deviceIdToGrab = deviceId;
+                    break;
+                }
+            }
         }
         return deviceIdToGrab;
     }

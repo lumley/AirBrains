@@ -6,6 +6,8 @@ public class ScoreTracker : MonoBehaviour {
 
 	protected int currentScore;
 
+	public int DonorCountInCurrentRound { get; set; }
+
 	public int Score {
 		get { return currentScore; }
 	}

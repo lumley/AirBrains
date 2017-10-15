@@ -2,9 +2,11 @@
 using ScreenLogic;
 using ScreenLogic.Messages;
 using ScreenLogic.Requests;
+using UnityEngine;
 
 namespace Gameplay.Player
 {
+    [RequireComponent(typeof(ScoreTracker))]
     public class AirConsoleMoveProvider : MoveProvider, IPlayerToGameStateBridge
     {
         private const int InvalidDeviceId = 0; // Screen Id
@@ -13,6 +15,7 @@ namespace Gameplay.Player
 
         private bool _isPlayerReady;
         private List<Move> _moveList;
+        private ScoreTracker _scoreTracker;
 
         private bool IsPlayerControlling
         {
@@ -23,22 +26,21 @@ namespace Gameplay.Player
         {
             _gameStateController = GameStateController.FindInScene();
             _myDeviceId = _gameStateController.GrabDeviceId(this);
+            _scoreTracker = GetComponent<ScoreTracker>();
         }
-
 
         public override void StartCollectingMoves()
         {
             _isPlayerReady = false;
             _moveList = new List<Move>(numberOfMovesPerRound);
-            // TODO (slumley): Ask player to clean their movements (turn start)
 
             if (IsPlayerControlling)
             {
                 var startRoundMessage = new StartRoundMessage
                 {
-                    DonorCount = 0,
-                    FundsRaised = 0, // TODO (slumey): Get this amount from a ScoreTracker component
-                    Round = 0,
+                    DonorCount = _scoreTracker.DonorCountInCurrentRound,
+                    FundsRaised = _scoreTracker.Score,
+                    Round = CurrentRound,
                     TurnCount = numberOfMovesPerRound
                 };
                 AirConsoleBridge.Instance.SendStartRound(_myDeviceId, startRoundMessage);
@@ -85,5 +87,7 @@ namespace Gameplay.Player
         {
             _myDeviceId = deviceId;
         }
+
+        public int CurrentRound { private get; set; }
     }
 }
