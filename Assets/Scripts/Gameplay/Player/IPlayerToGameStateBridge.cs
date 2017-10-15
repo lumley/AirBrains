@@ -9,5 +9,7 @@ namespace Gameplay.Player
         void SetDeviceId(int deviceId);
 
         int CurrentRound { set; }
+
+        void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected);
     }
 }

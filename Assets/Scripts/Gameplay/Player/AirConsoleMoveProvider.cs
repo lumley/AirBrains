@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ScreenLogic;
 using ScreenLogic.Messages;
 using ScreenLogic.Requests;
@@ -89,5 +90,34 @@ namespace Gameplay.Player
         }
 
         public int CurrentRound { private get; set; }
+        public void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected)
+        {
+            _moveList = new List<Move>(actionsSelected.Length);
+
+            for (var i = 0; i < actionsSelected.Length; i++)
+            {
+                var gameAction = actionsSelected[i];
+                _moveList[i] = ParseAction(gameAction);
+            }
+        }
+
+        private Move ParseAction(SendChosenActionsMessage.GameAction gameAction)
+        {
+            switch (gameAction)
+            {
+                case SendChosenActionsMessage.GameAction.Wait:
+                    return Move.STAY;
+                case SendChosenActionsMessage.GameAction.Up:
+                    return Move.UP;
+                case SendChosenActionsMessage.GameAction.Down:
+                    return Move.DOWN;
+                case SendChosenActionsMessage.GameAction.Left:
+                    return Move.LEFT;
+                case SendChosenActionsMessage.GameAction.Right:
+                    return Move.RIGHT;
+                default:
+                    throw new ArgumentOutOfRangeException("gameAction", gameAction, null);
+            }
+        }
     }
 }

@@ -58,8 +58,9 @@ namespace ScreenLogic
                     var startGameMessage = data.ToObject<StartGameMessage>();
                     _gameStateController.OnStartGameMessage(deviceId, startGameMessage);
                     break;
-                case "sendchosenactions":
-                    new SendChosenActionsMessage(data);
+                case SendChosenActionsMessage.MessageTypeInvariant:
+                    var sendChosenActionsMessage = data.ToObject<SendChosenActionsMessage>();
+                    _gameStateController.OnReceivedChosenActionsMessage(deviceId, sendChosenActionsMessage);
                     break;
                 case SetAvatarIndexMessage.MessageTypeInvariant:
                     var globalPlayerState = data.ToObject<SetAvatarIndexMessage>();

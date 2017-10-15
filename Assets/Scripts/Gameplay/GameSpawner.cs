@@ -1,16 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using ScreenLogic;
+using UnityEngine;
 
 public class GameSpawner : MonoBehaviour {
 
 	public int humansToSpawnPerPlayer = 2; //TODO: Make this to a scene-specific variable?
 
+	public static GameSpawner FindInScene()
+	{
+		return FindObjectOfType<GameSpawner>();
+	}
+
 	public void StartGame (List<GlobalPlayer> players) {
 		List<PrefabReplacer> humanSpawns = new List<PrefabReplacer> ();
 		List<PrefabReplacer> playerSpawns = new List<PrefabReplacer> ();
-		foreach (PrefabReplacer replacer in GameObject.FindObjectsOfType<PrefabReplacer>()) {
+		foreach (PrefabReplacer replacer in FindObjectsOfType<PrefabReplacer>()) {
 			if (replacer.gameObject.name.Contains ("Human")) {
 				humanSpawns.Add (replacer);
 			} else if (replacer.gameObject.name.Contains ("Player")) {
@@ -39,7 +43,7 @@ public class GameSpawner : MonoBehaviour {
 			Destroy (replacer.gameObject);
 		}
 
-		GameObject.FindObjectOfType<LeaderboardTracker>().OnGameStart();
-		GameObject.FindObjectOfType<GameRunner>().StartGame();
+		FindObjectOfType<LeaderboardTracker>().OnGameStart();
+		FindObjectOfType<GameRunner>().StartGame();
 	}
 }

@@ -13,6 +13,7 @@ public class GameStateController : MonoBehaviour
     {
         StartingUp,
         OnLobby,
+        LoadingGame,
         OnGame,
         OnWrapUpScreen,
     }
@@ -150,7 +151,7 @@ public class GameStateController : MonoBehaviour
         _gameCharacterReferences.Clear();
         _deviceIdToGameCharacterMap.Clear();
 
-        _currentGameState = GameState.OnGame;
+        _currentGameState = GameState.LoadingGame;
         SceneManager.LoadScene(_gameScreenIndex, LoadSceneMode.Single);
     }
 
@@ -240,5 +241,28 @@ public class GameStateController : MonoBehaviour
             }
         }
         return deviceIdToGrab;
+    }
+
+    public void SetToState(GameState gameStateToSet)
+    {
+        if (_currentGameState == GameState.LoadingGame && gameStateToSet == GameState.OnGame)
+        {
+            _currentGameState = gameStateToSet;
+            var gameSpawner = GameSpawner.FindInScene();
+            gameSpawner.StartGame(_globalPlayers);
+        }
+    }
+
+    public void OnReceivedChosenActionsMessage(int deviceId, SendChosenActionsMessage sendChosenActionsMessage)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (_currentGameState == GameState.OnGame && playerIndex >= 0)
+        {
+            IPlayerToGameStateBridge playerToGameStateBridge;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out playerToGameStateBridge))
+            {
+                playerToGameStateBridge.SetChosenActions(sendChosenActionsMessage.ActionsSelected);
+            }
+        }
     }
 }
