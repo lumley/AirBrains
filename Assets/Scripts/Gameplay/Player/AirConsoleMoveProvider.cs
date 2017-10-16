@@ -98,7 +98,7 @@ namespace Gameplay.Player
             for (var i = 0; i < actionsSelected.Length; i++)
             {
                 var gameAction = actionsSelected[i];
-                _moveList[i] = ParseAction(gameAction);
+                _moveList.Add(ParseAction(gameAction));
             }
         }
 

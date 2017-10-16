@@ -90,7 +90,7 @@
                     turn2Action = "wait";
                     turn3Action = "wait";
                     turn4Action = "wait";
-                    document.getElementById("turn4").innerHTML = "Round: " + parsedMessage["round"] + " Donors: " + parsedMessage["donorCount"] + " Funds Raised: " + parsedMessage["fundsRaised"]+"M";
+                    document.getElementById("current-game").innerHTML = "Round: " + parsedMessage["round"] + " Donors: " + parsedMessage["donorCount"] + " Funds Raised: " + parsedMessage["fundsRaised"] + "M";
                 }
             };
 
@@ -162,8 +162,7 @@
 
             this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
-        
-        
+
 
         // - - - - - - END GAME API SECTION - - - - - - 
 
@@ -176,27 +175,27 @@
             var name = this.airconsole.getNickname();
             document.getElementById("content").innerHTML = "My name is: " + name;
         };
-        
+
         App.prototype.setDefinedAction = function (turn, action) {
-            switch (turn){
+            switch (turn) {
                 case 1:
                     turn1Action = action;
-                    document.getElementById("turn1").innerHTML = "Turn 1: "+action;
+                    document.getElementById("turn1").innerHTML = "Turn 1: " + action;
                     break;
                 case 2:
                     turn2Action = action;
-                    document.getElementById("turn2").innerHTML = "Turn 2: "+action;
+                    document.getElementById("turn2").innerHTML = "Turn 2: " + action;
                     break;
                 case 3:
                     turn3Action = action;
-                    document.getElementById("turn3").innerHTML = "Turn 3: "+action;
+                    document.getElementById("turn3").innerHTML = "Turn 3: " + action;
                     break;
                 default:
                     turn4Action = action;
-                    document.getElementById("turn4").innerHTML = "Turn 4: "+action;
+                    document.getElementById("turn4").innerHTML = "Turn 4: " + action;
                     break;
             }
-            App.prototype.sendSendChosenActions([turn1Action, turn2Action, turn3Action, turn4Action]);
+            this.sendSendChosenActions([turn1Action, turn2Action, turn3Action, turn4Action]);
         };
 
     </script>
