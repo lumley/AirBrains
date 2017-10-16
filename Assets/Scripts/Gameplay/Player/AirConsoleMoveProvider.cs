@@ -15,7 +15,7 @@ namespace Gameplay.Player
         private int _myDeviceId;
 
         [SerializeField] private bool _isPlayerReady;
-        private List<Move> _moveList;
+        [SerializeField] private List<Move> _moveList;
         private ScoreTracker _scoreTracker;
 
         private bool IsPlayerControlling
@@ -98,7 +98,7 @@ namespace Gameplay.Player
             for (var i = 0; i < actionsSelected.Length; i++)
             {
                 var gameAction = actionsSelected[i];
-                _moveList[i] = ParseAction(gameAction);
+                _moveList.Add(ParseAction(gameAction));
             }
         }
 

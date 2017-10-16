@@ -81,7 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03e8f932026149a2ab0536c288069dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 0}
+  prefabToSpawn: {fileID: 1688259826906402, guid: 0e0f7a6ead2c5154eb46a6ad417b741b,
+    type: 2}
   replaceOnAwake: 0
 --- !u!212 &212647466390155616
 SpriteRenderer:
