@@ -119,7 +119,11 @@ public class GameStateController : MonoBehaviour
         }
         else if (_currentGameState == GameState.OnGame)
         {
-            // TODO (slumley): Communicate with Gameplay controller
+            IPlayerToGameStateBridge playerOnGame;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out playerOnGame))
+            {
+                playerOnGame.OnSetReadyMessage(setReadyMessage);
+            }
         }
     }
 

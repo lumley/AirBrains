@@ -162,6 +162,8 @@
 
             this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
+        
+        
 
         // - - - - - - END GAME API SECTION - - - - - - 
 
@@ -246,7 +248,7 @@
         <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'up')">Up</button>
         <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'right')">Right</button>
         <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'down')">Down</button>
-        <button class="button">Ready for turn</button>
+        <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Ready for turn</button>
 
     </div>
 

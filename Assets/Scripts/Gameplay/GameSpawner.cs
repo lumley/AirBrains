@@ -47,7 +47,7 @@ public class GameSpawner : MonoBehaviour
         
         for (int humanId = 0; humanId < humansToSpawn; humanId++)
         {
-            PrefabReplacer replacer = humanSpawns[Mathf.RoundToInt(Random.value * humanSpawns.Count)];
+            PrefabReplacer replacer = humanSpawns[Mathf.RoundToInt(Random.value * (humanSpawns.Count - 1))];
             humanSpawns.Remove(replacer);
             replacer.SpawnPrefab();
         }

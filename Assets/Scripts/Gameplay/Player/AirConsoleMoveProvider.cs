@@ -14,7 +14,7 @@ namespace Gameplay.Player
         private GameStateController _gameStateController;
         private int _myDeviceId;
 
-        private bool _isPlayerReady;
+        [SerializeField] private bool _isPlayerReady;
         private List<Move> _moveList;
         private ScoreTracker _scoreTracker;
 
@@ -90,6 +90,7 @@ namespace Gameplay.Player
         }
 
         public int CurrentRound { private get; set; }
+
         public void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected)
         {
             _moveList = new List<Move>(actionsSelected.Length);
