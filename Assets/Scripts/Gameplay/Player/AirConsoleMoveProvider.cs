@@ -15,7 +15,7 @@ namespace Gameplay.Player
         private int _myDeviceId;
 
         [SerializeField] private bool _isPlayerReady;
-        private List<Move> _moveList;
+        [SerializeField] private List<Move> _moveList;
         private ScoreTracker _scoreTracker;
 
         private bool IsPlayerControlling
