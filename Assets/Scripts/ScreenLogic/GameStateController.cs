@@ -13,6 +13,7 @@ public class GameStateController : MonoBehaviour
     {
         StartingUp,
         OnLobby,
+        LoadingGame,
         OnGame,
         OnWrapUpScreen,
     }
@@ -30,11 +31,11 @@ public class GameStateController : MonoBehaviour
 
     private readonly List<GlobalPlayer> _globalPlayers = new List<GlobalPlayer>(MaxAmountOfPlayersAllowed);
 
-    private readonly HashSet<PlayerToGameStateControllerBridge> _gameCharacterReferences =
-        new HashSet<PlayerToGameStateControllerBridge>();
+    private readonly HashSet<IPlayerToGameStateBridge> _gameCharacterReferences =
+        new HashSet<IPlayerToGameStateBridge>();
 
-    private readonly Dictionary<int, PlayerToGameStateControllerBridge> _deviceIdToGameCharacterMap =
-        new Dictionary<int, PlayerToGameStateControllerBridge>(MaxAmountOfPlayersAllowed);
+    private readonly Dictionary<int, IPlayerToGameStateBridge> _deviceIdToGameCharacterMap =
+        new Dictionary<int, IPlayerToGameStateBridge>(MaxAmountOfPlayersAllowed);
 
     private void Start()
     {
@@ -118,7 +119,11 @@ public class GameStateController : MonoBehaviour
         }
         else if (_currentGameState == GameState.OnGame)
         {
-            // TODO (slumley): Communicate with Gameplay controller
+            IPlayerToGameStateBridge playerOnGame;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out playerOnGame))
+            {
+                playerOnGame.OnSetReadyMessage(setReadyMessage);
+            }
         }
     }
 
@@ -150,7 +155,7 @@ public class GameStateController : MonoBehaviour
         _gameCharacterReferences.Clear();
         _deviceIdToGameCharacterMap.Clear();
 
-        _currentGameState = GameState.OnGame;
+        _currentGameState = GameState.LoadingGame;
         SceneManager.LoadScene(_gameScreenIndex, LoadSceneMode.Single);
     }
 
@@ -206,20 +211,62 @@ public class GameStateController : MonoBehaviour
         return -1;
     }
 
-    public int GrabDeviceId(PlayerToGameStateControllerBridge identifierGrabber)
+    public int GrabDeviceId(IPlayerToGameStateBridge identifierGrabber)
     {
         int deviceIdToGrab;
         if (_gameCharacterReferences.Add(identifierGrabber))
         {
-            // TODO (slumley): Find unassigned player and assign it
             deviceIdToGrab = 0;
+            for (var i = 0; i < _globalPlayers.Count; i++)
+            {
+                var globalPlayer = _globalPlayers[i];
+                var deviceId = globalPlayer.LobbyPlayerData.Id;
+                if (!_deviceIdToGameCharacterMap.ContainsKey(deviceId))
+                {
+                    _deviceIdToGameCharacterMap[deviceId] = identifierGrabber;
+                    deviceIdToGrab = deviceId;
+                    break;
+                }
+            }
         }
         else
         {
-            // TODO (slumley): Find which was the Id that maps to this game object
             // Was already present
             deviceIdToGrab = 0;
+            foreach (var playerToGameStateBridge in _deviceIdToGameCharacterMap)
+            {
+                var reference = playerToGameStateBridge.Value;
+                if (reference == identifierGrabber)
+                {
+                    var deviceId = playerToGameStateBridge.Key;
+                    deviceIdToGrab = deviceId;
+                    break;
+                }
+            }
         }
         return deviceIdToGrab;
+    }
+
+    public void SetToState(GameState gameStateToSet)
+    {
+        if (_currentGameState == GameState.LoadingGame && gameStateToSet == GameState.OnGame)
+        {
+            _currentGameState = gameStateToSet;
+            var gameSpawner = GameSpawner.FindInScene();
+            gameSpawner.StartGame(_globalPlayers);
+        }
+    }
+
+    public void OnReceivedChosenActionsMessage(int deviceId, SendChosenActionsMessage sendChosenActionsMessage)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (_currentGameState == GameState.OnGame && playerIndex >= 0)
+        {
+            IPlayerToGameStateBridge playerToGameStateBridge;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out playerToGameStateBridge))
+            {
+                playerToGameStateBridge.SetChosenActions(sendChosenActionsMessage.ActionsSelected);
+            }
+        }
     }
 }

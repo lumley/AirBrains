@@ -8,11 +8,8 @@ namespace ScreenLogic.Messages
     {
         public const string MessageType = "AvatarChosen";
         public const string MessageTypeInvariant = "avatarchosen";
-        
-        [JsonProperty("type")]
-        public string Type;
-        
-        [JsonProperty("avatarIndex")]
-        public int AvatarIndex;
+
+        [JsonProperty("type")] public string Type = MessageType;
+        [JsonProperty("avatarIndex")] public int AvatarIndex;
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace ScreenLogic.Messages
 {
+    [Serializable]
     public class SendChosenActionsMessage
     {
         public enum GameAction
@@ -14,23 +15,24 @@ namespace ScreenLogic.Messages
             Right
         }
 
-        public GameAction[] ActionsSelected;
+        public const string MessageType = "SendChosenActions";
+        public const string MessageTypeInvariant = "sendchosenactions";
+        
+        [JsonProperty("actions")] public string[] Actions;
 
-        public SendChosenActionsMessage(JToken data)
+        public GameAction[] ActionsSelected
         {
-            var receivedActions = new List<string>();
-            foreach (var value in data["actions"].Values<string>())
+            get
             {
-                receivedActions.Add(value);
-            }
+                var actionsSelected = new GameAction[Actions.Length];
+                for (var i = 0; i < Actions.Length; i++)
+                {
+                    var receivedAction = Actions[i];
 
-            ActionsSelected = new GameAction[receivedActions.Count];
-            for (var i = 0; i < receivedActions.Count; i++)
-            {
-                var receivedAction = receivedActions[i];
-
-                var actionEnum = ParseActionToEnum(receivedAction);
-                ActionsSelected[i] = actionEnum;
+                    var actionEnum = ParseActionToEnum(receivedAction);
+                    actionsSelected[i] = actionEnum;
+                }
+                return actionsSelected;
             }
         }
 

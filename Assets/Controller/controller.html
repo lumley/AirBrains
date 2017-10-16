@@ -36,7 +36,7 @@
             color: white;
             bottom: 5%;
         }
-        
+
         .white-text {
             font-family: Arial;
             color: white;
@@ -50,7 +50,7 @@
             right: 5%;
             bottom: 5%;
         }
-        
+
         .mini-button {
             width: 40px;
             height: 40px;
@@ -60,7 +60,12 @@
 
     <script type="text/javascript">
 
+        var turn1Action = "wait";
+        var turn2Action = "wait";
+        var turn3Action = "wait";
+        var turn4Action = "wait";
         var airconsole;
+
         /**
          * Sets up the communication to the screen.
          */
@@ -72,10 +77,20 @@
                 document.getElementById("content").innerHTML = "device " + from + " says: " + data;
 
                 var parsedMessage = JSON.parse(data);
-                
+
                 var messageType = parsedMessage["type"].toLowerCase();
-                if (messageType === "avatarchosen"){
+                if (messageType === "avatarchosen") {
                     document.getElementById("avatar").innerHTML = "Chosen avatar: " + parsedMessage["avatarIndex"];
+                } else if (messageType === "startround") {
+                    document.getElementById("turn1").innerHTML = "Turn 1: wait";
+                    document.getElementById("turn2").innerHTML = "Turn 2: wait";
+                    document.getElementById("turn3").innerHTML = "Turn 3: wait";
+                    document.getElementById("turn4").innerHTML = "Turn 4: wait";
+                    turn1Action = "wait";
+                    turn2Action = "wait";
+                    turn3Action = "wait";
+                    turn4Action = "wait";
+                    document.getElementById("turn4").innerHTML = "Round: " + parsedMessage["round"] + " Donors: " + parsedMessage["donorCount"] + " Funds Raised: " + parsedMessage["fundsRaised"]+"M";
                 }
             };
 
@@ -147,6 +162,8 @@
 
             this.airconsole.message(AirConsole.SCREEN, jsonMessage);
         };
+        
+        
 
         // - - - - - - END GAME API SECTION - - - - - - 
 
@@ -158,6 +175,28 @@
         App.prototype.displayNickname = function () {
             var name = this.airconsole.getNickname();
             document.getElementById("content").innerHTML = "My name is: " + name;
+        };
+        
+        App.prototype.setDefinedAction = function (turn, action) {
+            switch (turn){
+                case 1:
+                    turn1Action = action;
+                    document.getElementById("turn1").innerHTML = "Turn 1: "+action;
+                    break;
+                case 2:
+                    turn2Action = action;
+                    document.getElementById("turn2").innerHTML = "Turn 2: "+action;
+                    break;
+                case 3:
+                    turn3Action = action;
+                    document.getElementById("turn3").innerHTML = "Turn 3: "+action;
+                    break;
+                default:
+                    turn4Action = action;
+                    document.getElementById("turn4").innerHTML = "Turn 4: "+action;
+                    break;
+            }
+            App.prototype.sendSendChosenActions([turn1Action, turn2Action, turn3Action, turn4Action]);
         };
 
     </script>
@@ -184,31 +223,32 @@
         <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Set ready</button>
         <button class="button button-right" ontouchstart="window.app.sendStartGame()">Start game</button>
 
-        <div class="white-text">Turn 1: wait</div>
-        <button class="mini-button">Wait</button>
-        <button class="mini-button">Left</button>
-        <button class="mini-button">Up</button>
-        <button class="mini-button">Right</button>
-        <button class="mini-button">Down</button>
-        <div class="white-text">Turn 2: wait</div>
-        <button class="mini-button">Wait</button>
-        <button class="mini-button">Left</button>
-        <button class="mini-button">Up</button>
-        <button class="mini-button">Right</button>
-        <button class="mini-button">Down</button>
-        <div class="white-text">Turn 3: wait</div>
-        <button class="mini-button">Wait</button>
-        <button class="mini-button">Left</button>
-        <button class="mini-button">Up</button>
-        <button class="mini-button">Right</button>
-        <button class="mini-button">Down</button>
-        <div class="white-text">Turn 4: wait</div>
-        <button class="mini-button">Wait</button>
-        <button class="mini-button">Left</button>
-        <button class="mini-button">Up</button>
-        <button class="mini-button">Right</button>
-        <button class="mini-button">Down</button>
-        <button class="button">Ready for turn</button>
+        <div id="current-game" class="white-text">Round: 0 Donors: 0 Funds Raised: 0M</div>
+        <div id="turn1" class="white-text">Turn 1: wait</div>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'wait')">Wait</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'left')">Left</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'up')">Up</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'right')">Right</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'down')">Down</button>
+        <div id="turn2" class="white-text">Turn 2: wait</div>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'wait')">Wait</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'left')">Left</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'up')">Up</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'right')">Right</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'down')">Down</button>
+        <div id="turn3" class="white-text">Turn 3: wait</div>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'wait')">Wait</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'left')">Left</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'up')">Up</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'right')">Right</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'down')">Down</button>
+        <div id="turn4" class="white-text">Turn 4: wait</div>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'wait')">Wait</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'left')">Left</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'up')">Up</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'right')">Right</button>
+        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'down')">Down</button>
+        <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Ready for turn</button>
 
     </div>
 

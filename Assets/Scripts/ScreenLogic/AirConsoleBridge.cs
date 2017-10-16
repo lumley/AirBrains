@@ -47,7 +47,7 @@ namespace ScreenLogic
             {
                 return;
             }
-            
+
             switch (actionType.ToLowerInvariant())
             {
                 case SetReadyMessage.MessageTypeInvariant:
@@ -58,8 +58,9 @@ namespace ScreenLogic
                     var startGameMessage = data.ToObject<StartGameMessage>();
                     _gameStateController.OnStartGameMessage(deviceId, startGameMessage);
                     break;
-                case "sendchosenactions":
-                    new SendChosenActionsMessage(data);
+                case SendChosenActionsMessage.MessageTypeInvariant:
+                    var sendChosenActionsMessage = data.ToObject<SendChosenActionsMessage>();
+                    _gameStateController.OnReceivedChosenActionsMessage(deviceId, sendChosenActionsMessage);
                     break;
                 case SetAvatarIndexMessage.MessageTypeInvariant:
                     var globalPlayerState = data.ToObject<SetAvatarIndexMessage>();
@@ -93,11 +94,17 @@ namespace ScreenLogic
 #if !DISABLE_AIRCONSOLE
             var avatarChosenMessage = new AvatarChosenMessage
             {
-                Type = AvatarChosenMessage.MessageType,
                 AvatarIndex = globalPlayer.AvatarIndex
             };
             AirConsole.instance.Message(globalPlayer.LobbyPlayerData.Id,
                 JsonConvert.SerializeObject(avatarChosenMessage));
+#endif
+        }
+
+        public void SendStartRound(int deviceId, StartRoundMessage startRoundMessage)
+        {
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Message(deviceId, JsonConvert.SerializeObject(startRoundMessage));
 #endif
         }
     }
