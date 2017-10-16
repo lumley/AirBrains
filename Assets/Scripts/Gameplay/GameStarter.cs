@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameStarter : MonoBehaviour {
+public class GameStarter : MonoBehaviour
+{
+    public string[] availableLevelScenes;
 
-	public string[] availableLevelScenes;
-
-	void Start(){
-		string newScene = availableLevelScenes [Mathf.RoundToInt (Random.value * availableLevelScenes.Length)];
-		Debug.Log ("Loading " + newScene);
-		SceneManager.LoadScene (newScene);
-	}
+    void Start()
+    {
+        string newScene = availableLevelScenes[Mathf.RoundToInt(Random.value * (availableLevelScenes.Length - 1))];
+        Debug.Log("Loading " + newScene);
+        SceneManager.LoadScene(newScene);
+    }
 }
