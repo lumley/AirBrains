@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03e8f932026149a2ab0536c288069dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1729347534998800, guid: 2b1346b4629424f028a5940ef1ae73bd,
+  prefabToSpawn: {fileID: 1178155124527414, guid: 8463a74f05e0a4d20b1155b7a9ab9faa,
     type: 2}
   replaceOnAwake: 0
 --- !u!212 &212216604946868276

@@ -10,10 +10,13 @@ public class RandomMoveProvider : MoveProvider {
 
 	public override void StartCollectingMoves(){
 		myMoves.Clear ();
+		string moves = "";
 		for (int moveIndex = 0; moveIndex < numberOfMovesPerRound; moveIndex++) {
 			Move randomMove = (Move)moveValues.GetValue(UnityEngine.Random.Range(0, moveValues.Length));
 			myMoves.Add (randomMove);
+			moves += randomMove + " ";
 		}
+		Debug.Log ("GOT MOVE REQUEST FOR : " + gameObject.name + " moves: " + moves);
 	}
 	public override bool FinishedPlanningMoves () {
 		return myMoves.Count == numberOfMovesPerRound;

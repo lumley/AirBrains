@@ -84,6 +84,18 @@ MonoBehaviour:
   _character: 2
   _stickerAnimationOffset: {x: 0.33, y: 0.155, z: -0.0001}
   _stickerAnimationLocalScale: {x: 0.6, y: 0.6, z: 1}
+  characterAnimatorLinks: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  animatorCharacterLinks:
+  - {fileID: 9100000, guid: 7f64fee738329441c91a0732c47f25d1, type: 2}
+  - {fileID: 9100000, guid: 141f5f3cdcbef4380ac16e3b178ac14a, type: 2}
+  - {fileID: 9100000, guid: 703694769a32445908d80d583f86dac1, type: 2}
+  - {fileID: 9100000, guid: 00127e44f1be24a4bbcc650ef915911a, type: 2}
+  - {fileID: 9100000, guid: 330c49b5a856b4e3c80642fd021cad35, type: 2}
+  - {fileID: 9100000, guid: c76ab9df77ca444a3a172023b1caf1e6, type: 2}
+  - {fileID: 9100000, guid: 2db5a59322f624f729f27d6e1a166f7c, type: 2}
+  - {fileID: 9100000, guid: 139d2246ed17846b1b2ec53e9edc2d05, type: 2}
+  - {fileID: 9100000, guid: f82a3ceca8c4f41a2a6cc97a63b9b456, type: 2}
+  - {fileID: 9100000, guid: 8835f8907c56f4eefacd8f8a0effeef2, type: 2}
 --- !u!114 &114070067429864858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPlayerReady: 0
+  _moveList: 
 --- !u!212 &212139188300462058
 SpriteRenderer:
   m_ObjectHideFlags: 1

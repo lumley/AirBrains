@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public sealed class MonsterAnimationController : CharacterAnimationController
 {
@@ -15,6 +17,9 @@ public sealed class MonsterAnimationController : CharacterAnimationController
     private Vector3 _stickerAnimationLocalScale = new Vector3(0.6f, 0.6f, 1f);
 
     private StickerAnimation _stickerAnimation;
+
+	public List<CharacterType> characterAnimatorLinks;
+	public List<RuntimeAnimatorController> animatorCharacterLinks;
     
     protected override void Start()
     {
@@ -38,4 +43,9 @@ public sealed class MonsterAnimationController : CharacterAnimationController
             _stickerAnimation.PlayAnimation(_character);
         }
     }
+
+	public void SetCharacter(CharacterType newType) {
+		this._character = newType;
+		gameObject.GetComponent<Animator> ().runtimeAnimatorController = animatorCharacterLinks [characterAnimatorLinks.IndexOf (newType)];
+	}
 }

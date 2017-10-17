@@ -50,8 +50,8 @@ public class ThoughtBubble : MonoBehaviour {
 
 	public void StartFadeIn() {
 		StopAllCoroutines ();
-		StartCoroutine (FadeIn());
 		StartCoroutine (CollectMoves ());
+		StartCoroutine (FadeIn());
 	}
 
 	public IEnumerator CollectMoves() { 
