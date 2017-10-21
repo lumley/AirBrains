@@ -12,6 +12,11 @@ public class ScoreTracker : MonoBehaviour {
 		get { return currentScore; }
 	}
 
+	public CharacterType Character {
+		get;
+		set;
+	}
+
 	void Start() {
 		currentScore = 0;
 	}

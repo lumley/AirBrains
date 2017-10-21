@@ -10,6 +10,9 @@ public class LeaderboardEntry : MonoBehaviour {
 	public string beforeText = "$";
 	public string afterText = "k";
 
+	public List<CharacterType> characterPortraitLinks;
+	public List<Sprite> portraitCharacterLinks;
+
 	private ScoreTracker tracker;
 	private RectTransform _transform;
 	private float targetYPos = 0f;
@@ -22,6 +25,8 @@ public class LeaderboardEntry : MonoBehaviour {
 	public void SetScoreTracker(ScoreTracker newTracker) {
 		tracker = newTracker;
 		scoreText.text = tracker.Score.ToString ();
+
+		portrait.sprite = portraitCharacterLinks [characterPortraitLinks.IndexOf (newTracker.Character)];
 	}
 
 	public void SetVerticalPositionTarget(float yPos) {

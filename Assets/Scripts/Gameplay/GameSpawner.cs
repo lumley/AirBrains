@@ -31,6 +31,7 @@ public class GameSpawner : MonoBehaviour {
 			GameObject newPlayer = replacer.SpawnPrefab ();
 			GlobalPlayer thisPlayer = players [playerId];
 			newPlayer.GetComponent<MonsterAnimationController> ().SetCharacter (thisPlayer.LobbyPlayerData.Character);
+			newPlayer.GetComponent<ScoreTracker> ().Character = thisPlayer.LobbyPlayerData.Character;
 		}
 		foreach (PrefabReplacer replacer in playerSpawns) {
 			Destroy (replacer.gameObject);
