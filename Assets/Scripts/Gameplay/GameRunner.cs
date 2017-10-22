@@ -11,6 +11,8 @@ public class GameRunner : MonoBehaviour {
 
 	public string tagForPoints = "human";
 
+	public GameObject victoryScreen;
+
 	private bool gameRunning = false;
 	private bool isFirstRound = false;
 	private int roundNumber = 0;
@@ -69,6 +71,7 @@ public class GameRunner : MonoBehaviour {
 			yield return HandleRoundEndDisplay ();
 		}
 		SetupVictoryScreen ();
+		yield return WaitToMoveOn ();
 	}
 
 	private IEnumerator WaitForReadyOrTime() {
@@ -201,7 +204,27 @@ public class GameRunner : MonoBehaviour {
 			}
 		}
 		Debug.Log (highestScore.gameObject.name + " wins with " + highestScore.Score + " points!");
-		//TODO: Set up the victory screen
+		if (victoryScreen != null) {
+			victoryScreen.SetActive (true);
+		}
+	}
+
+	private IEnumerator WaitToMoveOn () {
+		yield return new WaitForSeconds (3f); //Delay so that no one moves on before the gloating is over
+		foreach (MoveProvider moveProvider in moveProviders) {
+			moveProvider.StartCollectingMoves ();
+		}
+		bool readyToMoveOn = false;
+		while (!readyToMoveOn) {
+			foreach (MoveProvider provider in moveProviders) {
+				readyToMoveOn = readyToMoveOn || provider.FinishedPlanningMoves();
+			}
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				readyToMoveOn = true;
+			}
+			yield return new WaitForEndOfFrame ();
+		}
+		GameStateController.FindInScene ().HeadToTheLobby ();
 	}
 
 	private void SaveOriginalPositions() {

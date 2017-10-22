@@ -14,6 +14,12 @@ public class GameSpawner : MonoBehaviour {
 
 
 	public void StartGame (List<GlobalPlayer> players) {
+		if (players == null) {
+			Debug.LogError ("NO PLAYERS PROVIDED!");
+		}
+		if (players.Count <= 0) {
+			Debug.LogError ("NO PLAYERS GIVEN!");
+		}
 		List<PrefabReplacer> humanSpawns = new List<PrefabReplacer> ();
 		List<PrefabReplacer> playerSpawns = new List<PrefabReplacer> ();
 		foreach (PrefabReplacer replacer in GameObject.FindObjectsOfType<PrefabReplacer>()) {
@@ -24,9 +30,21 @@ public class GameSpawner : MonoBehaviour {
 			}
 		}
 
+		if (humanSpawns.Count < 0) {
+			Debug.LogError ("NO HUMAN SPAWNS FOUND!");
+		}
+		if (playerSpawns.Count < 0) {
+			Debug.LogError ("NO PLAYER SPAWNS FOUND!");
+		}
+
+
 		int playersToSpawn = players.Count;
 		for (int playerId = 0; playerId < playersToSpawn; playerId++) {
-			PrefabReplacer replacer = playerSpawns [Mathf.RoundToInt (Random.value * playerSpawns.Count)];
+			int replacerIndex = Mathf.RoundToInt (Random.value * playerSpawns.Count);
+			while (replacerIndex >= playerSpawns.Count) {
+				replacerIndex = Mathf.RoundToInt (Random.value * playerSpawns.Count);
+			}
+			PrefabReplacer replacer = playerSpawns [replacerIndex];
 			playerSpawns.Remove (replacer);
 			GameObject newPlayer = replacer.SpawnPrefab ();
 			GlobalPlayer thisPlayer = players [playerId];

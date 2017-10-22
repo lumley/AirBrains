@@ -76,14 +76,13 @@ MonoBehaviour:
   fillImage: {fileID: 114721736120861148}
   text: {fileID: 114424450575492672}
   textTriggers:
-  - 30
+  - 1
   - 15
   - 10
   - 5
   - 4
   - 3
   - 2
-  - 1
   textColor: {r: 0.87102073, g: 0.897, b: 0.235, a: 1}
 --- !u!114 &114424450575492672
 MonoBehaviour:

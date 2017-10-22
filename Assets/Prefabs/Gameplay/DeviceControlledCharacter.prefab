@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114052933346776562}
   - component: {fileID: 114804844320299004}
   m_Layer: 0
-  m_Name: DeviceControlledLeezardMan
+  m_Name: DeviceControlledCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -39,9 +39,24 @@ public class GameStateController : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
-        _currentGameState = GameState.OnLobby;
+		HeadToTheLobby ();
     }
+
+	public void HeadToTheLobby() {
+		SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
+		_currentGameState = GameState.OnLobby;
+	}
+
+	public void LinkExistingPlayers() {
+		var lobbyController = LobbyController.FindInScene();
+		if (lobbyController == null) {
+			Debug.LogError ("NO LOBBYCONTROLLER FOUND!");
+		}
+		foreach(GlobalPlayer globalPlayer in _globalPlayers) {
+			lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
+			AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+		}
+	}
 
     public void OnDeviceConnected(int deviceId)
     {

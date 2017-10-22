@@ -20,8 +20,8 @@ public sealed class LobbyController : MonoBehaviour
 	{
 		View.ApplyModel (Model);
 		Model.OnAvailableCharactersChanged += SendAvailableCharacters;
-
 		SendAvailableCharacters (Model.AvailableCharacters);
+		GameStateController.FindInScene ().LinkExistingPlayers ();
 	}
 
 	private void OnDestroy()
