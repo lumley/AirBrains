@@ -16,6 +16,7 @@ public class GameRunner : MonoBehaviour {
 	private int roundNumber = 0;
 	private int lastRoundNumber = -1;
 	private int currentTurn = 0;
+	private float moveSelectionTimeRemaining = -1f;
 
 	private List<MoveProvider> moveProviders = new List<MoveProvider>();
 	private List<ScoreTracker> scoreTrackers = new List<ScoreTracker>();
@@ -72,16 +73,18 @@ public class GameRunner : MonoBehaviour {
 
 	private IEnumerator WaitForReadyOrTime() {
 		bool readyToMoveOn = false;
-		float startTime = Time.timeSinceLevelLoad;
 		foreach (MoveProvider moveProvider in moveProviders) {
 			moveProvider.StartCollectingMoves ();
 		}
+		moveSelectionTimeRemaining = secondsToWaitForInput;
 		FireEvent (StartCollectingMoves);
 		while (!readyToMoveOn) {
 			if (!isFirstRound) {
-				if (Time.timeSinceLevelLoad - startTime > secondsToWaitForInput) {
+				if (moveSelectionTimeRemaining <= 0f) {
 					readyToMoveOn = true;
 				}
+			} else {
+				moveSelectionTimeRemaining = -1f;
 			}
 			if (AreAllPlayersReady()) {
 				readyToMoveOn = true;
@@ -89,8 +92,10 @@ public class GameRunner : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				readyToMoveOn = true;
 			}
+			moveSelectionTimeRemaining -= Time.deltaTime;
 			yield return new WaitForEndOfFrame ();
 		}
+		moveSelectionTimeRemaining = -1f;
 	}
 
 	private bool AreAllPlayersReady() {
@@ -301,6 +306,10 @@ public class GameRunner : MonoBehaviour {
 		if (numberWithHighscore > 1) {
 			gameRunning = true;
 		}
+	}
+
+	public float TimeLeft {
+		get { return moveSelectionTimeRemaining; }
 	}
 
 	private void FireEvent(GameEvent myEvent) {
