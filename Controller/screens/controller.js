@@ -6,7 +6,7 @@ const optionClassName = "option";
 const activeOptionClassName = "option-active";
 const readyClassName = "ready";
 const readyButtonClassName = "ready-button";
-const readyButtonDisableClassName = "ready-button--disabled";
+const buttonDisabled = "button-disabled";
 const readyButtonActiveClassName = "ready-button--active";
 
 const optionTexts = [
@@ -132,7 +132,7 @@ function activateReady() {
 function enableReady() {
   readyButtonElement.disabled = false;
 
-  readyButtonElement.classList.remove(readyButtonDisableClassName);
+  readyButtonElement.classList.remove(buttonDisabled);
 }
 
 setTimeout(
