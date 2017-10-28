@@ -71,7 +71,7 @@ public class GameRunner : MonoBehaviour {
 			yield return HandleRoundEndDisplay ();
 		}
 		SetupVictoryScreen ();
-		yield return WaitToMoveOn ();
+		yield return StartCoroutine(WaitToMoveOn ());
 	}
 
 	private IEnumerator WaitForReadyOrTime() {
@@ -210,14 +210,16 @@ public class GameRunner : MonoBehaviour {
 	}
 
 	private IEnumerator WaitToMoveOn () {
-		yield return new WaitForSeconds (3f); //Delay so that no one moves on before the gloating is over
+		yield return new WaitForSeconds (5f); //Delay so that no one moves on before the gloating is over
 		foreach (MoveProvider moveProvider in moveProviders) {
 			moveProvider.StartCollectingMoves ();
 		}
 		bool readyToMoveOn = false;
 		while (!readyToMoveOn) {
 			foreach (MoveProvider provider in moveProviders) {
-				readyToMoveOn = readyToMoveOn || provider.FinishedPlanningMoves();
+				if (provider as RandomMoveProvider == null) {
+					readyToMoveOn = readyToMoveOn || provider.FinishedPlanningMoves();
+				}
 			}
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				readyToMoveOn = true;
