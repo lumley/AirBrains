@@ -12,6 +12,8 @@ const characterPreviewClassNamePrefix = "character-preview-";
 const selectButtonSelectedClassName = "selection-button--selected";
 const buttonDisabledClassName = "button-disabled";
 const buttonSelectedClassName = "button-selected";
+const characterPreviewSelectedClassName = "character-preview-selected";
+const characterPreviewUnavailableClassName = "character-preview-unavailable";
 
 const previousElement = document.getElementsByClassName(previousButtonClassName)[0];
 const selectElement = document.getElementsByClassName(selectButtonClassName)[0];
@@ -96,12 +98,12 @@ function setCurrentCharacterId(newCharacterId) {
 
 function selectCharacter() {
   if (currentPlayerSelectedCharacterId != undefined) {
-    characterPreview[currentPlayerSelectedCharacterId].classList.remove(buttonSelectedClassName);
+    characterPreview[currentPlayerSelectedCharacterId].classList.remove(characterPreviewSelectedClassName);
   }
 
   currentPlayerSelectedCharacterId = currentCharacterId;
 
-  characterPreview[currentPlayerSelectedCharacterId].classList.add(buttonSelectedClassName);
+  characterPreview[currentPlayerSelectedCharacterId].classList.add(characterPreviewSelectedClassName);
 
   updateSelectButton();
 
@@ -128,14 +130,13 @@ function updateSelectButton() {
 
 setPlayerSelection(0, true);
 
-
 function setPlayerSelection(id, selected) {
   playerSelections[id] = selected;
 
   if (selected) {
-    characterPreview[id].classList.add(buttonDisabledClassName);
+    characterPreview[id].classList.add(characterPreviewUnavailableClassName);
   } else {
-    characterPreview[id].classList.remove(buttonDisabledClassName);
+    characterPreview[id].classList.remove(characterPreviewUnavailableClassName);
   }
 
 

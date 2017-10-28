@@ -10,12 +10,12 @@ const buttonDisabled = "button-disabled";
 const readyButtonActiveClassName = "ready-button--active";
 
 const optionTexts = [
-  "⬆",
-  "⬅",
-  "⌛",
-  "➡",
-  "⬇",
-  "?"
+  "<img src=\"images/icon_up.png\" />",
+  "<img src=\"images/icon_left.png\" />",
+  "<img src=\"images/icon_stop.png\" />",
+  "<img src=\"images/icon_right.png\" />",
+  "<img src=\"images/icon_down.png\" />",
+  "<img src=\"images/icon_random_lightblue.png\" />"
 ];
 
 const optionUp = 0;
@@ -28,7 +28,6 @@ const optionUndefined = 5;
 var selectedSlotId = undefined;
 var selectedOptions = [optionUndefined, optionUndefined, optionUndefined, optionUndefined];
 var ready = false;
-var blockOptionInputs = false;
 var allSlotSelected = false;
 
 const slotElements = document.getElementsByClassName(slotClassName);
@@ -44,9 +43,7 @@ const readyButtonElement = readyElement.getElementsByClassName(readyButtonClassN
 
 [].slice.call(optionElements).forEach(function(option, index) {
   option.addEventListener("click", function(){
-    if (!blockOptionInputs) {
       selectOption(index, true);
-    }
   });
 });
 
@@ -84,7 +81,7 @@ function selectOption(optionId, autoSelectNextSlot) {
 
   optionElements[optionId].classList.add(activeOptionClassName);
 
-  slotElements[selectedSlotId].getElementsByClassName(slotButtonClassName)[0].textContent = optionTexts[optionId];
+  slotElements[selectedSlotId].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[optionId];
 
   selectedOptions[selectedSlotId] = optionId;
 
@@ -95,12 +92,7 @@ function selectOption(optionId, autoSelectNextSlot) {
   if (autoSelectNextSlot && !allSlotSelected)
   {
     if (selectedSlotId < slotElements.length - 1) {
-      blockOptionInputs = true;
-      setTimeout(function() {
-          blockOptionInputs = false;
-          selectSlot(selectedSlotId + 1);
-        },
-        1000);
+      selectSlot(selectedSlotId + 1);
     }
   }
 
@@ -135,12 +127,7 @@ function enableReady() {
   readyButtonElement.classList.remove(buttonDisabled);
 }
 
-setTimeout(
-  function() {
-    selectSlot(0);
-  },
-  1000
-);
+selectSlot(0);
 
 function onActionSelected(optionId) {
   console.log("Action " + optionTexts[optionId] + " selected for action slot " + selectedSlotId);
