@@ -65,6 +65,12 @@ public class GameSpawner : MonoBehaviour {
 		}
 
 		GameObject.FindObjectOfType<LeaderboardTracker>().OnGameStart();
+
+		StartCoroutine (StartInASecond ());
+	}
+
+	private IEnumerator StartInASecond() {
+		yield return new WaitForSeconds (.5f);
 		GameObject.FindObjectOfType<GameRunner>().StartGame();
 	}
 }

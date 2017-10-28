@@ -136,9 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableLevelScenes:
-  - MonstrousPianos
   - MonstrousSynapse
-  - MonstrousTriptych
 --- !u!4 &1609769256
 Transform:
   m_ObjectHideFlags: 0
