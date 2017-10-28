@@ -11,6 +11,7 @@ html, body {
 header {
   flex: 0 0 200px;
   z-index: 1;
+  overflow: hidden;
 }
 
 main {

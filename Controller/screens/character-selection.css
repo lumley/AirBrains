@@ -144,20 +144,16 @@ footer.character-selection {
   margin-bottom: 20px;
 }
 
-.character-container-0 {
-  left: 0;
-  transition: left .75s ease-out;
-}
-
-.character-container-1 {
-  left: -100%;
-  transition: left .75s ease-out;
-}
-
-.character-container-2 {
-  left: -200%;
-  transition: left .75s ease-out;
-}
+.character-container-0 { left: 0;     transition: left .75s ease-out; }
+.character-container-1 { left: -100%; transition: left .75s ease-out; }
+.character-container-2 { left: -200%; transition: left .75s ease-out; }
+.character-container-3 { left: -300%; transition: left .75s ease-out; }
+.character-container-4 { left: -400%; transition: left .75s ease-out; }
+.character-container-5 { left: -500%; transition: left .75s ease-out; }
+.character-container-6 { left: -600%; transition: left .75s ease-out; }
+.character-container-7 { left: -700%; transition: left .75s ease-out; }
+.character-container-8 { left: -800%; transition: left .75s ease-out; }
+.character-container-9 { left: -900%; transition: left .75s ease-out; }
 
 /*@keyframes click-button {*/
   /*0% { background-color: red; }*/
@@ -180,22 +176,19 @@ footer.character-selection {
   align-items: center;
   height: 100%;
   flex-shrink: 0;
+  margin-top: 20px;
 }
 
-.character-preview-focus-0 {
-  margin-left: 150px;
-  transition: margin-left .75s ease-out;
-}
-
-.character-preview-focus-1 {
-  margin-left: 0;
-  transition: margin-left .75s ease-out;
-}
-
-.character-preview-focus-2 {
-  margin-left: -150px;
-  transition: margin-left .75s ease-out;
-}
+.character-preview-focus-0 { margin-left: 675px;  transition: margin-left .75s ease-out; }
+.character-preview-focus-1 { margin-left: 525px;  transition: margin-left .75s ease-out; }
+.character-preview-focus-2 { margin-left: 375px;  transition: margin-left .75s ease-out; }
+.character-preview-focus-3 { margin-left: 225px;  transition: margin-left .75s ease-out; }
+.character-preview-focus-4 { margin-left: 75px;   transition: margin-left .75s ease-out; }
+.character-preview-focus-5 { margin-left: -75px;  transition: margin-left .75s ease-out; }
+.character-preview-focus-6 { margin-left: -225px; transition: margin-left .75s ease-out; }
+.character-preview-focus-7 { margin-left: -375px; transition: margin-left .75s ease-out; }
+.character-preview-focus-8 { margin-left: -525px; transition: margin-left .75s ease-out; }
+.character-preview-focus-9 { margin-left: -675px; transition: margin-left .75s ease-out; }
 
 .character-preview {
   width: 140px;
@@ -259,8 +252,9 @@ footer.character-selection {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 140px;
-  font-size: 4em;
+  top: 175px;
+  font-size: 5em;
   flex-shrink: 0;
   color: #b2cc16;
+  z-index: 5;
 }
