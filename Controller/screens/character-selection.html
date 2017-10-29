@@ -4,159 +4,45 @@
   <meta charset="UTF-8">
   <title>Character</title>
 
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="character-selection.css">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+
+<body class="content">
 
 <header>
   <div class="character-previews-container">
-    <div class="character-previews character-preview-focus-">
-      <div class="character-preview character-preview-0">
-      </div>
-
-      <div class="character-preview character-preview-1">
-      </div>
-
-      <div class="character-preview character-preview-2">
-      </div>
-
+    <div class="character-previews">
+      <!--Created dynamically-->
     </div>
 
-    <div class="character-preview-cursor">
-      ▲
-    </div>
+
   </div>
+
 </header>
 
+<div class="character-preview-cursor">▲</div>
+
 <main>
+  <div class="decorative-border">
+    <div class="decorative-border-top"> </div>
+    <div class="decorative-border-right"> </div>
+    <div class="decorative-border-bottom"> </div>
+    <div class="decorative-border-left"> </div>
+  </div>
+
   <div class="characters">
     <div class="character-container">
-      <div class="character character-0">
-        <div class="character-content">
-          <div class="character-name">
-            Sen. HUEY 1.
-          </div>
-          <div class="character-detail">
-            <div class="character-image">
-                <img src="character-1.png" />
-            </div>
-            <div class="character-information">
-              <div class="character-label">
-                From:
-              </div>
-              <div class="character-value">
-                Philadelphia
-              </div>
-              <div class="character-label">
-                Weight:
-              </div>
-              <div class="character-value">
-                32.645lb
-              </div>
-              <div class="character-label">
-                Height:
-              </div>
-              <div class="character-value">
-                39"
-              </div>
-            </div>
-          </div>
-          <div class="character-agenda">
-            <span class="character-label">
-              Agenda:
-            </span>
-            <span class="character-value">
-              Murders and executions, mostly.
-            </span>
-          </div>
-        </div>
-      </div><div class="character character-1">
-        <div class="character-content">
-          <div class="character-name">
-            Sen. HUEY 2.
-          </div>
-          <div class="character-detail">
-            <div class="character-image">
-              <img src="character-1.png" />
-            </div>
-            <div class="character-information">
-              <div class="character-label">
-                From:
-              </div>
-              <div class="character-value">
-                Philadelphia
-              </div>
-              <div class="character-label">
-                Weight:
-              </div>
-              <div class="character-value">
-                32.645lb
-              </div>
-              <div class="character-label">
-                Height:
-              </div>
-              <div class="character-value">
-                39"
-              </div>
-            </div>
-          </div>
-          <div class="character-agenda">
-            <span class="character-label">
-              Agenda:
-            </span>
-            <span class="character-value">
-              Murders and executions, mostly.
-            </span>
-          </div>
-        </div>
-      </div><div class="character character-2">
-        <div class="character-content">
-          <div class="character-name">
-            Sen. HUEY 3.
-          </div>
-          <div class="character-detail">
-            <div class="character-image">
-              <img src="character-1.png" />
-            </div>
-            <div class="character-information">
-              <div class="character-label">
-                From:
-              </div>
-              <div class="character-value">
-                Philadelphia
-              </div>
-              <div class="character-label">
-                Weight:
-              </div>
-              <div class="character-value">
-                32.645lb
-              </div>
-              <div class="character-label">
-                Height:
-              </div>
-              <div class="character-value">
-                39"
-              </div>
-            </div>
-          </div>
-          <div class="character-agenda">
-            <span class="character-label">
-              Agenda:
-            </span>
-            <span class="character-value">
-              Murders and executions, mostly.
-            </span>
-          </div>
-        </div>
-      </div>
+      <!--Created dynamically-->
     </div>
   </div>
 </main>
 
-<footer>
+<footer class="character-selection">
   <div class="navigation">
     <div tabindex="0" class="navigation-button previous-button">
-      Prev
+      Prev.
     </div>
     <div tabindex="1" class="selection-button select-button">
       Select
@@ -167,6 +53,7 @@
   </div>
 </footer>
 
+<script src="characters.js"></script>
 <script src="character-selection.js"></script>
 
 </body>

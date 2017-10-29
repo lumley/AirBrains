@@ -12,18 +12,22 @@ const characterPreviewClassNamePrefix = "character-preview-";
 const selectButtonSelectedClassName = "selection-button--selected";
 const buttonDisabledClassName = "button-disabled";
 const buttonSelectedClassName = "button-selected";
+const characterPreviewSelectedClassName = "character-preview-selected";
+const characterPreviewUnavailableClassName = "character-preview-unavailable";
+
+const characterContainerElement = document.getElementsByClassName(characterContainerClassName)[0];
+const characterPreviewsElement = document.getElementsByClassName(characterPreviews)[0];
+initializeCharacters();
 
 const previousElement = document.getElementsByClassName(previousButtonClassName)[0];
 const selectElement = document.getElementsByClassName(selectButtonClassName)[0];
 const nextElement = document.getElementsByClassName(nextButtonClassName)[0];
-const characterContainerElement = document.getElementsByClassName(characterContainerClassName)[0];
-const characterPreviewsElement = document.getElementsByClassName(characterPreviews)[0];
 const characterPreview = document.getElementsByClassName(characterPreviewClassName);
 
 const selectText = "Select";
 const selectSelectedText = "✔";
 
-const characterCount = 3;
+const characterCount = 10;
 var currentCharacterId = 0;
 var currentPlayerSelectedCharacterId = undefined;
 var playerSelections = [];
@@ -96,12 +100,12 @@ function setCurrentCharacterId(newCharacterId) {
 
 function selectCharacter() {
   if (currentPlayerSelectedCharacterId != undefined) {
-    characterPreview[currentPlayerSelectedCharacterId].classList.remove(buttonSelectedClassName);
+    characterPreview[currentPlayerSelectedCharacterId].classList.remove(characterPreviewSelectedClassName);
   }
 
   currentPlayerSelectedCharacterId = currentCharacterId;
 
-  characterPreview[currentPlayerSelectedCharacterId].classList.add(buttonSelectedClassName);
+  characterPreview[currentPlayerSelectedCharacterId].classList.add(characterPreviewSelectedClassName);
 
   updateSelectButton();
 
@@ -128,16 +132,76 @@ function updateSelectButton() {
 
 setPlayerSelection(0, true);
 
-
 function setPlayerSelection(id, selected) {
   playerSelections[id] = selected;
 
   if (selected) {
-    characterPreview[id].classList.add(buttonDisabledClassName);
+    characterPreview[id].classList.add(characterPreviewUnavailableClassName);
   } else {
-    characterPreview[id].classList.remove(buttonDisabledClassName);
+    characterPreview[id].classList.remove(characterPreviewUnavailableClassName);
   }
 
 
   updateSelectButton();
+}
+
+function initializeCharacters() {
+  characters.forEach(function(character, index) {
+    const characterElement = createElement("div", "character");
+    characterElement.classList.add("character-" + index);
+
+    const content = createElement("div", "character-content", characterElement);
+    const name = createElement("div", "character-name", content);
+
+    const detail = createElement("div", "character-detail", content);
+    const image = createElement("div", "character-image", detail);
+    const img = createElement("img", undefined, image);
+    img.width = 270;
+    img.height = 342;
+    const information = createElement("div", "character-information", detail);
+
+    const fromLabel = createElement("div", "character-label", information);
+    fromLabel.textContent = "From:";
+    const fromValue = createElement("div", "character-value", information);
+
+    const weightLabel = createElement("div", "character-label", information);
+    weightLabel.textContent = "Weight:";
+    const weightValue = createElement("div", "character-value", information);
+
+    const heightLabel = createElement("div", "character-label", information);
+    heightLabel.textContent = "Height:";
+    const heightValue = createElement("div", "character-value", information);
+
+    const agenda = createElement("div", "character-agenda", content);
+    const agendaLabel = createElement("span", "character-label", agenda);
+    agendaLabel.textContent = "Agenda: ";
+    const agendaValue = createElement("span", "character-value", agenda);
+
+    name.textContent = character.name;
+    img.src  = "images/characters_high/" + character.imageName + "_high.png";
+    fromValue.textContent = character.from;
+    weightValue.textContent = character.weight;
+    heightValue.textContent = character.height;
+    agendaValue.textContent = character.agenda;
+
+    characterContainerElement.appendChild(characterElement);
+
+    // Preview
+    const characterPreviewElement = createElement("div", "character-preview", characterPreviewsElement);
+    characterPreviewElement.classList.add("character-preview-" + index);
+  });
+}
+
+function createElement(type, className, parent) {
+  const element = document.createElement(type);
+
+  if (className != undefined) {
+    element.classList.add(className);
+  }
+
+  if (parent != undefined) {
+    parent.appendChild(element);
+  }
+
+  return element;
 }
