@@ -5,7 +5,7 @@
 
 
 # Air Console Messaging
-## Mobile
+## Sent by Mobile
 
  - SetReady: indicates that the player is ready (on set up screen or on each round). 
 
@@ -34,7 +34,7 @@
 | type | string | Type of this message |
 | actions | string[] | "up", "down", "left", "right", "wait" |
 
-## TV
+## Sent by TV
 
  - AvatarChosen: Screen indicates the device which is its avatar. This message is sent when the device connects or whenever it requests to change its avatar.
 
@@ -49,6 +49,7 @@
 | -------- | ---- | ----------- |
 | type | string | Type of this message |
 | availableAvatarIndexes | int[] | Array of integers with all indexes that are available (starting from 1) |
+| notReadyDeviceIds | int[] | Device Ids that are still not ready |
 
  - GameStarted: Screen indicates the devices that a new game has started, indicate all the rules, etc.
 
