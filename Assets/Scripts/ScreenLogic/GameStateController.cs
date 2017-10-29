@@ -115,8 +115,16 @@ public class GameStateController : MonoBehaviour
                         }
                         if (previousKeyToRemove != 0)
                         {
+                            var globalPlayer =
+                                _globalPlayers.Find(player => player.LobbyPlayerData.Id == previousKeyToRemove);
+                            if (globalPlayer != null)
+                            {
+                                globalPlayer.LobbyPlayerData.Id = deviceId;
+                            }
                             _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
                         }
+
+
                         _deviceIdToGameCharacterMap[deviceId] = playerToGameStateBridge;
                         break;
                     }
