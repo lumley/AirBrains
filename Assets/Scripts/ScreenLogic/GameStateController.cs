@@ -124,7 +124,6 @@ public class GameStateController : MonoBehaviour
                             _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
                         }
 
-
                         _deviceIdToGameCharacterMap[deviceId] = playerToGameStateBridge;
                         break;
                     }
