@@ -23,7 +23,7 @@ public class GameStateController : MonoBehaviour
         return FindObjectOfType<GameStateController>();
     }
 
-    private const int MaxAmountOfPlayersAllowed = 10;
+    public const int MaxAmountOfPlayersAllowed = 10;
 
     [SerializeField] private GameState _currentGameState = GameState.StartingUp;
     [SerializeField] private int _lobbyScreenIndex;
@@ -39,24 +39,30 @@ public class GameStateController : MonoBehaviour
 
     private void Start()
     {
-		HeadToTheLobby ();
+        HeadToTheLobby();
     }
 
-	public void HeadToTheLobby() {
-		SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
-		_currentGameState = GameState.OnLobby;
-	}
+    public void HeadToTheLobby()
+    {
+        SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
+        _currentGameState = GameState.OnLobby;
+    }
 
-	public void LinkExistingPlayers() {
-		var lobbyController = LobbyController.FindInScene();
-		if (lobbyController == null) {
-			Debug.LogError ("NO LOBBYCONTROLLER FOUND!");
-		}
-		foreach(GlobalPlayer globalPlayer in _globalPlayers) {
-			lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
-			AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
-		}
-	}
+    public void LinkExistingPlayers()
+    {
+        var lobbyController = LobbyController.FindInScene();
+        if (lobbyController == null)
+        {
+            Debug.LogError("NO LOBBYCONTROLLER FOUND!");
+            return;
+        }
+        
+        foreach (GlobalPlayer globalPlayer in _globalPlayers)
+        {
+            lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
+            AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+        }
+    }
 
     public void OnDeviceConnected(int deviceId)
     {

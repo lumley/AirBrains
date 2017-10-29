@@ -2,78 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class LobbyController : MonoBehaviour 
+public sealed class LobbyController : MonoBehaviour
 {
-	[SerializeField]
-	public LobbyView View;
+    [SerializeField] public LobbyView View;
 
-	public readonly LobbyModel Model = new LobbyModel(10, 2);
+    public readonly LobbyModel Model = new LobbyModel(GameStateController.MaxAmountOfPlayersAllowed, 2);
 
-	public event Action<List<CharacterType>> OnAvailableCharactersChanged;
-	
-	public static LobbyController FindInScene()
-	{
-		return FindObjectOfType<LobbyController>();
-	}
+    public event Action<List<CharacterType>> OnAvailableCharactersChanged;
 
-	private void Awake()
-	{
-		View.ApplyModel (Model);
-		Model.OnAvailableCharactersChanged += SendAvailableCharacters;
-		SendAvailableCharacters (Model.AvailableCharacters);
-		GameStateController.FindInScene ().LinkExistingPlayers ();
-	}
+    public static LobbyController FindInScene()
+    {
+        return FindObjectOfType<LobbyController>();
+    }
 
-	private void OnDestroy()
-	{
-		Model.OnAvailableCharactersChanged -= SendAvailableCharacters;
-	}
+    private void Awake()
+    {
+        View.ApplyModel(Model);
+        Model.OnAvailableCharactersChanged += SendAvailableCharacters;
+        SendAvailableCharacters(Model.AvailableCharacters);
+        GameStateController.FindInScene().LinkExistingPlayers();
+    }
 
-	public void OnLobbyPlayerConnected(LobbyPlayerData playerData)
-	{
-		var existingPlayer = Model.GetPlayer (playerData.Character);
+    private void OnDestroy()
+    {
+        Model.OnAvailableCharactersChanged -= SendAvailableCharacters;
+    }
 
-		if (existingPlayer != null) 
-		{
-			throw new CharacterAlreadyUsedException (playerData.Character);
-		}
+    public void OnLobbyPlayerConnected(LobbyPlayerData playerData)
+    {
+        var existingPlayer = Model.GetPlayerByCharacter(playerData.Character);
 
-		Debug.LogFormat ("OnLobbyPlayerConnected: {0}", playerData);
-		Model.AddPlayer (playerData);
-	}
+        if (existingPlayer != null)
+        {
+            throw new CharacterAlreadyUsedException(playerData.Character);
+        }
+
+        Debug.LogFormat("OnLobbyPlayerConnected: {0}", playerData);
+        Model.AddPlayer(playerData);
+    }
 
 
-	public void OnLobbyPlayerDisconnected(int playerId)
-	{
-		var existingPlayer = Model.GetPlayer (playerId);
-		
-		if (existingPlayer == null) 
-		{
-			throw new PlayerDoesntExistException(playerId);
-		}
+    public void OnLobbyPlayerDisconnected(int playerId)
+    {
+        var existingPlayer = Model.GetOrCreatePlayer(playerId);
 
-		Debug.LogFormat ("OnLobbyPlayerDisconnected: {0}", existingPlayer);
-		Model.RemovePlayer (playerId);
-	}
+        if (existingPlayer == null)
+        {
+            throw new PlayerDoesntExistException(playerId);
+        }
 
-	public void OnLobbyPlayerDataChanged(LobbyPlayerData player)
-	{
-		var existingPlayer = Model.GetPlayer (player.Id);
+        Debug.LogFormat("OnLobbyPlayerDisconnected: {0}", existingPlayer);
+        Model.RemovePlayer(playerId);
+    }
 
-		if (existingPlayer == null) 
-		{
-			throw new PlayerDoesntExistException(player.Id);
-		}
+    public void OnLobbyPlayerDataChanged(LobbyPlayerData player)
+    {
+        var existingPlayer = Model.GetOrCreatePlayer(player.Id);
 
-		Debug.LogFormat ("OnLobbyPlayerDataChanged: {0} -> {1}", existingPlayer, player);
-		Model.OnPlayerDataChanged (player);
-	}
+        if (existingPlayer == null)
+        {
+            throw new PlayerDoesntExistException(player.Id);
+        }
 
-	private void SendAvailableCharacters(List<CharacterType> characters)
-	{
-		if (OnAvailableCharactersChanged != null) 
-		{
-			OnAvailableCharactersChanged (characters);
-		}
-	}
+        Debug.LogFormat("OnLobbyPlayerDataChanged: {0} -> {1}", existingPlayer, player);
+        Model.OnPlayerDataChanged(player);
+    }
+
+    private void SendAvailableCharacters(List<CharacterType> characters)
+    {
+        if (OnAvailableCharactersChanged != null)
+        {
+            OnAvailableCharactersChanged(characters);
+        }
+    }
 }
