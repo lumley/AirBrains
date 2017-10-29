@@ -110,6 +110,28 @@ namespace Gameplay.Player
             AirConsoleBridge.Instance.SendStartRound(_myDeviceId, startRoundMessage);
         }
 
+        public void SendFinishMessage(List<ScoreTracker> sortedScoreTrackers)
+        {
+            var winnerDeviceId = 0;
+            if (sortedScoreTrackers.Count > 0)
+            {
+                var sortedScoreTracker = sortedScoreTrackers[0];
+                var airConsoleMoveProvider = sortedScoreTracker.GetComponent<AirConsoleMoveProvider>();
+                if (airConsoleMoveProvider)
+                {
+                    winnerDeviceId = airConsoleMoveProvider.DeviceId;
+                }
+            }
+
+            var myPosition = sortedScoreTrackers.IndexOf(_scoreTracker);
+            AirConsoleBridge.Instance.SendGameFinished(_myDeviceId, new GameFinishedMessage
+            {
+                FundsRaised = _scoreTracker.Score,
+                Placement = myPosition,
+                WinnerDeviceId = winnerDeviceId
+            });
+        }
+
         private Move ParseAction(SendChosenActionsMessage.GameAction gameAction)
         {
             switch (gameAction)
