@@ -1,4 +1,5 @@
-﻿using ScreenLogic.Messages;
+﻿using System.Collections.Generic;
+using ScreenLogic.Messages;
 
 namespace Gameplay.Player
 {
@@ -12,5 +13,6 @@ namespace Gameplay.Player
 
         void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected);
         void SendStartRound();
+        void SendFinishMessage(List<ScoreTracker> sortedScoreTrackers);
     }
 }

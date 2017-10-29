@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +10,7 @@ public class VictoryScreen : MonoBehaviour {
 	public List<Sprite> portraitCharacterLinks;
 
 	void OnEnable(){
-		List<ScoreTracker> trackers = GameObject.FindObjectsOfType<ScoreTracker> ().OrderByDescending(score=>score.Score).ToList();;
+		List<ScoreTracker> trackers = FindObjectsOfType<ScoreTracker> ().OrderByDescending(score=>score.Score).ToList();;
 		for (int placeIndex = 0; placeIndex < places.Count; placeIndex++) {
 			if (trackers.Count <= placeIndex) {
 				places [placeIndex].SetActive (false);

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Player;
 using ScreenLogic;
 using UnityEngine;
 
@@ -240,16 +241,21 @@ public class GameRunner : MonoBehaviour
 
     private void SetupVictoryScreen()
     {
-        ScoreTracker highestScore = null;
-
-        foreach (ScoreTracker tracker in scoreTrackers)
+        var sortedScoreTrackers = new List<ScoreTracker>(scoreTrackers);
+        sortedScoreTrackers.Sort((tracker1, tracker2) => tracker2.Score.CompareTo(tracker1.Score));
+        if (sortedScoreTrackers.Count > 0)
         {
-            if (highestScore == null || tracker.Score > highestScore.Score)
+            for (var i = 0; i < moveProviders.Count; i++)
             {
-                highestScore = tracker;
+                var moveProvider = moveProviders[i];
+                var playerCharacter = moveProvider as IPlayerToGameStateBridge;
+                if (playerCharacter != null)
+                {
+                    playerCharacter.SendFinishMessage(sortedScoreTrackers);
+                }
             }
         }
-        Debug.Log(highestScore.gameObject.name + " wins with " + highestScore.Score + " points!");
+        
         if (victoryScreen != null)
         {
             victoryScreen.SetActive(true);
@@ -268,7 +274,7 @@ public class GameRunner : MonoBehaviour
         {
             foreach (MoveProvider provider in moveProviders)
             {
-                if (provider as RandomMoveProvider == null)
+                if (!(provider is RandomMoveProvider))
                 {
                     readyToMoveOn = readyToMoveOn || provider.FinishedPlanningMoves();
                 }
