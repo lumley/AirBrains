@@ -56,7 +56,7 @@ public class GameStateController : MonoBehaviour
             Debug.LogError("NO LOBBYCONTROLLER FOUND!");
             return;
         }
-        
+
         foreach (GlobalPlayer globalPlayer in _globalPlayers)
         {
             lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
@@ -78,6 +78,22 @@ public class GameStateController : MonoBehaviour
                 var lobbyController = LobbyController.FindInScene();
                 lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
                 AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+                AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
+            }
+        }
+        else if (_currentGameState == GameState.OnLobby && _globalPlayers.Count < MaxAmountOfPlayersAllowed)
+        {
+            var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+            if (playerIndex >= 0)
+            {
+                var globalPlayer = _globalPlayers[playerIndex];
+                AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+                IPlayerToGameStateBridge gameCharacter;
+                if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
+                {
+                    gameCharacter.SetDeviceId(deviceId);
+                    gameCharacter.SendStartRound();
+                }
             }
         }
     }
@@ -96,6 +112,14 @@ public class GameStateController : MonoBehaviour
 
                 // Tell the Lobby that this guy has disconnected
                 _globalPlayers.RemoveAt(indexOfPlayerWithDeviceId);
+            }
+        }
+        else if (_currentGameState == GameState.OnGame)
+        {
+            IPlayerToGameStateBridge gameCharacter;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
+            {
+                gameCharacter.SetDeviceId(0); // No device Id
             }
         }
     }
@@ -119,6 +143,7 @@ public class GameStateController : MonoBehaviour
                 lobbyController.OnLobbyPlayerDataChanged(globalPlayer.LobbyPlayerData);
             }
             AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+            AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
         }
     }
 
@@ -137,6 +162,7 @@ public class GameStateController : MonoBehaviour
 
             var lobbyController = LobbyController.FindInScene();
             lobbyController.OnLobbyPlayerDataChanged(globalPlayer.LobbyPlayerData);
+            AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
         }
         else if (_currentGameState == GameState.OnGame)
         {

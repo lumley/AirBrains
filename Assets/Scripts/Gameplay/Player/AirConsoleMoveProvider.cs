@@ -35,17 +35,7 @@ namespace Gameplay.Player
             _isPlayerReady = false;
             _moveList = new List<Move>(numberOfMovesPerRound);
 
-            if (IsPlayerControlling)
-            {
-                var startRoundMessage = new StartRoundMessage
-                {
-                    DonorCount = _scoreTracker.DonorCountInCurrentRound,
-                    FundsRaised = _scoreTracker.Score,
-                    Round = CurrentRound,
-                    TurnCount = numberOfMovesPerRound
-                };
-                AirConsoleBridge.Instance.SendStartRound(_myDeviceId, startRoundMessage);
-            }
+            SendStartRound();
         }
 
         public override bool FinishedPlanningMoves()
@@ -100,6 +90,23 @@ namespace Gameplay.Player
                 var gameAction = actionsSelected[i];
                 _moveList.Add(ParseAction(gameAction));
             }
+        }
+
+        public void SendStartRound()
+        {
+            if (!IsPlayerControlling)
+            {
+                return;
+            }
+            
+            var startRoundMessage = new StartRoundMessage
+            {
+                DonorCount = _scoreTracker.DonorCountInCurrentRound,
+                FundsRaised = _scoreTracker.Score,
+                Round = CurrentRound,
+                TurnCount = numberOfMovesPerRound
+            };
+            AirConsoleBridge.Instance.SendStartRound(_myDeviceId, startRoundMessage);
         }
 
         private Move ParseAction(SendChosenActionsMessage.GameAction gameAction)

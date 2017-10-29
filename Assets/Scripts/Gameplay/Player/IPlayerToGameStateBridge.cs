@@ -11,5 +11,6 @@ namespace Gameplay.Player
         int CurrentRound { set; }
 
         void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected);
+        void SendStartRound();
     }
 }

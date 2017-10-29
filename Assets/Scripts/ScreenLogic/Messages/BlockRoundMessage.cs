@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ScreenLogic.Requests
+namespace ScreenLogic.Messages
 {
     [Serializable]
     public class BlockRoundMessage

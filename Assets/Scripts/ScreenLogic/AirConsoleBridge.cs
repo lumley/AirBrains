@@ -1,4 +1,6 @@
-﻿using NDream.AirConsole;
+﻿using System;
+using System.Collections.Generic;
+using NDream.AirConsole;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ScreenLogic.Messages;
@@ -113,6 +115,47 @@ namespace ScreenLogic
 #if !DISABLE_AIRCONSOLE
             var blockRoundMessage = new BlockRoundMessage();
             AirConsole.instance.Broadcast(JsonConvert.SerializeObject(blockRoundMessage));
+#endif
+        }
+
+        public void BroadcastCharacterSetChanged(List<GlobalPlayer> globalPlayers)
+        {
+            var deviceIdNotReady = new List<int>(globalPlayers.Count);
+            var characterIndexAvailable = new HashSet<int>();
+            var characterTypeValues = Enum.GetValues(typeof(CharacterType));
+            var amountOfCharacterValues = characterTypeValues.Length;
+            for (var characterValueIndex = (int) CharacterType.None + 1;
+                characterValueIndex < amountOfCharacterValues - 1;
+                characterValueIndex++)
+            {
+                characterIndexAvailable.Add(characterValueIndex);
+            }
+            
+            for (var i = 0; i < globalPlayers.Count; i++)
+            {
+                var globalPlayer = globalPlayers[i];
+                if (!globalPlayer.LobbyPlayerData.IsReady)
+                {
+                    deviceIdNotReady.Add(globalPlayer.LobbyPlayerData.Id);
+                }
+
+                characterIndexAvailable.Remove((int) globalPlayer.LobbyPlayerData.Character);
+            }
+
+            var characterIndexArray = new int[characterIndexAvailable.Count];
+            var arrayIndex = 0;
+            foreach (var characterIndex in characterIndexAvailable)
+            {
+                characterIndexArray[arrayIndex++] = characterIndex;
+            }
+            var characterSetChangedMessage = new CharacterSetChangedMessage
+            {
+                AvailableAvatarIndexes = characterIndexArray,
+                NotReadyDeviceIds = deviceIdNotReady.ToArray()
+            };
+
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Broadcast(JsonConvert.SerializeObject(characterSetChangedMessage));
 #endif
         }
     }
