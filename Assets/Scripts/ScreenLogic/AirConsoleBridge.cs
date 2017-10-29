@@ -107,5 +107,13 @@ namespace ScreenLogic
             AirConsole.instance.Message(deviceId, JsonConvert.SerializeObject(startRoundMessage));
 #endif
         }
+
+        public void BroadcastBlockRound()
+        {
+#if !DISABLE_AIRCONSOLE
+            var blockRoundMessage = new BlockRoundMessage();
+            AirConsole.instance.Broadcast(JsonConvert.SerializeObject(blockRoundMessage));
+#endif
+        }
     }
 }

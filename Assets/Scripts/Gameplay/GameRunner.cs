@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ScreenLogic;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour {
@@ -63,6 +64,11 @@ public class GameRunner : MonoBehaviour {
 			currentTurn = 0;
 			Debug.Log ("Starting Round " + roundNumber);
 			yield return StartCoroutine (WaitForReadyOrTime ());
+			var airConsoleBridge = AirConsoleBridge.Instance;
+			if (airConsoleBridge)
+			{
+				airConsoleBridge.BroadcastBlockRound();
+			}
 			yield return CollectPlayerInput ();
 			while (HaveTurnToProcess ()) {
 				yield return ProcessTurn ();
