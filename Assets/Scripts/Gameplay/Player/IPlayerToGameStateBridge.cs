@@ -6,7 +6,7 @@ namespace Gameplay.Player
     {
         void OnSetReadyMessage(SetReadyMessage setReadyMessage);
 
-        void SetDeviceId(int deviceId);
+        int DeviceId { get; set; }
 
         int CurrentRound { set; }
 

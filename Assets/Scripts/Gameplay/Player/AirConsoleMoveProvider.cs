@@ -74,9 +74,10 @@ namespace Gameplay.Player
             _isPlayerReady = setReadyMessage.IsReady;
         }
 
-        public void SetDeviceId(int deviceId)
+        public int DeviceId
         {
-            _myDeviceId = deviceId;
+            get { return _myDeviceId; }
+            set { _myDeviceId = value; }
         }
 
         public int CurrentRound { private get; set; }
@@ -98,7 +99,7 @@ namespace Gameplay.Player
             {
                 return;
             }
-            
+
             var startRoundMessage = new StartRoundMessage
             {
                 DonorCount = _scoreTracker.DonorCountInCurrentRound,

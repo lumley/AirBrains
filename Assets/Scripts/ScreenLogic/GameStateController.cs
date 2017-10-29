@@ -81,7 +81,7 @@ public class GameStateController : MonoBehaviour
                 AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
             }
         }
-        else if (_currentGameState == GameState.OnLobby && _globalPlayers.Count < MaxAmountOfPlayersAllowed)
+        else if (_currentGameState == GameState.OnGame)
         {
             var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
             if (playerIndex >= 0)
@@ -91,8 +91,35 @@ public class GameStateController : MonoBehaviour
                 IPlayerToGameStateBridge gameCharacter;
                 if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
                 {
-                    gameCharacter.SetDeviceId(deviceId);
+                    gameCharacter.DeviceId = deviceId;
                     gameCharacter.SendStartRound();
+                }
+            }
+            else
+            {
+                // Search for any orphan player and take it over!
+                foreach (var playerToGameStateBridge in _gameCharacterReferences)
+                {
+                    var id = playerToGameStateBridge.DeviceId;
+                    if (id == 0)
+                    {
+                        playerToGameStateBridge.DeviceId = deviceId;
+                        var previousKeyToRemove = 0;
+                        foreach (var deviceIdToGameCharacter in _deviceIdToGameCharacterMap)
+                        {
+                            if (deviceIdToGameCharacter.Value == playerToGameStateBridge)
+                            {
+                                previousKeyToRemove = deviceIdToGameCharacter.Key;
+                                break;
+                            }
+                        }
+                        if (previousKeyToRemove != 0)
+                        {
+                            _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
+                        }
+                        _deviceIdToGameCharacterMap[deviceId] = playerToGameStateBridge;
+                        break;
+                    }
                 }
             }
         }
@@ -119,7 +146,7 @@ public class GameStateController : MonoBehaviour
             IPlayerToGameStateBridge gameCharacter;
             if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
             {
-                gameCharacter.SetDeviceId(0); // No device Id
+                gameCharacter.DeviceId = 0; // No device Id
             }
         }
     }
