@@ -229,6 +229,11 @@ public class GameStateController : MonoBehaviour
 
             StartGameWithCurrentPlayers();
         }
+        else if (_currentGameState == GameState.OnWrapUpScreen)
+        {
+            AirConsoleBridge.Instance.BroadcastBackToLobby();
+            HeadToTheLobby();
+        }
     }
 
     private void StartGameWithCurrentPlayers()
@@ -335,6 +340,10 @@ public class GameStateController : MonoBehaviour
             _currentGameState = gameStateToSet;
             var gameSpawner = GameSpawner.FindInScene();
             gameSpawner.StartGame(_globalPlayers);
+        }
+        else if (_currentGameState == GameState.OnGame && gameStateToSet == GameState.OnWrapUpScreen)
+        {
+            _currentGameState = gameStateToSet;
         }
     }
 

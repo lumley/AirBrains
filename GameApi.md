@@ -83,3 +83,9 @@
 | fundsRaised | int | Amount of funds raised |
 | winnerDeviceId | int | Device Id of the winner (may be you) |
 | placement | int | This device placement (0 for first) |
+
+- BackToLobby: The game has finished, devices should go back to the lobby.
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| type | string | Type of this message |

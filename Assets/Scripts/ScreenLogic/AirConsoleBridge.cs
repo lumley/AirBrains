@@ -165,5 +165,13 @@ namespace ScreenLogic
             AirConsole.instance.Message(deviceId, JsonConvert.SerializeObject(message));
 #endif
         }
+
+        public void BroadcastBackToLobby()
+        {
+            var message = new BackToLobbyMessage();
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Broadcast(JsonConvert.SerializeObject(message));
+#endif
+        }
     }
 }

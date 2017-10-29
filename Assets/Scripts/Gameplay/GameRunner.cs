@@ -264,28 +264,8 @@ public class GameRunner : MonoBehaviour
 
     private IEnumerator WaitToMoveOn()
     {
-        yield return new WaitForSeconds(5f); //Delay so that no one moves on before the gloating is over
-        foreach (MoveProvider moveProvider in moveProviders)
-        {
-            moveProvider.StartCollectingMoves();
-        }
-        bool readyToMoveOn = false;
-        while (!readyToMoveOn)
-        {
-            foreach (MoveProvider provider in moveProviders)
-            {
-                if (!(provider is RandomMoveProvider))
-                {
-                    readyToMoveOn = readyToMoveOn || provider.FinishedPlanningMoves();
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                readyToMoveOn = true;
-            }
-            yield return new WaitForEndOfFrame();
-        }
-        GameStateController.FindInScene().HeadToTheLobby();
+        yield return new WaitForSeconds(5f); // A few seconds so all players can see
+        GameStateController.FindInScene().SetToState(GameStateController.GameState.OnWrapUpScreen);
     }
 
     private void SaveOriginalPositions()
