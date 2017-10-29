@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public sealed class LobbyModel
 {
 	public readonly List<LobbyPlayerData> Players;
-	public readonly List<CharacterType> AvailableCharacters = new List<CharacterType>
+	private readonly HashSet<CharacterType> _availableCharacters = new HashSet<CharacterType>
 	{
 		CharacterType.Bulldog,
 		CharacterType.Crocodile,
@@ -17,6 +17,19 @@ public sealed class LobbyModel
 		CharacterType.Shark,
 		CharacterType.Tiger
 	};
+	
+	public List<CharacterType>  AvailableCharacters
+	{
+		get
+		{
+			var availableCharacters = new List<CharacterType>(_availableCharacters.Count);
+			foreach (var availableCharacter in _availableCharacters)
+			{
+				availableCharacters.Add(availableCharacter);
+			}
+			return availableCharacters;
+		}
+	}
 
 	public readonly int NeedReadyPlayers;
 
@@ -27,7 +40,7 @@ public sealed class LobbyModel
 
 		for (int i = 0; i < playerAmount; i++) 
 		{
-			Players.Add(new LobbyPlayerData ().Set (i, CharacterType.None));
+			Players.Add(LobbyPlayerData.CreateEmpty());
 		}
 	}
 
@@ -36,9 +49,9 @@ public sealed class LobbyModel
 
 	public void AddPlayer(LobbyPlayerData playerData)
 	{
-		var existingPlayer = GetPlayer (playerData.Id);
+		var existingPlayer = GetOrCreatePlayer (playerData.Id);
 		existingPlayer.Character = playerData.Character;
-		AvailableCharacters.Remove (playerData.Character);
+		_availableCharacters.Remove (playerData.Character);
 
 		OnModelChanged ();
 		OnModelAvailableCharactersChanged ();
@@ -46,10 +59,11 @@ public sealed class LobbyModel
 		
 	public void RemovePlayer(int playerId)
 	{
-		var existingPlayer = GetPlayer (playerId);
-		AvailableCharacters.Add (existingPlayer.Character);
+		var existingPlayer = GetOrCreatePlayer (playerId);
+		_availableCharacters.Add (existingPlayer.Character);
 		existingPlayer.Character = CharacterType.None;
 		existingPlayer.IsReady = false;
+		existingPlayer.Id = 0;
 
 		OnModelChanged ();
 		OnModelAvailableCharactersChanged ();
@@ -57,13 +71,13 @@ public sealed class LobbyModel
 
 	public void OnPlayerDataChanged(LobbyPlayerData playerData)
 	{
-		var existingPlayer = GetPlayer (playerData.Id);
+		var existingPlayer = GetOrCreatePlayer (playerData.Id);
 
 		bool availableCharactersChanged = existingPlayer.Character != playerData.Character;
 		if (availableCharactersChanged)
 		{
-			AvailableCharacters.Add (existingPlayer.Character);
-			AvailableCharacters.Remove (playerData.Character);
+			_availableCharacters.Add (existingPlayer.Character);
+			_availableCharacters.Remove (playerData.Character);
 		}
 
 		existingPlayer.Character = playerData.Character;
@@ -84,12 +98,36 @@ public sealed class LobbyModel
 		}
 	}
 		
-	public LobbyPlayerData GetPlayer(int playerId)
+	public LobbyPlayerData GetOrCreatePlayer(int playerId)
 	{
-		return Players.Find (temp =>  temp != null && temp.Id == playerId);
+		var indexOfFirstAvailablePlayer = -1;
+		for (var i = 0; i < Players.Count; i++)
+		{
+			var lobbyPlayerData = Players[i];
+			if (lobbyPlayerData.Id == playerId)
+			{
+				return lobbyPlayerData;
+			}
+
+			if (lobbyPlayerData.Id == 0 && indexOfFirstAvailablePlayer < 0)
+			{
+				indexOfFirstAvailablePlayer = i;
+			}
+		}
+		
+		// If it was not found, try to replace the player with the Id we just got
+		if (indexOfFirstAvailablePlayer >= 0)
+		{
+			var lobbyPlayerData = Players[indexOfFirstAvailablePlayer];
+			lobbyPlayerData.Id = playerId;
+			return lobbyPlayerData;
+		}
+
+		// We don't have any player available, just bail
+		return null;
 	}
 
-	public LobbyPlayerData GetPlayer(CharacterType character)
+	public LobbyPlayerData GetPlayerByCharacter(CharacterType character)
 	{
 		return Players.Find (temp => temp != null && temp.Character == character);
 	}
