@@ -1,0 +1,74 @@
+html, body {
+  background-color: #69c2c0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+*:focus {
+  outline: none;
+}
+
+header {
+  /*background-color: dimgray;*/
+}
+
+footer {
+  /*background-color: dimgray;*/
+}
+
+.button-disabled {
+  background-color: gray;
+}
+
+.button-selected {
+  background-color: green;
+}
+
+.decorative-border {
+  pointer-events: none;
+  box-sizing: border-box;
+  border: #d4eade solid 16px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+}
+
+.decorative-border-top,
+.decorative-border-right,
+.decorative-border-bottom,
+.decorative-border-left
+{
+  pointer-events: none;
+  position: absolute;
+  background-color: #d4eade;
+}
+
+.decorative-border-top {
+  top: 25px;
+  left: 96px;
+  right: 96px;
+  height: 71px;
+}
+
+.decorative-border-right {
+  bottom: 96px;
+  left: 25px;
+  top: 96px;
+  width: 71px;
+}
+
+.decorative-border-bottom {
+  bottom: 25px;
+  left: 96px;
+  right: 96px;
+  height: 71px;
+}
+
+.decorative-border-left {
+  bottom: 96px;
+  right: 25px;
+  top: 96px;
+  width: 71px;
+}
