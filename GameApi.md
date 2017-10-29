@@ -41,7 +41,14 @@
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 | type | string | Type of this message |
-| avatarIndex | int | Index of the avatar of this player |
+| avatarIndex | int | Index of the avatar of this player (starting from 1) |
+
+ - CharacterSetChanged: Screen indicates to all devices (through broadcast) which characters are currently available.
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| type | string | Type of this message |
+| availableAvatarIndexes | int[] | Array of integers with all indexes that are available (starting from 1) |
 
  - GameStarted: Screen indicates the devices that a new game has started, indicate all the rules, etc.
 
@@ -61,28 +68,11 @@
 | donorCount | int | Amount of donors this player has |
 | fundsRaised | int | Amount of funds already raised by this player (in Millions) |
 
- - GiveMeChosenActions: Screen requests the chosen actions from the device.
+ - BlockRound: Round will start being displayed on the screen, no more actions are accepted. Broadcasted to all devices.
 
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 | type | string | Type of this message |
-
- - YourActionResolutionForTurn: Screen indicates a device what was the result of the given turns.
-
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| type | string | Type of this message |
-| turns | int[] | Index of the turns that have a result (starting with zero) |
-| results | string[] | Results of each turn ("not started", "completed", "failed", "discarded") |
-
- - RoundEnded: Screen indicates the final values for the round (while displaying the result on screen).
-
-| Property | Type | Description |
-| -------- | ---- | ----------- |
-| type | string | Type of this message |
-| round | int | Round that has started (beginning with 0) |
-| donorCount | int | Amount of donors this player has |
-| fundsRaised | int | Amount of funds already raised by this player (in Millions) |
 
  - GameFinished: The game has finished, it provides the information that is relevant to the players.
 
