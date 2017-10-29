@@ -51,6 +51,8 @@ readyElement.addEventListener("click", function(){
   activateReady();
 });
 
+selectSlot(0);
+
 function selectSlot(slotId) {
   if (selectedSlotId != undefined) {
     unselectSlot();
@@ -85,7 +87,7 @@ function selectOption(optionId, autoSelectNextSlot) {
 
   selectedOptions[selectedSlotId] = optionId;
 
-  onActionSelected(optionId);
+  onActionSelected(optionId, selectedSlotId);
 
   const newAllSlotSelected = (selectedOptions.filter(function(option) {return option === optionUndefined}).length === 0);
 
@@ -110,15 +112,17 @@ function unselectOption(optionId) {
 }
 
 function activateReady() {
-  ready = !ready;
+  // ready = !ready;
+  //
+  // if (ready) {
+  //   readyButtonElement.classList.add(readyButtonActiveClassName);
+  //   onPlayerReady();
+  // } else {
+  //   readyButtonElement.classList.remove(readyButtonActiveClassName);
+  //   onPlayerNotReady();
+  // }
 
-  if (ready) {
-    readyButtonElement.classList.add(readyButtonActiveClassName);
-    onPlayerReady();
-  } else {
-    readyButtonElement.classList.remove(readyButtonActiveClassName);
-    onPlayerNotReady();
-  }
+  onPlayerReady();
 }
 
 function enableReady() {
@@ -127,16 +131,41 @@ function enableReady() {
   readyButtonElement.classList.remove(buttonDisabled);
 }
 
-selectSlot(0);
+function onPlayerNotReady() {
+  console.log("Player is not ready");
+}
 
-function onActionSelected(optionId) {
-  console.log("Action " + optionTexts[optionId] + " selected for action slot " + selectedSlotId);
+// ****************************************************************
+// These are relevant functions for communicating with the game :
+
+function onActionSelected(optionId, slotId) {
+  // optionId :
+  // 0 = up;
+  // 1 = right;
+  // 2 = down;
+  // 3 = left;
+  // 4 = stop;
+  // slotId :
+  // from 0 to 3
+
+  console.log("Action " + optionTexts[optionId] + " selected for action slot " + slotId);
 }
 
 function onPlayerReady() {
   console.log("Player is ready");
 }
 
-function onPlayerNotReady() {
-  console.log("Player is not ready");
+function reset() {
+  selectSlot(0);
+  selectedOptions = [optionUndefined, optionUndefined, optionUndefined, optionUndefined];
+  ready = false;
+  allSlotSelected = false;
+  slotElements[0].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[1].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[2].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[3].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+}
+
+function test() {
+  window.location.href = "";
 }
