@@ -14,11 +14,13 @@ const buttonDisabledClassName = "button-disabled";
 const buttonSelectedClassName = "button-selected";
 const characterPreviewSelectedClassName = "character-preview-selected";
 const characterPreviewUnavailableClassName = "character-preview-unavailable";
+const startGameButtonClassName = "start-game-button";
 
 const characterContainerElement = document.getElementsByClassName(characterContainerClassName)[0];
 const characterPreviewsElement = document.getElementsByClassName(characterPreviews)[0];
 initializeCharacters();
 
+const startGameButtonElement = document.getElementsByClassName(startGameButtonClassName)[0];
 const previousElement = document.getElementsByClassName(previousButtonClassName)[0];
 const selectElement = document.getElementsByClassName(selectButtonClassName)[0];
 const nextElement = document.getElementsByClassName(nextButtonClassName)[0];
@@ -28,7 +30,7 @@ const selectText = "Select";
 const selectSelectedText = "✔";
 
 const characterCount = 10;
-var currentCharacterId = 0;
+var currentCharacterId = 1;
 var currentPlayerSelectedCharacterId = undefined;
 var playerSelections = [];
 
@@ -47,20 +49,23 @@ nextElement.addEventListener("click", function(){
   onNextClick();
 });
 
+startGameButtonElement.addEventListener("click", function(){
+  onStartGameClick();
+});
+
+
 function onPreviousClick() {
-  if (currentCharacterId > 0) {
+  if (currentCharacterId > 1) {
     setCurrentCharacterId(currentCharacterId - 1);
   }
 
-  if (currentCharacterId === 0) {
+  if (currentCharacterId === 1) {
     previousElement.classList.add(buttonDisabled)
   }
 
-  if (currentCharacterId === characterCount - 2) {
+  if (currentCharacterId === characterCount - 1) {
     nextElement.classList.remove(buttonDisabled)
   }
-
-  console.log("onPreviousClick");
 }
 
 function onSelectClick() {
@@ -70,18 +75,17 @@ function onSelectClick() {
 }
 
 function onNextClick() {
-  if (currentCharacterId < characterCount - 1) {
+  if (currentCharacterId < characterCount) {
     setCurrentCharacterId(currentCharacterId + 1);
   }
 
-  if (currentCharacterId === characterCount - 1) {
+  if (currentCharacterId === characterCount) {
     nextElement.classList.add(buttonDisabled)
   }
 
-  if (currentCharacterId === 1) {
+  if (currentCharacterId === 2) {
     previousElement.classList.remove(buttonDisabled)
   }
-  console.log("onNextClick");
 }
 
 function setCurrentCharacterId(newCharacterId) {
@@ -90,8 +94,8 @@ function setCurrentCharacterId(newCharacterId) {
   characterPreviewsElement.classList.remove(characterPreviewMoverClassNamePrefix + currentCharacterId);
   characterPreviewsElement.classList.add(characterPreviewMoverClassNamePrefix + newCharacterId);
 
-  characterPreview[currentCharacterId].classList.remove(characterPreviewMoverClassName);
-  characterPreview[newCharacterId].classList.add(characterPreviewMoverClassName);
+  characterPreview[currentCharacterId - 1].classList.remove(characterPreviewMoverClassName);
+  characterPreview[newCharacterId - 1].classList.add(characterPreviewMoverClassName);
 
   currentCharacterId = newCharacterId;
 
@@ -100,15 +104,16 @@ function setCurrentCharacterId(newCharacterId) {
 
 function selectCharacter() {
   if (currentPlayerSelectedCharacterId != undefined) {
-    characterPreview[currentPlayerSelectedCharacterId].classList.remove(characterPreviewSelectedClassName);
+    characterPreview[currentPlayerSelectedCharacterId - 1].classList.remove(characterPreviewSelectedClassName);
   }
 
   currentPlayerSelectedCharacterId = currentCharacterId;
 
-  characterPreview[currentPlayerSelectedCharacterId].classList.add(characterPreviewSelectedClassName);
+  characterPreview[currentPlayerSelectedCharacterId - 1].classList.add(characterPreviewSelectedClassName);
 
   updateSelectButton();
 
+  onPlayerSelected(currentCharacterId);
 }
 
 function updateSelectButton() {
@@ -119,8 +124,6 @@ function updateSelectButton() {
     selectElement.classList.remove(selectButtonSelectedClassName);
   }
 
-  console.log(playerSelections);
-
   if (playerSelections[currentCharacterId] == undefined || playerSelections[currentCharacterId] === false) {
     selectElement.classList.remove(buttonDisabledClassName);
   } else {
@@ -130,15 +133,15 @@ function updateSelectButton() {
   selectElement.textContent = currentPlayerSelected ? selectSelectedText : selectText;
 }
 
-setPlayerSelection(0, true);
+// setPlayerSelection(0, true);
 
-function setPlayerSelection(id, selected) {
-  playerSelections[id] = selected;
+function setPlayerSelection(playerId, selected) {
+  playerSelections[playerId] = selected;
 
   if (selected) {
-    characterPreview[id].classList.add(characterPreviewUnavailableClassName);
+    characterPreview[playerId - 1].classList.add(characterPreviewUnavailableClassName);
   } else {
-    characterPreview[id].classList.remove(characterPreviewUnavailableClassName);
+    characterPreview[playerId - 1].classList.remove(characterPreviewUnavailableClassName);
   }
 
 
@@ -148,7 +151,7 @@ function setPlayerSelection(id, selected) {
 function initializeCharacters() {
   characters.forEach(function(character, index) {
     const characterElement = createElement("div", "character");
-    characterElement.classList.add("character-" + index);
+    characterElement.classList.add("character-" + (index + 1));
 
     const content = createElement("div", "character-content", characterElement);
     const name = createElement("div", "character-name", content);
@@ -188,7 +191,7 @@ function initializeCharacters() {
 
     // Preview
     const characterPreviewElement = createElement("div", "character-preview", characterPreviewsElement);
-    characterPreviewElement.classList.add("character-preview-" + index);
+    characterPreviewElement.classList.add("character-preview-" + (index + 1));
   });
 }
 
@@ -204,4 +207,15 @@ function createElement(type, className, parent) {
   }
 
   return element;
+}
+
+// ****************************************************************
+// These are relevant functions for communicating with the game :
+
+function onPlayerSelected(characterId) {
+  console.log("Player selected character " + characterId);
+}
+
+function onStartGameClick() {
+  console.log("Player pressed Start Game button");
 }
