@@ -51,6 +51,8 @@ readyElement.addEventListener("click", function(){
   activateReady();
 });
 
+selectSlot(0);
+
 function selectSlot(slotId) {
   if (selectedSlotId != undefined) {
     unselectSlot();
@@ -154,7 +156,14 @@ function onPlayerReady() {
 }
 
 function reset() {
-  window.location.reload();
+  selectSlot(0);
+  selectedOptions = [optionUndefined, optionUndefined, optionUndefined, optionUndefined];
+  ready = false;
+  allSlotSelected = false;
+  slotElements[0].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[1].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[2].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
+  slotElements[3].getElementsByClassName(slotButtonClassName)[0].innerHTML = optionTexts[5];
 }
 
 function test() {
