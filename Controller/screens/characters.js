@@ -1,16 +1,9 @@
 const characters = [
   {
-    name: "Sen. Huey",
-    imageName: "bulldog",
+    name: "Tiger",
+    imageName: "tiger",
     from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
-  }, {
-    name: "Cath",
-    imageName: "cat",
-    from: "Philadelphia",
-    weight: "2.645h",
+    weight: "Not your business",
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
@@ -21,10 +14,10 @@ const characters = [
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
-    name: "Crowd",
-    imageName: "crowd",
+    name: "Shark",
+    imageName: "shark",
     from: "Philadelphia",
-    weight: "2.645h",
+    weight: "Not your business",
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
@@ -32,6 +25,20 @@ const characters = [
     imageName: "monkey",
     from: "Philadelphia",
     weight: "2.645h",
+    height: "39″",
+    agenda: "Murders and executions, mostly."
+  }, {
+    name: "Sen. Huey",
+    imageName: "bulldog",
+    from: "Philadelphia",
+    weight: "2.645h",
+    height: "39″",
+    agenda: "Murders and executions, mostly."
+  }, {
+    name: "Seal",
+    imageName: "seal",
+    from: "Philadelphia",
+    weight: "Not your business",
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
@@ -49,24 +56,17 @@ const characters = [
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
-    name: "Seal",
-    imageName: "seal",
+    name: "Crow",
+    imageName: "crowd",
     from: "Philadelphia",
-    weight: "Not your business",
+    weight: "2.645h",
     height: "39″",
     agenda: "Murders and executions, mostly."
   }, {
-    name: "Shark",
-    imageName: "shark",
+    name: "Cat",
+    imageName: "cat",
     from: "Philadelphia",
-    weight: "Not your business",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
-  }, {
-    name: "Tiger",
-    imageName: "tiger",
-    from: "Philadelphia",
-    weight: "Not your business",
+    weight: "2.645h",
     height: "39″",
     agenda: "Murders and executions, mostly."
   }
