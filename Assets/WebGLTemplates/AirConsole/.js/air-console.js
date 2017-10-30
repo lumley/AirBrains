@@ -36,6 +36,9 @@ function App() {
       // turn3Action = "wait";
       // turn4Action = "wait";
       // document.getElementById("current-game").innerHTML = "Round: " + parsedMessage["round"] + " Donors: " + parsedMessage["donorCount"] + " Funds Raised: " + parsedMessage["fundsRaised"] + "M";
+    } else if (messageType === "gamefinished") {
+      console.log("AYYYAYYAYAYAY");
+      displayCharacterSelectionScreen();
     }
   };
 
