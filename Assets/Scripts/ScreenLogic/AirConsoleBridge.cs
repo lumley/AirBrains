@@ -130,7 +130,7 @@ namespace ScreenLogic
             {
                 characterIndexAvailable.Add(characterValueIndex);
             }
-            
+
             for (var i = 0; i < globalPlayers.Count; i++)
             {
                 var globalPlayer = globalPlayers[i];
@@ -156,6 +156,21 @@ namespace ScreenLogic
 
 #if !DISABLE_AIRCONSOLE
             AirConsole.instance.Broadcast(JsonConvert.SerializeObject(characterSetChangedMessage));
+#endif
+        }
+
+        public void SendGameFinished(int deviceId, GameFinishedMessage message)
+        {
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Message(deviceId, JsonConvert.SerializeObject(message));
+#endif
+        }
+
+        public void BroadcastBackToLobby()
+        {
+            var message = new BackToLobbyMessage();
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Broadcast(JsonConvert.SerializeObject(message));
 #endif
         }
     }

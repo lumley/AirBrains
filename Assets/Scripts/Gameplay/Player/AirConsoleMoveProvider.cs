@@ -74,9 +74,10 @@ namespace Gameplay.Player
             _isPlayerReady = setReadyMessage.IsReady;
         }
 
-        public void SetDeviceId(int deviceId)
+        public int DeviceId
         {
-            _myDeviceId = deviceId;
+            get { return _myDeviceId; }
+            set { _myDeviceId = value; }
         }
 
         public int CurrentRound { private get; set; }
@@ -98,7 +99,7 @@ namespace Gameplay.Player
             {
                 return;
             }
-            
+
             var startRoundMessage = new StartRoundMessage
             {
                 DonorCount = _scoreTracker.DonorCountInCurrentRound,
@@ -107,6 +108,28 @@ namespace Gameplay.Player
                 TurnCount = numberOfMovesPerRound
             };
             AirConsoleBridge.Instance.SendStartRound(_myDeviceId, startRoundMessage);
+        }
+
+        public void SendFinishMessage(List<ScoreTracker> sortedScoreTrackers)
+        {
+            var winnerDeviceId = 0;
+            if (sortedScoreTrackers.Count > 0)
+            {
+                var sortedScoreTracker = sortedScoreTrackers[0];
+                var airConsoleMoveProvider = sortedScoreTracker.GetComponent<AirConsoleMoveProvider>();
+                if (airConsoleMoveProvider)
+                {
+                    winnerDeviceId = airConsoleMoveProvider.DeviceId;
+                }
+            }
+
+            var myPosition = sortedScoreTrackers.IndexOf(_scoreTracker);
+            AirConsoleBridge.Instance.SendGameFinished(_myDeviceId, new GameFinishedMessage
+            {
+                FundsRaised = _scoreTracker.Score,
+                Placement = myPosition,
+                WinnerDeviceId = winnerDeviceId
+            });
         }
 
         private Move ParseAction(SendChosenActionsMessage.GameAction gameAction)

@@ -1,4 +1,5 @@
-﻿using ScreenLogic.Messages;
+﻿using System.Collections.Generic;
+using ScreenLogic.Messages;
 
 namespace Gameplay.Player
 {
@@ -6,11 +7,12 @@ namespace Gameplay.Player
     {
         void OnSetReadyMessage(SetReadyMessage setReadyMessage);
 
-        void SetDeviceId(int deviceId);
+        int DeviceId { get; set; }
 
         int CurrentRound { set; }
 
         void SetChosenActions(SendChosenActionsMessage.GameAction[] actionsSelected);
         void SendStartRound();
+        void SendFinishMessage(List<ScoreTracker> sortedScoreTrackers);
     }
 }
