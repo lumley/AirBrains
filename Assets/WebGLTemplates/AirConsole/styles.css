@@ -81,3 +81,25 @@ footer {
   z-index: 20;
   text-shadow: 1px 1px 5px #000000;
 }
+
+.back-to-lobby-button {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  background-color: white;
+  color: #8ab936;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: normal;
+  box-shadow: 5px 5px 2.5px #69a7a4;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top : 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
