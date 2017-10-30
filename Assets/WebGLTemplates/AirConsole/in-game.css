@@ -1,6 +1,6 @@
 .slots {
-  padding: 0 160px;
-  padding-top: 170px;
+  padding: 0 40px;
+  padding-top: 48px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -9,8 +9,8 @@
 
 .slot {
   text-align: center;
-  margin-bottom: 10px;
-  height: 175px;
+  margin-bottom: 4px;
+  height: 56px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,27 +18,27 @@
 
 .slot-label {
   position: absolute;
-  margin-left: -175px;
+  margin-left: -70px;
   width: 272px;
   height: 131px;
   line-height: 110px;
   overflow: visible;
   font-size: 3em;
   background-image: url("images/slot-arrow.png");
-  transform: scale(.6, .6);
+  transform: scale(.23, .23);
   color: #f7f7f7;
 }
 
 .slot-button {
-  width: 170px;
-  height: 170px;
-  border-radius: 85px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
   border: none;
-  font-size: 2em;
+  font-size: 1em;
   background-color: #b7d9d0;
   color: white;
   font-weight: bold;
-  box-shadow: 10px 10px 5px #5eb0af;
+  box-shadow: 4px 4px 2px #5eb0af;
 }
 
 .slot-button > img {
@@ -48,7 +48,7 @@
 .slot-active > .slot-button {
   background-color: #e9f4eb;
   z-index: 100;
-  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3), 10px 10px 5px #5eb0af;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3), 4px 4px 2px #5eb0af;
   animation: pulse-slot 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
 }
 
@@ -60,7 +60,7 @@
 
 @keyframes pulse-slot {
   to {
-    box-shadow: 0 0 0 48px rgba(255, 255, 255, 0), 10px 10px 5px #5eb0af;;
+    box-shadow: 0 0 0 48px rgba(255, 255, 255, 0), 4px 4px 2px #5eb0af;;
   }
 }
 
@@ -75,18 +75,17 @@
   padding: 0;
   list-style-type: none;
   display: flex;
-  width: 456px;
+  width: 126px;
   flex-wrap: wrap;
 }
 
 .option-button {
-  width: 150px;
-  height: 150px;
-  border-radius: 75px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
   background-color: white;
-  font-size: 2em;
   border: none;
-  box-shadow: 10px 10px 5px #5eb0af;
+  box-shadow: 4px 4px 2px #5eb0af;
 }
 
 .option {
@@ -95,8 +94,9 @@
 }
 
 .option-space-filler {
-  width: 150px;
-  height: 150px;
+  width: 40px;
+  height: 40px;
+  padding: 1px;
 }
 
 .option-active > .option-button {

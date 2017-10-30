@@ -10,13 +10,15 @@ var buttonDisabled = "button-disabled";
 var readyButtonActiveClassName = "ready-button--active";
 
 var optionTexts = [
-  "<img src=\"images/icon_up.png\" />",
-  "<img src=\"images/icon_left.png\" />",
-  "<img src=\"images/icon_stop.png\" />",
-  "<img src=\"images/icon_right.png\" />",
-  "<img src=\"images/icon_down.png\" />",
-  "<img src=\"images/icon_random_lightblue.png\" />"
+  "<img src=\"images/icon_up.png\" width=\"28\" height=\"28\"/>",
+  "<img src=\"images/icon_left.png\" width=\"28\" height=\"28\"/>",
+  "<img src=\"images/icon_stop.png\" width=\"28\" height=\"28\"/>",
+  "<img src=\"images/icon_right.png\" width=\"28\" height=\"28\"/>",
+  "<img src=\"images/icon_down.png\" width=\"28\" height=\"28\"/>",
+  "<img src=\"images/icon_random_lightblue.png\" width=\"28\" height=\"28\"/>"
 ];
+
+var optionIds = ["up", "left", "wait", "right", "down"];
 
 var optionUp = 0;
 var optionLeft = 3;
@@ -121,11 +123,11 @@ function activateReady() {
   //   readyButtonElement.classList.remove(readyButtonActiveClassName);
   //   onPlayerNotReady();
   // }
-
-  onPlayerReady();
 }
 
 function enableReady() {
+  ready = true;
+  onPlayerReady();
   readyButtonElement.disabled = false;
 
   readyButtonElement.classList.remove(buttonDisabled);
@@ -147,15 +149,16 @@ function onActionSelected(optionId, slotId) {
   // 4 = stop;
   // slotId :
   // from 0 to 3
-
-  console.log("Action " + optionTexts[optionId] + " selected for action slot " + slotId);
+  app.setDefinedAction(slotId + 1, optionIds[optionId]);
+  console.log("Action " + optionIds[optionId] + " selected for action slot " + slotId);
 }
 
 function onPlayerReady() {
   console.log("Player is ready");
+  app.sendDeviceIsReady(true);
 }
 
-function reset() {
+function resetInGame() {
   selectSlot(0);
   selectedOptions = [optionUndefined, optionUndefined, optionUndefined, optionUndefined];
   ready = false;

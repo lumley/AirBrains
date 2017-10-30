@@ -13,7 +13,6 @@ function App() {
   me.airconsole = new AirConsole({"orientation": "portrait", "synchronize_time": "true"});
 
 
-
   me.airconsole.onMessage = function (from, data) {
     console.log("onMessage", from, data);
     // document.getElementById("content").innerHTML = "device " + from + " says: " + data;
@@ -27,7 +26,7 @@ function App() {
       // document.getElementById("avatar").innerHTML = "Chosen avatar: " + parsedMessage["avatarIndex"];
     } else if (messageType === "startround") {
         displayInGameScreen();
-        reset();
+        resetInGame();
       // document.getElementById("turn1").innerHTML = "Turn 1: wait";
       // document.getElementById("turn2").innerHTML = "Turn 2: wait";
       // document.getElementById("turn3").innerHTML = "Turn 3: wait";
@@ -40,9 +39,9 @@ function App() {
     }
   };
 
-
   me.airconsole.onReady = function (code) {
     console.log("onReady", code);
+    app.displayNickname();
   };
 
   me.airconsole.onDeviceStateChange = function (device_id, device_data) {
@@ -121,6 +120,7 @@ App.prototype.displayDeviceId = function () {
 App.prototype.displayNickname = function () {
   var name = this.airconsole.getNickname();
   // document.getElementById("content").innerHTML = "My name is: " + name;
+  displayPlayerName(name);
 };
 
 App.prototype.setDefinedAction = function (turn, action) {

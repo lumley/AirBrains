@@ -27,12 +27,12 @@ footer {
 .decorative-border {
   pointer-events: none;
   box-sizing: border-box;
-  border: #d4eade solid 16px;
+  border: #d4eade solid 5px;
   position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
 }
 
 .decorative-border-top,
@@ -46,29 +46,38 @@ footer {
 }
 
 .decorative-border-top {
-  top: 25px;
-  left: 96px;
-  right: 96px;
-  height: 71px;
+  top: 8px;
+  left: 33px;
+  right: 33px;
+  height: 25px;
 }
 
 .decorative-border-right {
-  bottom: 96px;
-  left: 25px;
-  top: 96px;
-  width: 71px;
+  bottom: 33px;
+  left: 8px;
+  top: 33px;
+  width: 25px;
 }
 
 .decorative-border-bottom {
-  bottom: 25px;
-  left: 96px;
-  right: 96px;
-  height: 71px;
+  bottom: 8px;
+  left: 33px;
+  right: 33px;
+  height: 25px;
 }
 
 .decorative-border-left {
-  bottom: 96px;
-  right: 25px;
-  top: 96px;
-  width: 71px;
+  bottom: 33px;
+  right: 8px;
+  top: 33px;
+  width: 25px;
+}
+
+.player-name {
+  position: absolute;
+  bottom: 2px;
+  right: 6px;
+  color: white;
+  z-index: 20;
+  text-shadow: 1px 1px 5px #000000;
 }

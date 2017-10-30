@@ -9,7 +9,7 @@ html, body {
 }
 
 header {
-  flex: 0 0 200px;
+  flex: 0 0 50px;
   z-index: 1;
   overflow: hidden;
 }
@@ -23,13 +23,13 @@ main {
 }
 
 footer.in-game {
-  flex: 0 0 550px;
+  flex: 0 0 155px;
   margin: 0;
   z-index: 1;
 }
 
 footer.character-selection {
-  flex: 0 0 400px;
+  flex: 0 0 100px;
   margin: 0;
   z-index: 1;
 }

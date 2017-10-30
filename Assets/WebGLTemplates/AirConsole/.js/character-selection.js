@@ -159,8 +159,8 @@ function initializeCharacters() {
     var detail = createElement("div", "character-detail", content);
     var image = createElement("div", "character-image", detail);
     var img = createElement("img", undefined, image);
-    img.width = 270;
-    img.height = 342;
+    img.width = 270 / 3;
+    img.height = 342 / 3;
     var information = createElement("div", "character-information", detail);
 
     var fromLabel = createElement("div", "character-label", information);
