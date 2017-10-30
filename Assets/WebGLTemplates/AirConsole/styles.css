@@ -1,0 +1,83 @@
+html, body {
+  background-color: #69c2c0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+*:focus {
+  outline: none;
+}
+
+header {
+  /*background-color: dimgray;*/
+}
+
+footer {
+  /*background-color: dimgray;*/
+}
+
+.button-disabled {
+  background-color: gray;
+}
+
+.button-selected {
+  background-color: green;
+}
+
+.decorative-border {
+  pointer-events: none;
+  box-sizing: border-box;
+  border: #d4eade solid 5px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+}
+
+.decorative-border-top,
+.decorative-border-right,
+.decorative-border-bottom,
+.decorative-border-left
+{
+  pointer-events: none;
+  position: absolute;
+  background-color: #d4eade;
+}
+
+.decorative-border-top {
+  top: 8px;
+  left: 33px;
+  right: 33px;
+  height: 25px;
+}
+
+.decorative-border-right {
+  bottom: 33px;
+  left: 8px;
+  top: 33px;
+  width: 25px;
+}
+
+.decorative-border-bottom {
+  bottom: 8px;
+  left: 33px;
+  right: 33px;
+  height: 25px;
+}
+
+.decorative-border-left {
+  bottom: 33px;
+  right: 8px;
+  top: 33px;
+  width: 25px;
+}
+
+.player-name {
+  position: absolute;
+  bottom: 2px;
+  right: 6px;
+  color: white;
+  z-index: 20;
+  text-shadow: 1px 1px 5px #000000;
+}

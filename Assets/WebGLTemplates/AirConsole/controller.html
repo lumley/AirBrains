@@ -1,258 +1,153 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+  <meta charset="UTF-8">
+  <title>Game</title>
 
-    <style type=text/css>
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="in-game.css">
+  <link rel="stylesheet" href="character-selection.css">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
-        .button {
-            background: #3B3B3B;
-            color: white;
-            font-family: Arial;
-            font-size: 14px;
-            padding: 5px 10px 5px 10px;
-            border: solid #1f1f1f 2px;
-            -webkit-border-radius: 11;
-            -moz-border-radius: 11;
-            border-radius: 6px;
-            width: 100%;
-            text-align: left;
-        }
-
-        .button-left {
-            width: 50%;
-            left: 0px;
-        }
-
-        .button-right {
-            width: 50%;
-            float: right;
-            right: 0px;
-        }
-
-        #content {
-            position: absolute;
-            font-family: Arial;
-            color: white;
-            bottom: 5%;
-        }
-
-        .white-text {
-            font-family: Arial;
-            color: white;
-        }
-
-        #profile-pic {
-            position: absolute;
-            background-size: cover;
-            width: 50px;
-            height: 50px;
-            right: 5%;
-            bottom: 5%;
-        }
-
-        .mini-button {
-            width: 40px;
-            height: 40px;
-        }
-
-    </style>
-
-    <script type="text/javascript">
-
-        var turn1Action = "wait";
-        var turn2Action = "wait";
-        var turn3Action = "wait";
-        var turn4Action = "wait";
-        var airconsole;
-
-        /**
-         * Sets up the communication to the screen.
-         */
-        function App() {
-            var me = this;
-            me.airconsole = new AirConsole({"orientation": "portrait", "synchronize_time": "true"});
-            me.airconsole.onMessage = function (from, data) {
-                console.log("onMessage", from, data);
-                document.getElementById("content").innerHTML = "device " + from + " says: " + data;
-
-                var parsedMessage = JSON.parse(data);
-
-                var messageType = parsedMessage["type"].toLowerCase();
-                if (messageType === "avatarchosen") {
-                    document.getElementById("avatar").innerHTML = "Chosen avatar: " + parsedMessage["avatarIndex"];
-                } else if (messageType === "startround") {
-                    document.getElementById("turn1").innerHTML = "Turn 1: wait";
-                    document.getElementById("turn2").innerHTML = "Turn 2: wait";
-                    document.getElementById("turn3").innerHTML = "Turn 3: wait";
-                    document.getElementById("turn4").innerHTML = "Turn 4: wait";
-                    turn1Action = "wait";
-                    turn2Action = "wait";
-                    turn3Action = "wait";
-                    turn4Action = "wait";
-                    document.getElementById("current-game").innerHTML = "Round: " + parsedMessage["round"] + " Donors: " + parsedMessage["donorCount"] + " Funds Raised: " + parsedMessage["fundsRaised"] + "M";
-                }
-            };
-
-            me.airconsole.onReady = function (code) {
-                console.log("onReady", code);
-            };
-
-            me.airconsole.onDeviceStateChange = function (device_id, device_data) {
-                console.log("onDeviceStateChange", device_id, device_data);
-            };
-
-            /**
-             * Here we are adding support for mouse events manually.
-             * WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
-             * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
-             * https://github.com/AirConsole/airconsole-controls/
-             *
-             * NO MATTER WHAT YOU DECIDE, DO NOT USE ONCLICK HANDLERS.
-             * THEY HAVE A 200MS DELAY!
-             */
-            if (!("ontouchstart" in document.createElement("div"))) {
-                var elements = document.getElementsByTagName("*");
-                for (var i = 0; i < elements.length; ++i) {
-                    var element = elements[i];
-                    var ontouchstart = element.getAttribute("ontouchstart");
-                    if (ontouchstart) {
-                        element.setAttribute("onmousedown", ontouchstart);
-                    }
-                    var ontouchend = element.getAttribute("ontouchend");
-                    if (ontouchend) {
-                        element.setAttribute("onmouseup", ontouchend);
-                    }
-                }
-            }
-        }
-
-        // - - - - - - GAME API SECTION - - - - - - 
-        App.prototype.sendDeviceIsReady = function (isReady) {
-            var jsonMessage = {
-                'type': 'SetReady',
-                'isReady': isReady
-            };
-
-            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
-        };
-
-        App.prototype.sendStartGame = function () {
-            var jsonMessage = {
-                'type': 'StartGame'
-            };
-
-            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
-        };
-
-        App.prototype.sendSetAvatarIndex = function (avatarIndex) {
-            var jsonMessage = {
-                'type': 'SetAvatarIndex',
-                'avatarIndex': avatarIndex
-            };
-
-            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
-        };
-
-        App.prototype.sendSendChosenActions = function (chosenActions) {
-            var jsonMessage = {
-                'type': 'SendChosenActions',
-                'actions': chosenActions // Array of strings with  "up", "down", "left", "right" or "wait" (all actions for one round)
-            };
-
-            this.airconsole.message(AirConsole.SCREEN, jsonMessage);
-        };
-
-
-        // - - - - - - END GAME API SECTION - - - - - - 
-
-        App.prototype.displayDeviceId = function () {
-            var id = this.airconsole.getDeviceId();
-            document.getElementById("content").innerHTML = "My ID is: " + id;
-        };
-
-        App.prototype.displayNickname = function () {
-            var name = this.airconsole.getNickname();
-            document.getElementById("content").innerHTML = "My name is: " + name;
-        };
-
-        App.prototype.setDefinedAction = function (turn, action) {
-            switch (turn) {
-                case 1:
-                    turn1Action = action;
-                    document.getElementById("turn1").innerHTML = "Turn 1: " + action;
-                    break;
-                case 2:
-                    turn2Action = action;
-                    document.getElementById("turn2").innerHTML = "Turn 2: " + action;
-                    break;
-                case 3:
-                    turn3Action = action;
-                    document.getElementById("turn3").innerHTML = "Turn 3: " + action;
-                    break;
-                default:
-                    turn4Action = action;
-                    document.getElementById("turn4").innerHTML = "Turn 4: " + action;
-                    break;
-            }
-            this.sendSendChosenActions([turn1Action, turn2Action, turn3Action, turn4Action]);
-        };
-
-    </script>
-
+  <script type="text/javascript" src=".js/air-console.js"></script>
+  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
 </head>
-<body onload="window.app = new App()">
 
-<div style="margin-top:50px">
-    <div style="float:left">
-        <button class="button button-right" ontouchstart="window.app.displayDeviceId()">Show my Device Id</button>
-        <button class="button button-left" ontouchstart="window.app.displayNickname()">Show my Nickname</button>
-        <div id="avatar" class="white-text">No avatar chosen</div>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(1)">1</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(2)">2</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(3)">3</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(4)">4</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(5)">5</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(6)">6</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(7)">7</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(8)">8</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(9)">9</button>
-        <button class="mini-button" ontouchstart="window.app.sendSetAvatarIndex(10)">10</button>
-        <p/>
-        <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Set ready</button>
-        <button class="button button-right" ontouchstart="window.app.sendStartGame()">Start game</button>
+<body class="content" onload="window.app = new App()">
 
-        <div id="current-game" class="white-text">Round: 0 Donors: 0 Funds Raised: 0M</div>
-        <div id="turn1" class="white-text">Turn 1: wait</div>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'wait')">Wait</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'left')">Left</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'up')">Up</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'right')">Right</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(1, 'down')">Down</button>
-        <div id="turn2" class="white-text">Turn 2: wait</div>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'wait')">Wait</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'left')">Left</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'up')">Up</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'right')">Right</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(2, 'down')">Down</button>
-        <div id="turn3" class="white-text">Turn 3: wait</div>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'wait')">Wait</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'left')">Left</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'up')">Up</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'right')">Right</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(3, 'down')">Down</button>
-        <div id="turn4" class="white-text">Turn 4: wait</div>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'wait')">Wait</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'left')">Left</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'up')">Up</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'right')">Right</button>
-        <button class="mini-button" ontouchstart="window.app.setDefinedAction(4, 'down')">Down</button>
-        <button class="button button-left" ontouchstart="window.app.sendDeviceIsReady(true)">Ready for turn</button>
+<div class="in-game-screen hide-screen">
+
+  <div class="decorative-border">
+    <div class="decorative-border-top"> </div>
+    <div class="decorative-border-right"> </div>
+    <div class="decorative-border-bottom"> </div>
+    <div class="decorative-border-left"> </div>
+  </div>
+
+  <main>
+    <nav class="slots">
+      <div class="slot slot-0">
+        <span class="slot-label">1st</span>
+        <button class="slot-button" type="button">
+          <img src="images/icon_random_lightblue.png" />
+        </button>
+      </div>
+      <div class="slot slot-1">
+        <span class="slot-label">2nd</span>
+        <button class="slot-button" type="button">
+          <img src="images/icon_random_lightblue.png" />
+        </button>
+      </div>
+      <div class="slot slot-2">
+        <span class="slot-label">3rd</span>
+        <button class="slot-button" type="button">
+          <img src="images/icon_random_lightblue.png" />
+        </button>
+      </div>
+      <div class="slot slot-3">
+        <span class="slot-label">4th</span>
+        <button class="slot-button" type="button">
+          <img src="images/icon_random_lightblue.png" />
+        </button>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="in-game">
+    <nav class="options">
+      <ul class="options-list">
+        <div class="option-space-filler"></div>
+        <li class="option option-up">
+          <button class="option-button option-button-up" type="button">
+            <img src="images/icon_up.png" />
+          </button>
+        </li>
+        <div class="option-space-filler"></div>
+        <li class="option option-left">
+          <button class="option-button option-button-left" type="button">
+            <img src="images/icon_left.png" />
+          </button>
+        </li>
+        <li class="option option-wait">
+          <button class="option-button option-button-wait" type="button">
+            <img src="images/icon_stop.png" />
+          </button>
+        </li>
+        <li class="option option-right">
+          <button class="option-button option-button-right" type="button">
+            <img src="images/icon_right.png" />
+          </button>
+        </li>
+        <div class="option-space-filler"></div>
+        <li class="option option-down">
+          <button class="option-button option-button-down" type="button">
+            <img src="images/icon_down.png" />
+          </button>
+        </li>
+        <div class="option-space-filler"></div>
+      </ul>
+
+      <div class="ready">
+        <button class="ready-button button-disabled" disabled type="button">✔</button>
+      </div>
+    </nav>
+  </footer>
+</div>
+
+<div class="character-selection-screen">
+
+  <header>
+    <div class="character-previews-container">
+      <div class="character-previews">
+        <!--Created dynamically-->
+      </div>
+
 
     </div>
 
+  </header>
+
+  <div class="character-preview-cursor">▲</div>
+
+  <main>
+    <div class="decorative-border">
+      <div class="decorative-border-top"> </div>
+      <div class="decorative-border-right"> </div>
+      <div class="decorative-border-bottom"> </div>
+      <div class="decorative-border-left"> </div>
+    </div>
+
+    <div class="start-game-button">
+      Start Game!
+    </div>
+
+    <div class="characters">
+      <div class="character-container">
+        <!--Created dynamically-->
+      </div>
+    </div>
+  </main>
+
+  <footer class="character-selection">
+    <div class="navigation">
+      <div tabindex="0" class="navigation-button previous-button">
+        Prev.
+      </div>
+      <div tabindex="1" class="selection-button select-button">
+        Select
+      </div>
+      <div tabindex="2" class="navigation-button next-button">
+        Next
+      </div>
+    </div>
+  </footer>
 </div>
-<div id="profile-pic"></div>
-<div id="content"><!--Incoming messages get displayed in this container--></div>
+
+<script src=".js/main.js"></script>
+<script src=".js/in-game.js"></script>
+<script src=".js/characters.js"></script>
+<script src=".js/character-selection.js"></script>
+
 </body>
 </html>
