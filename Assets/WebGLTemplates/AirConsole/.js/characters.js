@@ -1,71 +1,71 @@
 var characters = [
   {
-    name: "Sanchez",
+    name: "Mr. Sanchez",
     imageName: "tiger",
     from: "Jungle",
     weight: "120kg",
     height: "1.20m",
-    agenda: "Change main working hours to night shifts, enforce gym to everyone."
+    agenda: "Change main working hours to night shifts, require a gym membership for everyone."
   }, {
-    name: "Croco",
+    name: "Mrs. Dylinae",
     imageName: "crocodile",
     from: "Swamp",
     weight: "400kg",
     height: "2m on my feet",
     agenda: "Lay on the ground, open mouth slightly and wait until all problems are solved."
   }, {
-    name: "Sharky",
+    name: "Rep. Baldwin",
     imageName: "shark",
-    from: "Deep sea",
+    from: "Deep Sea",
     weight: "680kg",
     height: "2m",
     agenda: "Reduce taxes, restore slavery and promote tornadoes as a mean of transport."
   }, {
+    name: "Rhionna",
+    imageName: "rino",
+    from: "Tropic",
+    weight: "It's my bones, ok?",
+    height: "1.70m",
+    agenda: "Transitioning to a like-based monetary policy. Increased privacy rights"
+  }, {
     name: "Mr. Key",
     imageName: "monkey",
-    from: "IT's basement",
+    from: "Mother's Basement",
     weight: "50kg",
     height: "1m",
     agenda: "Reduce taxes on alcohol, reduce retirement age and kick tigers out of the country."
   }, {
-    name: "Sen. Huey",
+    name: "Sen. Charlie",
     imageName: "bulldog",
     from: "Kennel-tucky",
     weight: "49kg",
     height: "0.70m",
     agenda: "Dig a hole, make the cats pay for it."
   }, {
-    name: "O' Approval",
+    name: "Rev. Harburger",
     imageName: "seal",
-    from: "Philadelphia",
+    from: "Stony Shores",
     weight: "None of your business",
     height: "1.85m″",
-    agenda: "Reduce taxes on fish."
+    agenda: "Reduce taxes on fish. Legalized polygamy."
   }, {
-    name: "Charlie",
+    name: "Ms. Huey",
     imageName: "parrot",
     from: "Jungle",
     weight: "1.85kg",
     height: "0.47m",
-    agenda: "Nobody really knows, keeps repeating his opponents' agenda."
+    agenda: "Nobody really knows, keeps repeating her opponents' agenda."
   }, {
-    name: "Rhionno",
-    imageName: "rino",
-    from: "Tropic",
-    weight: "It's my bones, ok?",
-    height: "1.70m",
-    agenda: "Murders and executions, mostly."
-  }, {
-    name: "Brandon",
+    name: "Brandon Schwarz",
     imageName: "crowd",
     from: "City",
     weight: "5kg",
     height: "0.45m",
     agenda: "No more guns, change currency into shiny coins only."
   }, {
-    name: "Bob",
+    name: "Mr. Roberts",
     imageName: "cat",
-    from: "Street",
+    from: "The Street",
     weight: "20kg",
     height: "0.35m",
     agenda: "Throw stuff to the ground, just wants to see the world burn."
