@@ -22,6 +22,8 @@ public class GameRunner : MonoBehaviour
     private int currentTurn = 0;
     private float moveSelectionTimeRemaining = -1f;
 
+	private AnimationManager animationManager;
+
     private List<MoveProvider> moveProviders = new List<MoveProvider>();
     private List<ScoreTracker> scoreTrackers = new List<ScoreTracker>();
     private List<PointsGiver> pointsGivers = new List<PointsGiver>();
@@ -36,6 +38,7 @@ public class GameRunner : MonoBehaviour
 
     public void StartGame()
     {
+		animationManager = GetComponent<AnimationManager> ();
         moveProviders.Clear();
         moveProviders.AddRange(FindObjectsOfType<MoveProvider>());
         scoreTrackers.Clear();
@@ -175,17 +178,10 @@ public class GameRunner : MonoBehaviour
     {
         SaveOriginalPositions();
         UpdatePositionsBasedOnInput();
-
-        //give time to walk somewhere
-        yield return new WaitForSeconds(0.75f);
-
         CheckValidityAndHandlePushBacks();
-
-        //give time to walk back
-        yield return new WaitForSeconds(0.75f);
-
+		yield return StartCoroutine(animationManager.PlayAllMovementAnimations());
         ChangeOwnership();
-
+		yield return StartCoroutine (animationManager.PlayTakeOverAnimations ());
 
         currentTurn++;
     }
@@ -291,10 +287,8 @@ public class GameRunner : MonoBehaviour
             Direction moveIn = MoveUtils.GetDirectionFor(currentMove);
             if (visitor.CurrentlyVisiting.canMove(moveIn))
             {
+				animationManager.SetNewTileLocation (visitor.gameObject, visitor.CurrentlyVisiting);
                 visitor.CurrentlyVisiting = visitor.CurrentlyVisiting.GetNeighbor(moveIn);
-
-                visitor.GetComponent<CharacterAnimationController>().ApplyState(StateType.Walk, moveIn,
-                    visitor.CurrentlyVisiting.transform.position);
             }
         }
     }
@@ -324,15 +318,8 @@ public class GameRunner : MonoBehaviour
                     Tile sourceTile = originalPositions[visitor.gameObject];
                     if (visitor.CurrentlyVisiting != sourceTile)
                     {
-                        //sorry, you need to walk back.... need to get direction somehow
-                        Direction moveToDirection =
-                            visitor.CurrentlyVisiting.GetMoveDirectionForNeighbor(
-                                originalPositions[visitor.gameObject]);
-
+						animationManager.SetNewCollision (visitor.gameObject, visitor.CurrentlyVisiting);
                         visitor.CurrentlyVisiting = originalPositions[visitor.gameObject];
-
-                        visitor.GetComponent<CharacterAnimationController>().ApplyState(StateType.Walk, moveToDirection,
-                            visitor.CurrentlyVisiting.transform.position);
                     }
                 }
                 else
@@ -361,9 +348,7 @@ public class GameRunner : MonoBehaviour
                         {
                             //TODO: Handle line of sight exclusion!
                             pointsGiver.OwnedBy = tracker;
-
-                            tracker.GetComponent<CharacterAnimationController>().ApplyState(StateType.Sticker,
-                                pointsGiver.GetComponent<HumanAnimationController>());
+							animationManager.AddNewTakeOver (tracker, pointsGiver);
                         }
                     }
                     else

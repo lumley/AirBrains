@@ -1462,6 +1462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 154936435}
   - component: {fileID: 154936434}
+  - component: {fileID: 154936436}
   m_Layer: 0
   m_Name: Game Runner
   m_TagString: Untagged
@@ -1499,6 +1500,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &154936436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 154936433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d502455b213f4c9f940258d367684b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 425008581}
+  timeToConflict: 0.5
+  timeToArgue: 1
+  timePerStickerAnim: 1
+  highlightZoomWidth: 1
+  cameraSpeed: 30
+  zoomSpeed: 10
 --- !u!4 &156949081 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4887521149824298, guid: 0500e8d0652de48368fec4d79ffecf92,
