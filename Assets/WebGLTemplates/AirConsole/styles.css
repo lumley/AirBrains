@@ -104,12 +104,31 @@ footer {
   z-index: 10;
 }
 
+.instruction {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .instruction-text {
+  margin: 10px;
   color: white;
+  text-align: center;
+}
+
+.text-details {
+  font-weight: normal;
+}
+
+.instruction-image {
+  max-width: 100%;
+  height: auto;
 }
 
 footer.instructionsnavigation {
   background-color: #d4eade;
   margin: 5px 8px 8px 8px;
   border-radius: 20px;
+  bottom: 0px;
 }

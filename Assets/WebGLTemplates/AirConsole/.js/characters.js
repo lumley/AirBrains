@@ -33,7 +33,7 @@ var characters = [
     from: "Kennel-tucky",
     weight: "49kg",
     height: "0.70m",
-    agenda: "Dig a hole."
+    agenda: "Dig a hole, make the cats pay for it."
   }, {
     name: "O' Approval",
     imageName: "seal",
