@@ -8,12 +8,14 @@ public class HumanAnimationController : CharacterAnimationController
 	private Vector3 _startSpriteLocalScale;
 
 	private StickerAnimation _stickerAnimation;
+	private SpriteRenderer myRenderer;
 
 	protected override void Start()
 	{
 		base.Start();
 
 		_startSpriteLocalScale = _stickerSprite.gameObject.transform.localScale;
+		myRenderer = GetComponent<SpriteRenderer> ();
 	}
 
 	private void SetSticker(Sprite sprite)
@@ -46,9 +48,6 @@ public class HumanAnimationController : CharacterAnimationController
 
 	protected override void OnStateChange(StateType oldState, StateType newState, params object[] args)
 	{
-		if (newState == StateType.Idle) {
-			UpdateDirection (Direction.EAST);
-		}
 	}
 
 	protected override void UpdateDirection(Direction direction)
@@ -58,5 +57,11 @@ public class HumanAnimationController : CharacterAnimationController
 		var newLocalScale = _startSpriteLocalScale;
 		newLocalScale.x = newLocalScale.x * transform.localScale.x;
 		_stickerSprite.transform.localScale = newLocalScale;
+		if (direction == Direction.WEST && !myRenderer.flipX) {
+			myRenderer.flipX = true;
+		}
+		if (direction == Direction.EAST && myRenderer.flipX) {
+			myRenderer.flipX = false;
+		}
 	}
 }
