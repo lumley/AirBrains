@@ -21,13 +21,6 @@ var characters = [
     height: "2m",
     agenda: "Reduce taxes, restore slavery and promote tornadoes as a mean of transport."
   }, {
-    name: "Rhionna",
-    imageName: "rino",
-    from: "Tropic",
-    weight: "It's my bones, ok?",
-    height: "1.70m",
-    agenda: "Transitioning to a like-based monetary policy. Increased privacy rights"
-  }, {
     name: "Mr. Key",
     imageName: "monkey",
     from: "Mother's Basement",
@@ -55,6 +48,13 @@ var characters = [
     weight: "1.85kg",
     height: "0.47m",
     agenda: "Nobody really knows, keeps repeating her opponents' agenda."
+  }, {
+    name: "Rhionna",
+    imageName: "rino",
+    from: "Tropic",
+    weight: "It's my bones, ok?",
+    height: "1.70m",
+    agenda: "Transitioning to a like-based monetary policy. Increased privacy rights"
   }, {
     name: "Brandon Schwarz",
     imageName: "crowd",
