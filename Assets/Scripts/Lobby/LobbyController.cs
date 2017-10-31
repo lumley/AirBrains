@@ -20,7 +20,11 @@ public sealed class LobbyController : MonoBehaviour
         View.ApplyModel(Model);
         Model.OnAvailableCharactersChanged += SendAvailableCharacters;
         SendAvailableCharacters(Model.AvailableCharacters);
-        GameStateController.FindInScene().LinkExistingPlayers();
+        var gameStateController = GameStateController.FindInScene();
+        if (gameStateController)
+        {
+            gameStateController.LinkExistingPlayers();
+        }
     }
 
     private void OnDestroy()

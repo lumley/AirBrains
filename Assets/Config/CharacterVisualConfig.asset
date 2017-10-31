@@ -13,22 +13,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config:
   - Character: 1
-    Portrait: {fileID: 21300000, guid: ec15a2a3e733e4080a9696964baede78, type: 3}
+    Portrait: {fileID: 21300000, guid: 25e84c96000be4f8687f0d9d0c007f7c, type: 3}
+    TextBackgroundColor: {r: 0.7529412, g: 0.43529412, b: 0.13725491, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 5
-    Portrait: {fileID: 21300000, guid: 3665e3cc9dda54672bd63cf7ad624336, type: 3}
+    Portrait: {fileID: 21300000, guid: d1ec106ab43254687a9e10d6ee06c0fd, type: 3}
+    TextBackgroundColor: {r: 0.6392157, g: 0.21568628, b: 0.13333334, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 4
-    Portrait: {fileID: 21300000, guid: a9b0905c425d6457f80cc113db2cd069, type: 3}
+    Portrait: {fileID: 21300000, guid: 3af19ea0dc6d7487c9e9e06bf08f4924, type: 3}
+    TextBackgroundColor: {r: 0.42352942, g: 0.2509804, b: 0.2509804, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 7
-    Portrait: {fileID: 21300000, guid: 9b090ecae10f249639cc709869eead0c, type: 3}
+    Portrait: {fileID: 21300000, guid: 6e6042924719843349e2055aa5a41fa2, type: 3}
+    TextBackgroundColor: {r: 0.9137255, g: 0.8156863, b: 0.22745098, a: 1}
+    TextColor: {r: 0, g: 0, b: 0, a: 1}
   - Character: 8
-    Portrait: {fileID: 21300000, guid: ff2676f30ac1243ca8bf72bddc6083c6, type: 3}
+    Portrait: {fileID: 21300000, guid: 9d1569d8cd18d4d5b8d45d598162597d, type: 3}
+    TextBackgroundColor: {r: 0.5882353, g: 0.16078432, b: 0.5294118, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 2
-    Portrait: {fileID: 21300000, guid: 291c705249fc64785b7e4bd11843bba2, type: 3}
+    Portrait: {fileID: 21300000, guid: cc3cd5959dc7d48938063597100c3e04, type: 3}
+    TextBackgroundColor: {r: 0.25882354, g: 0.4, b: 0.18039216, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 6
-    Portrait: {fileID: 21300000, guid: 916c8d90104f14296870a244a7d563e5, type: 3}
+    Portrait: {fileID: 21300000, guid: dedc1b96d1fe34ada95549253a263371, type: 3}
+    TextBackgroundColor: {r: 0.18431373, g: 0.36862746, b: 0.42352942, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 10
-    Portrait: {fileID: 21300000, guid: 4f0a8018bf8a64a61a4eea042f54a0f7, type: 3}
+    Portrait: {fileID: 21300000, guid: c2d5bfad7d1f54bd9a48e7b02dde19e4, type: 3}
+    TextBackgroundColor: {r: 0.4627451, g: 0.5294118, b: 0.4862745, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 9
-    Portrait: {fileID: 21300000, guid: cff28f9824b524244ab79fa80e19a834, type: 3}
+    Portrait: {fileID: 21300000, guid: 2ce6a7d0ae2da474183defc58a6e3f37, type: 3}
+    TextBackgroundColor: {r: 0.21176471, g: 0.23137255, b: 0.23137255, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}
   - Character: 3
-    Portrait: {fileID: 21300000, guid: 175b8beafd3834e11aa8c30a63d797a2, type: 3}
+    Portrait: {fileID: 21300000, guid: c7b378305c75c40f5b61a7715b8be7f2, type: 3}
+    TextBackgroundColor: {r: 0.23137255, g: 0.54901963, b: 0.6901961, a: 1}
+    TextColor: {r: 1, g: 1, b: 1, a: 1}

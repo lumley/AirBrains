@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 [Serializable]
 public class CharacterVisualData
 {
 	public CharacterType Character;
 	public Sprite Portrait;
+	public Color TextBackgroundColor;
+	public Color TextColor;
 }
 
 [CreateAssetMenu(fileName = "CharacterVisualConfig", menuName = "Config/CharacterVisualConfig", order = 1)]
@@ -29,7 +30,7 @@ public sealed class CharacterVisualConfig : ScriptableObject
 
 			if (result == null) 
 			{
-				throw new System.NullReferenceException (string.Format ("{0} visuals isn't defined", character));
+				throw new NullReferenceException (string.Format ("{0} visuals isn't defined", character));
 			}
 
 			_dictionary.Add (character, result);
