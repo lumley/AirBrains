@@ -103,3 +103,13 @@ footer {
   transform: translate(-50%, -50%);
   z-index: 10;
 }
+
+.instruction-text {
+  color: white;
+}
+
+footer.instructionsnavigation {
+  background-color: #d4eade;
+  margin: 5px 8px 8px 8px;
+  border-radius: 20px;
+}

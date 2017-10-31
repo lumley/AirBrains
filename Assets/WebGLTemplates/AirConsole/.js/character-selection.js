@@ -15,12 +15,14 @@ var buttonSelectedClassName = "button-selected";
 var characterPreviewSelectedClassName = "character-preview-selected";
 var characterPreviewUnavailableClassName = "character-preview-unavailable";
 var startGameButtonClassName = "start-game-button";
+var instructionsScreenButtonClassName = "instructions-button";
 
 var characterContainerElement = document.getElementsByClassName(characterContainerClassName)[0];
 var characterPreviewsElement = document.getElementsByClassName(characterPreviews)[0];
 initializeCharacters();
 
 var startGameButtonElement = document.getElementsByClassName(startGameButtonClassName)[0];
+var instructionsScreenButtonElement = document.getElementsByClassName(instructionsScreenButtonClassName)[0];
 var previousElement = document.getElementsByClassName(previousButtonClassName)[0];
 var selectElement = document.getElementsByClassName(selectButtonClassName)[0];
 var nextElement = document.getElementsByClassName(nextButtonClassName)[0];
@@ -53,6 +55,14 @@ startGameButtonElement.addEventListener("touchstart", function(){
   onStartGameClick();
 });
 
+instructionsScreenButtonElement.addEventListener("touchstart", function(){
+  onInstructionsScreenClick();
+});
+
+
+function onInstructionsScreenClick() {
+  displayInstructionsScreen();
+}
 
 function onPreviousClick() {
   if (currentCharacterId > 1) {
