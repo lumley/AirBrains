@@ -15,6 +15,7 @@ public class GameRunner : MonoBehaviour
     public string tagForPoints = "human";
 
     public GameObject victoryScreen;
+	public AudioClip countMoney;
 
     private bool gameRunning = false;
     private bool isFirstRound = false;
@@ -192,17 +193,23 @@ public class GameRunner : MonoBehaviour
     private void CollectPoints()
     {
         Dictionary<ScoreTracker, int> roundPointsForPlayer = new Dictionary<ScoreTracker, int>();
+		bool playSound = false;
         foreach (PointsGiver giver in pointsGivers)
         {
             if (giver.OwnedBy != null)
             {
+				playSound = true;
                 if (!roundPointsForPlayer.ContainsKey(giver.OwnedBy))
                 {
                     roundPointsForPlayer.Add(giver.OwnedBy, 0);
                 }
                 roundPointsForPlayer[giver.OwnedBy] += giver.pointValue;
+				giver.GetComponentInChildren<ParticleSystem> ().Emit (UnityEngine.Random.Range (15, 30));
             }
         }
+		if (playSound) {
+			GetComponent<AudioSource> ().PlayOneShot (countMoney);
+		}
         foreach (KeyValuePair<ScoreTracker, int> entry in roundPointsForPlayer)
         {
             entry.Key.ChangeScore(entry.Value);
@@ -212,16 +219,6 @@ public class GameRunner : MonoBehaviour
                 lastRoundNumber = roundNumber + wrapUpRounds;
             }
         }
-
-        //DUMMY
-        foreach (ScoreTracker tracker in scoreTrackers)
-        {
-            if (tracker.Score > 0)
-            {
-                Debug.Log(tracker.gameObject.name + " currently has " + tracker.Score + " points");
-            }
-        }
-        //END DUMMY
     }
 
     private IEnumerator HandleRoundEndDisplay()

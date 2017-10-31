@@ -13,6 +13,8 @@ public class AnimationManager : MonoBehaviour {
 	public float cameraSpeed = 30f;
 	public float zoomSpeed = 30f;
 
+	public AudioClip stickerNoise;
+
 	private Vector3 defaultCameraPos;
 	private float defaultCameraWidth;
 
@@ -107,6 +109,7 @@ public class AnimationManager : MonoBehaviour {
 			yield return StartCoroutine(ZoomCamera(highlightZoomWidth));
 			tracker.GetComponent<CharacterAnimationController>().ApplyState(StateType.Sticker,
 				pointsGiver.GetComponent<HumanAnimationController>());
+			GetComponent<AudioSource> ().PlayOneShot (stickerNoise);
 			yield return new WaitForSeconds (timePerStickerAnim);
 			yield return StartCoroutine(ZoomCamera(defaultCameraWidth));
 		}

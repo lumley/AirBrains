@@ -10,8 +10,11 @@ public class VictoryScreen : MonoBehaviour {
 	public List<Sprite> portraitCharacterLinks;
 	public List<Sprite> winnerPortraitCharacterLinks;
 
+	public AudioClip victorySound;
+
 	void OnEnable(){
-		List<ScoreTracker> trackers = FindObjectsOfType<ScoreTracker> ().OrderByDescending(score=>score.Score).ToList();;
+		GetComponent<AudioSource> ().PlayOneShot (victorySound);
+		List<ScoreTracker> trackers = FindObjectsOfType<ScoreTracker> ().OrderByDescending(score=>score.Score).ToList();
 		for (int placeIndex = 0; placeIndex < places.Count; placeIndex++) {
 			if (trackers.Count <= placeIndex) {
 				places [placeIndex].SetActive (false);
