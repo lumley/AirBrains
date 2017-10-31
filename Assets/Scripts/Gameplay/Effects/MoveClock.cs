@@ -9,8 +9,7 @@ public class MoveClock : MonoBehaviour
     public Text text;
     public float[] textTriggers;
     public Color textColor;
-    public Text ChooseYourActionsNowText;
-    public Image ChoseYourActionsBgImage;
+	public GameObject[] toEnableWhenVisible;
 
     private float lastValue;
     private GameRunner runner;
@@ -30,8 +29,9 @@ public class MoveClock : MonoBehaviour
             {
                 fillImage.enabled = true;
                 text.enabled = true;
-                ChooseYourActionsNowText.enabled = true;
-                ChoseYourActionsBgImage.enabled = true;
+				foreach (GameObject go in toEnableWhenVisible) {
+					go.SetActive (true);
+				}
             }
             fillImage.fillAmount = runner.TimeLeft / runner.secondsToWaitForInput;
             if (Math.Abs(lastValue - -1f) > Mathf.Epsilon)
@@ -53,8 +53,9 @@ public class MoveClock : MonoBehaviour
             fillImage.enabled = false;
             text.enabled = false;
             lastValue = -1f;
-            ChooseYourActionsNowText.enabled = false;
-            ChoseYourActionsBgImage.enabled = false;
+			foreach (GameObject go in toEnableWhenVisible) {
+				go.SetActive (false);
+			}
         }
     }
 }

@@ -8,6 +8,7 @@ public class VictoryScreen : MonoBehaviour {
 	public List<GameObject> places;
 	public List<CharacterType> characterPortraitLinks;
 	public List<Sprite> portraitCharacterLinks;
+	public List<Sprite> winnerPortraitCharacterLinks;
 
 	void OnEnable(){
 		List<ScoreTracker> trackers = FindObjectsOfType<ScoreTracker> ().OrderByDescending(score=>score.Score).ToList();;
@@ -18,7 +19,9 @@ public class VictoryScreen : MonoBehaviour {
 				places [placeIndex].SetActive (true);
 				Image winnerImage = places [placeIndex].GetComponentInChildren<Image> ();
 				if (winnerImage != null) {
-					winnerImage.sprite = portraitCharacterLinks [characterPortraitLinks.IndexOf (trackers[placeIndex].Character)];
+					winnerImage.sprite = placeIndex == 0 
+						? winnerPortraitCharacterLinks[characterPortraitLinks.IndexOf (trackers[placeIndex].Character)]
+						: portraitCharacterLinks [characterPortraitLinks.IndexOf (trackers[placeIndex].Character)];
 				}
 			}
 		}
