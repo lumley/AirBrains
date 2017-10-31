@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeaderboardTracker : MonoBehaviour {
 
@@ -14,10 +15,18 @@ public class LeaderboardTracker : MonoBehaviour {
 
 	public bool launchOnStart = true;
 	public bool liveUpdate = true;
+	public Text FundsOrRoundText;
+	public Color FundsOrRoundTextDefaultColor = Color.white;
+	public Color FundsOrRoundTextRoundColor = Color.red;
 
 	private Dictionary<ScoreTracker, LeaderboardEntry> leaderboardEntries = new Dictionary<ScoreTracker, LeaderboardEntry>();
 	private float thresholdBackgroundSize = 0f;
 	private float currentTBS = 0f;
+	
+	public static LeaderboardTracker FindInScene()
+	{
+		return FindObjectOfType<LeaderboardTracker>();
+	}
 
 	void Start () {
 		thresholdBackgroundSize = perLineHeight;
@@ -69,5 +78,11 @@ public class LeaderboardTracker : MonoBehaviour {
 
 	public void TriggerScoreUpdate(){
 		SortEntries ();
+	}
+
+	public void UpdateText(string text, bool isAfterThreshold)
+	{
+		FundsOrRoundText.text = text;
+		FundsOrRoundText.color = isAfterThreshold ? FundsOrRoundTextRoundColor : FundsOrRoundTextDefaultColor;
 	}
 }

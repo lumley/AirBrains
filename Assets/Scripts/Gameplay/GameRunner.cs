@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Player;
 using ScreenLogic;
@@ -50,6 +51,8 @@ public class GameRunner : MonoBehaviour
             moveProvider.SetMoveCount(turnsPerRound);
         }
         SetupGameVariables();
+        
+        LeaderboardTracker.FindInScene().UpdateText(string.Format("{0}M", scoreThreshold), false);
         StartCoroutine(RunGame());
     }
 
@@ -229,6 +232,18 @@ public class GameRunner : MonoBehaviour
             gameRunning = false;
             CheckForTiedScores();
         }
+        
+        if (lastRoundNumber > 0)
+        {
+            var roundsLeft = lastRoundNumber - roundNumber;
+            var message = Convert.ToString(roundsLeft);
+            if (roundsLeft < 0)
+            {
+                message = "SD";
+            }
+            LeaderboardTracker.FindInScene().UpdateText(message, true);
+        }
+        
 
         //DUMMY
         yield return new WaitForSeconds(.5f);
