@@ -1,73 +1,73 @@
 var characters = [
   {
-    name: "Tiger",
+    name: "Sanchez",
     imageName: "tiger",
-    from: "Philadelphia",
-    weight: "Not your business",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Jungle",
+    weight: "120kg",
+    height: "1.20m",
+    agenda: "Change main working hours to night shifts, enforce gym to everyone."
   }, {
     name: "Croco",
     imageName: "crocodile",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Swamp",
+    weight: "400kg",
+    height: "2m on my feet",
+    agenda: "Lay on the ground, open mouth slightly and wait until all problems are solved."
   }, {
-    name: "Shark",
+    name: "Sharky",
     imageName: "shark",
-    from: "Philadelphia",
-    weight: "Not your business",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Deep sea",
+    weight: "680kg",
+    height: "2m",
+    agenda: "Reduce taxes, restore slavery and promote tornadoes as a mean of transport."
   }, {
-    name: "Monkey",
+    name: "Mr. Key",
     imageName: "monkey",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "IT's basement",
+    weight: "50kg",
+    height: "1m",
+    agenda: "Reduce taxes on alcohol, reduce retirement age and kick tigers out of the country."
   }, {
     name: "Sen. Huey",
     imageName: "bulldog",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Kennel-tucky",
+    weight: "49kg",
+    height: "0.70m",
+    agenda: "Dig a hole."
   }, {
-    name: "Seal",
+    name: "O' Approval",
     imageName: "seal",
     from: "Philadelphia",
-    weight: "Not your business",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    weight: "None of your business",
+    height: "1.85m″",
+    agenda: "Reduce taxes on fish."
   }, {
-    name: "Parrot",
+    name: "Charlie",
     imageName: "parrot",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Jungle",
+    weight: "1.85kg",
+    height: "0.47m",
+    agenda: "Nobody really knows, keeps repeating his opponents' agenda."
   }, {
-    name: "Rino",
+    name: "Rhionno",
     imageName: "rino",
-    from: "Philadelphia",
-    weight: "Not your business",
-    height: "39″",
+    from: "Tropic",
+    weight: "It's my bones, ok?",
+    height: "1.70m",
     agenda: "Murders and executions, mostly."
   }, {
-    name: "Crow",
+    name: "Brandon",
     imageName: "crowd",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "City",
+    weight: "5kg",
+    height: "0.45m",
+    agenda: "No more guns, change currency into shiny coins only."
   }, {
-    name: "Cat",
+    name: "Bob",
     imageName: "cat",
-    from: "Philadelphia",
-    weight: "2.645h",
-    height: "39″",
-    agenda: "Murders and executions, mostly."
+    from: "Street",
+    weight: "20kg",
+    height: "0.35m",
+    agenda: "Throw stuff to the ground, just wants to see the world burn."
   }
 ];
