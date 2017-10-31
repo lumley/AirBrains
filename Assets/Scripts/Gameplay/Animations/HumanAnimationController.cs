@@ -46,7 +46,9 @@ public class HumanAnimationController : CharacterAnimationController
 
 	protected override void OnStateChange(StateType oldState, StateType newState, params object[] args)
 	{
-		
+		if (newState == StateType.Idle) {
+			UpdateDirection (Direction.EAST);
+		}
 	}
 
 	protected override void UpdateDirection(Direction direction)

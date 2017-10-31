@@ -37,8 +37,8 @@ public sealed class MonsterAnimationController : CharacterAnimationController
     {
         if (newState == StateType.Sticker && args.Length > 0)
         {
+			UpdateDirection(Direction.EAST);
             var target = (HumanAnimationController) args[0];
-            
             target.ApplySticker(_stickerAnimation);
             _stickerAnimation.PlayAnimation(_character);
         }
