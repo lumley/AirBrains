@@ -175,7 +175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: POLITICAL ANIMALS
+  m_Text: POLITICAL BEASTS
 --- !u!222 &444074390
 CanvasRenderer:
   m_ObjectHideFlags: 0
