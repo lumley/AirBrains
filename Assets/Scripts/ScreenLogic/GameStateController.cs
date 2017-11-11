@@ -45,7 +45,6 @@ public class GameStateController : MonoBehaviour
     public void HeadToTheLobby()
     {
         SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
-        _currentGameState = GameState.OnLobby;
     }
 
     public void LinkExistingPlayers()
@@ -57,79 +56,97 @@ public class GameStateController : MonoBehaviour
             return;
         }
 
-        foreach (GlobalPlayer globalPlayer in _globalPlayers)
+        foreach (var globalPlayer in _globalPlayers)
         {
-            lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
-            AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+            RegisterPlayerInLobby(globalPlayer);
         }
     }
 
     public void OnDeviceConnected(int deviceId)
     {
-        if (_currentGameState == GameState.OnLobby && _globalPlayers.Count < MaxAmountOfPlayersAllowed)
+        if ((_currentGameState == GameState.OnLobby || _currentGameState == GameState.StartingUp)
+            && _globalPlayers.Count < MaxAmountOfPlayersAllowed)
         {
-            var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
-            if (playerIndex < 0)
-            {
-                var availableAvatar = FindAvailableAvatar();
-                var globalPlayer = new GlobalPlayer(deviceId, availableAvatar);
-                _globalPlayers.Add(globalPlayer);
-
-                var lobbyController = LobbyController.FindInScene();
-                lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
-                AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
-                AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
-            }
+            RegisterGlobalPlayer(deviceId);
         }
         else if (_currentGameState == GameState.OnGame)
         {
-            var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
-            if (playerIndex >= 0)
-            {
-                var globalPlayer = _globalPlayers[playerIndex];
-                AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
-                IPlayerToGameStateBridge gameCharacter;
-                if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
-                {
-                    gameCharacter.DeviceId = deviceId;
-                    gameCharacter.SendStartRound();
-                }
-            }
-            else
-            {
-                // Search for any orphan player and take it over!
-                foreach (var playerToGameStateBridge in _gameCharacterReferences)
-                {
-                    var id = playerToGameStateBridge.DeviceId;
-                    if (id == 0)
-                    {
-                        playerToGameStateBridge.DeviceId = deviceId;
-                        var previousKeyToRemove = 0;
-                        foreach (var deviceIdToGameCharacter in _deviceIdToGameCharacterMap)
-                        {
-                            if (deviceIdToGameCharacter.Value == playerToGameStateBridge)
-                            {
-                                previousKeyToRemove = deviceIdToGameCharacter.Key;
-                                break;
-                            }
-                        }
-                        if (previousKeyToRemove != 0)
-                        {
-                            var globalPlayer =
-                                _globalPlayers.Find(player => player.LobbyPlayerData.Id == previousKeyToRemove);
-                            if (globalPlayer != null)
-                            {
-                                globalPlayer.LobbyPlayerData.Id = deviceId;
-                            }
-                            _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
-                        }
+            LinkPlayerToCharacterDuringGameplay(deviceId);
+        }
+    }
 
-                        _deviceIdToGameCharacterMap[deviceId] = playerToGameStateBridge;
-                        break;
+    private void LinkPlayerToCharacterDuringGameplay(int deviceId)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (playerIndex >= 0)
+        {
+            var globalPlayer = _globalPlayers[playerIndex];
+            AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+            IPlayerToGameStateBridge gameCharacter;
+            if (_deviceIdToGameCharacterMap.TryGetValue(deviceId, out gameCharacter))
+            {
+                gameCharacter.DeviceId = deviceId;
+                gameCharacter.SendStartRound();
+            }
+        }
+        else
+        {
+            // Search for any orphan player and take it over!
+            foreach (var playerToGameStateBridge in _gameCharacterReferences)
+            {
+                var id = playerToGameStateBridge.DeviceId;
+                if (id == 0)
+                {
+                    playerToGameStateBridge.DeviceId = deviceId;
+                    var previousKeyToRemove = 0;
+                    foreach (var deviceIdToGameCharacter in _deviceIdToGameCharacterMap)
+                    {
+                        if (deviceIdToGameCharacter.Value == playerToGameStateBridge)
+                        {
+                            previousKeyToRemove = deviceIdToGameCharacter.Key;
+                            break;
+                        }
                     }
+                    if (previousKeyToRemove != 0)
+                    {
+                        var globalPlayer =
+                            _globalPlayers.Find(player => player.LobbyPlayerData.Id == previousKeyToRemove);
+                        if (globalPlayer != null)
+                        {
+                            globalPlayer.LobbyPlayerData.Id = deviceId;
+                        }
+                        _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
+                    }
+
+                    _deviceIdToGameCharacterMap[deviceId] = playerToGameStateBridge;
+                    break;
                 }
             }
         }
+    }
+
+    private void RegisterGlobalPlayer(int deviceId)
+    {
+        var playerIndex = IndexOfPlayerWithDeviceId(deviceId);
+        if (playerIndex < 0)
+        {
+            var availableAvatar = FindAvailableAvatar();
+            var globalPlayer = new GlobalPlayer(deviceId, availableAvatar);
+            _globalPlayers.Add(globalPlayer);
+
+            if (_currentGameState == GameState.OnLobby)
+            {
+                RegisterPlayerInLobby(globalPlayer);
+            }
+        }
+    }
+
+    private void RegisterPlayerInLobby(GlobalPlayer globalPlayer)
+    {
+        var lobbyController = LobbyController.FindInScene();
+        lobbyController.OnLobbyPlayerConnected(globalPlayer.LobbyPlayerData);
+        AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
+        AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
     }
 
     public void OnDeviceDisconnected(int deviceId)
@@ -342,6 +359,10 @@ public class GameStateController : MonoBehaviour
             gameSpawner.StartGame(_globalPlayers);
         }
         else if (_currentGameState == GameState.OnGame && gameStateToSet == GameState.OnWrapUpScreen)
+        {
+            _currentGameState = gameStateToSet;
+        }
+        else if (gameStateToSet == GameState.OnLobby)
         {
             _currentGameState = gameStateToSet;
         }

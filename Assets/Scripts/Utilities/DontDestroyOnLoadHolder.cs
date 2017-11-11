@@ -14,13 +14,6 @@ namespace Utilities
 				var target = _doNotDestroyOnLoad[i];
 				DontDestroyOnLoad(target);
 			}
-
-			var transformChildCount = transform.childCount;
-			for (var i = 0; i < transformChildCount; i++)
-			{
-				var child = transform.GetChild(i);
-				DontDestroyOnLoad(child);
-			}
 		}
 	}
 }
