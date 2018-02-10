@@ -154,6 +154,13 @@
     background-repeat: no-repeat;
 }
 
+.look-at-screen-text {
+    color: white;
+    position: relative;
+    top: 40%;
+    text-align: center;
+}
+
 .hidden {
     display: none;
 }
