@@ -1,6 +1,5 @@
 .slots {
-  padding: 0 40px;
-  padding-top: 48px;
+  padding: 55px 40px 0 40px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -71,21 +70,21 @@
 }
 
 .options-list {
-  margin: 0;
+  margin: 0px 0px 40px 0px;
   padding: 0;
   list-style-type: none;
   display: flex;
-  width: 126px;
+  width: 156px;
   flex-wrap: wrap;
 }
 
 .option-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
   background-color: white;
   border: none;
-  box-shadow: 4px 4px 2px #5eb0af;
+  box-shadow: 5px 5px 2px #519A99;
 }
 
 .option {
@@ -94,8 +93,8 @@
 }
 
 .option-space-filler {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   padding: 1px;
 }
 

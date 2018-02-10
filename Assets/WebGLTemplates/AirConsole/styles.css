@@ -47,39 +47,38 @@ footer {
 
 .decorative-border-top {
   top: 8px;
-  left: 33px;
-  right: 33px;
-  height: 25px;
+  left: 18px;
+  right: 18px;
+  height: 10px;
 }
 
 .decorative-border-right {
-  bottom: 33px;
+  bottom: 18px;
   left: 8px;
-  top: 33px;
-  width: 25px;
+  top: 18px;
+  width: 10px;
 }
 
 .decorative-border-bottom {
   bottom: 8px;
-  left: 33px;
-  right: 33px;
-  height: 25px;
+  left: 18px;
+  right: 18px;
+  height: 10px;
 }
 
 .decorative-border-left {
-  bottom: 33px;
+  bottom: 18px;
   right: 8px;
-  top: 33px;
-  width: 25px;
+  top: 18px;
+  width: 10px;
 }
 
 .player-name {
   position: absolute;
-  bottom: 2px;
-  right: 6px;
+  top: 32px;
+  left: 32px;
   color: white;
   z-index: 20;
-  text-shadow: 1px 1px 5px #000000;
 }
 
 .back-to-lobby-button {
