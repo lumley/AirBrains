@@ -9,6 +9,7 @@ public class CharacterVisualData
 	public Sprite Portrait;
 	public Color TextBackgroundColor;
 	public Color TextColor;
+	public String characterName;
 }
 
 [CreateAssetMenu(fileName = "CharacterVisualConfig", menuName = "Config/CharacterVisualConfig", order = 1)]
