@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ScreenLogic;
+using NDream.AirConsole;
 
 public class GameSpawner : MonoBehaviour
 {
     public int[] humansToSpawnPerPlayer; 
+
+    public Canvas effectCanvas;
+    public SpawnPositionEffect spawnPositionEffect;
 
     public static GameSpawner FindInScene()
     {
@@ -61,6 +65,12 @@ public class GameSpawner : MonoBehaviour
             GlobalPlayer thisPlayer = players[playerId];
             newPlayer.GetComponent<MonsterAnimationController>().SetCharacter(thisPlayer.LobbyPlayerData.Character);
             newPlayer.GetComponent<ScoreTracker>().Character = thisPlayer.LobbyPlayerData.Character;
+
+            SpawnPositionEffect effect = Instantiate(spawnPositionEffect);
+            effect.transform.SetParent(effectCanvas.transform);
+            effect.transform.localScale = Vector3.one;
+            Debug.Log("New Spawn effect! " + thisPlayer.LobbyPlayerData.Character + " " +  newPlayer + " " +  AirConsole.instance.GetNickname(thisPlayer.LobbyPlayerData.Id));
+            effect.SetCharacter(thisPlayer.LobbyPlayerData.Character, newPlayer, AirConsole.instance.GetNickname(thisPlayer.LobbyPlayerData.Id), playerId * effect.displayTime);
         }
         foreach (PrefabReplacer replacer in playerSpawns)
         {
