@@ -40,14 +40,6 @@ footer.character-selection {
     box-shadow: 4px 4px 2px #69a7a4;
 }
 
-/*.navigation-button:focus:not(.button-disabled) {*/
-/*animation: click-button .75s normal cubic-bezier(0.66, 0, 0, 1);*/
-/*}*/
-
-/*.selection-button:focus:not(.button-disabled):not(.selection-button--selected):not(button-disabled) {*/
-/*animation: click-button .75s normal cubic-bezier(0.66, 0, 0, 1);*/
-/*}*/
-
 .selection-button--selected {
     background-color: yellow;
     color: #39babc;
