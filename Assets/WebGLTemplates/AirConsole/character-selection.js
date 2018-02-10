@@ -220,7 +220,7 @@ function createElement(type, className, parent) {
 
 function updateCharacterSetStates(availableCharacterIndexes) {
     for (var i = 1; i <= characterCount; i++) {
-        if (availableCharacterIndexes !== currentCharacterId) {
+        if (i !== currentPlayerSelectedCharacterId) {
             setPlayerSelection(i, availableCharacterIndexes.indexOf(i) < 0);
         } else {
             updateCurrentlySelectedCharacter(i);

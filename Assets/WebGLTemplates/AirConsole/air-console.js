@@ -21,8 +21,8 @@ function App() {
         var messageType = parsedMessage["type"].toLowerCase();
         if (messageType === "avatarchosen") {
             app.sendDeviceIsReady(true);
-            // var avatarIndex = parsedMessage["avatarIndex"];
-            // setCurrentCharacterId(avatarIndex);
+            var avatarIndex = parsedMessage["avatarIndex"];
+            updateCurrentlySelectedCharacter(avatarIndex);
         } else if (messageType === "startround") {
             displayInGameScreen();
             resetInGame();
