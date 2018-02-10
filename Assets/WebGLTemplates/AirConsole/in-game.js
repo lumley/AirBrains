@@ -10,7 +10,9 @@ var readyButtonClassName = "ready-button";
 var buttonDisabled = "button-disabled";
 var readyButtonActiveClassName = "ready-button--active";
 var inGameAvatarClassName = "in-game-avatar";
+var lookAtScreenTextClassName = "look-at-screen-text";
 var hiddenClass = "hidden";
+
 
 var optionTexts = [
     "<img src=\"images/icon_up.png\" width=\"28\" height=\"28\"/>",
@@ -41,6 +43,7 @@ var readyElement = document.getElementsByClassName(readyClassName)[0];
 var readyButtonElement = readyElement.getElementsByClassName(readyButtonClassName)[0];
 var inGameAvatarElement = document.getElementsByClassName(inGameAvatarClassName)[0];
 var optionsElement = document.getElementsByClassName(optionsClassName)[0];
+var lookAtScreenTextElement = document.getElementsByClassName(lookAtScreenTextClassName)[0];
 
 [].slice.call(slotElements).forEach(function (slot, index) {
     slot.addEventListener("touchstart", function () {
@@ -165,6 +168,7 @@ function onPlayerReady() {
 }
 
 function resetInGame() {
+    lookAtScreenTextElement.classList.add(hiddenClass);
     optionsElement.classList.remove(hiddenClass);
     selectSlot(0);
     selectedOptions = [optionUndefined, optionUndefined, optionUndefined, optionUndefined];
@@ -180,6 +184,7 @@ function resetInGame() {
 
 function blockActionSelection() {
     optionsElement.classList.add(hiddenClass);
+    lookAtScreenTextElement.classList.remove(hiddenClass);
 }
 
 function test() {
