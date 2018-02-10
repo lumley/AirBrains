@@ -5,7 +5,7 @@ using ScreenLogic;
 
 public class GameSpawner : MonoBehaviour
 {
-    public int humansToSpawnPerPlayer = 2; //TODO: Make this to a scene-specific variable?
+    public int[] humansToSpawnPerPlayer; 
 
     public static GameSpawner FindInScene()
     {
@@ -66,7 +66,7 @@ public class GameSpawner : MonoBehaviour
         {
             Destroy(replacer.gameObject);
         }
-        int humansToSpawn = playersToSpawn * humansToSpawnPerPlayer;
+        int humansToSpawn = humansToSpawnPerPlayer[playersToSpawn-1];
         for (int humanId = 0; humanId < humansToSpawn; humanId++)
         {
             PrefabReplacer replacer = humanSpawns[Mathf.RoundToInt(Random.value * (humanSpawns.Count - 1))];

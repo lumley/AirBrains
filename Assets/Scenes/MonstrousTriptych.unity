@@ -15832,6 +15832,7 @@ MonoBehaviour:
   wrapUpRounds: 10
   tagForPoints: human
   victoryScreen: {fileID: 1092983324}
+  countMoney: {fileID: 0}
 --- !u!4 &1438906261
 Transform:
   m_ObjectHideFlags: 0
@@ -23311,7 +23312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18387991a2764450951925e6eaaaab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  humansToSpawnPerPlayer: 2
+  humansToSpawnPerPlayer: 0400000006000000080000000a0000000b0000000c0000000e000000100000001200000014000000
 --- !u!4 &2095066401
 Transform:
   m_ObjectHideFlags: 0
