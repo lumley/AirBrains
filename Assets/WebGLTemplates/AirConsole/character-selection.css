@@ -349,6 +349,7 @@ footer.character-selection {
 
 .character-preview-unavailable {
     filter: grayscale(100%);
+    background-color: #FF7777;
 }
 
 .character-preview-cursor {
