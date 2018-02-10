@@ -39,197 +39,208 @@ var playerSelections = [];
 setCurrentCharacterId(currentCharacterId);
 previousElement.classList.add(buttonDisabled);
 
-previousElement.addEventListener("touchstart", function(){
-  onPreviousClick();
+previousElement.addEventListener("touchstart", function () {
+    onPreviousClick();
 });
 
-selectElement.addEventListener("touchstart", function(){
-  onSelectClick();
+selectElement.addEventListener("touchstart", function () {
+    onSelectClick();
 });
 
-nextElement.addEventListener("touchstart", function(){
-  onNextClick();
+nextElement.addEventListener("touchstart", function () {
+    onNextClick();
 });
 
-startGameButtonElement.addEventListener("touchstart", function(){
-  onStartGameClick();
+startGameButtonElement.addEventListener("touchstart", function () {
+    onStartGameClick();
 });
 
-instructionsScreenButtonElement.addEventListener("touchstart", function(){
-  onInstructionsScreenClick();
+instructionsScreenButtonElement.addEventListener("touchstart", function () {
+    onInstructionsScreenClick();
 });
 
 
 function onInstructionsScreenClick() {
-  displayInstructionsScreen();
+    displayInstructionsScreen();
 }
 
 function onPreviousClick() {
-  if (currentCharacterId > 1) {
-    setCurrentCharacterId(currentCharacterId - 1);
-  }
+    if (currentCharacterId > 1) {
+        setCurrentCharacterId(currentCharacterId - 1);
+    }
 
-  if (currentCharacterId === 1) {
-    previousElement.classList.add(buttonDisabled);
-  }
+    if (currentCharacterId === 1) {
+        previousElement.classList.add(buttonDisabled);
+    }
 
-  if (currentCharacterId === characterCount - 1) {
-    nextElement.classList.remove(buttonDisabled);
-  }
+    if (currentCharacterId === characterCount - 1) {
+        nextElement.classList.remove(buttonDisabled);
+    }
 }
 
 function onSelectClick() {
-  if (playerSelections[currentCharacterId] == undefined) {
-    selectCharacter();
-  }
+    if (playerSelections[currentCharacterId] === undefined || playerSelections[currentCharacterId] === false) {
+        selectCharacter();
+    }
 }
 
 function onNextClick() {
-  if (currentCharacterId < characterCount) {
-    setCurrentCharacterId(currentCharacterId + 1);
-  }
+    if (currentCharacterId < characterCount) {
+        setCurrentCharacterId(currentCharacterId + 1);
+    }
 
-  if (currentCharacterId === characterCount) {
-    nextElement.classList.add(buttonDisabled);
-  }
+    if (currentCharacterId === characterCount) {
+        nextElement.classList.add(buttonDisabled);
+    }
 
-  if (currentCharacterId === 2) {
-    previousElement.classList.remove(buttonDisabled);
-  }
+    if (currentCharacterId === 2) {
+        previousElement.classList.remove(buttonDisabled);
+    }
 }
 
 function setCurrentCharacterId(newCharacterId) {
-  characterContainerElement.classList.remove(characterContainerMoverClassNamePrefix + currentCharacterId);
-  characterContainerElement.classList.add(characterContainerMoverClassNamePrefix + newCharacterId);
-  characterPreviewsElement.classList.remove(characterPreviewMoverClassNamePrefix + currentCharacterId);
-  characterPreviewsElement.classList.add(characterPreviewMoverClassNamePrefix + newCharacterId);
+    characterContainerElement.classList.remove(characterContainerMoverClassNamePrefix + currentCharacterId);
+    characterContainerElement.classList.add(characterContainerMoverClassNamePrefix + newCharacterId);
+    characterPreviewsElement.classList.remove(characterPreviewMoverClassNamePrefix + currentCharacterId);
+    characterPreviewsElement.classList.add(characterPreviewMoverClassNamePrefix + newCharacterId);
 
-  characterPreview[currentCharacterId - 1].classList.remove(characterPreviewMoverClassName);
-  characterPreview[newCharacterId - 1].classList.add(characterPreviewMoverClassName);
+    characterPreview[currentCharacterId - 1].classList.remove(characterPreviewMoverClassName);
+    characterPreview[newCharacterId - 1].classList.add(characterPreviewMoverClassName);
 
-  currentCharacterId = newCharacterId;
+    currentCharacterId = newCharacterId;
 
-  updateSelectButton();
+    updateSelectButton();
 }
 
 function selectCharacter() {
-  if (currentPlayerSelectedCharacterId != undefined) {
-    characterPreview[currentPlayerSelectedCharacterId - 1].classList.remove(characterPreviewSelectedClassName);
-  }
+    updateCurrentlySelectedCharacter(currentCharacterId);
 
-  currentPlayerSelectedCharacterId = currentCharacterId;
+    updateSelectButton();
+    onPlayerSelected(currentCharacterId);
+}
 
-  characterPreview[currentPlayerSelectedCharacterId - 1].classList.add(characterPreviewSelectedClassName);
+function updateCurrentlySelectedCharacter(indexOfCharacter) {
+    if (currentPlayerSelectedCharacterId !== undefined) {
+        characterPreview[currentPlayerSelectedCharacterId - 1].classList.remove(characterPreviewSelectedClassName);
+    }
 
-  updateSelectButton();
-
-  onPlayerSelected(currentCharacterId);
+    currentPlayerSelectedCharacterId = indexOfCharacter;
+    characterPreview[currentPlayerSelectedCharacterId - 1].classList.add(characterPreviewSelectedClassName);
 }
 
 function updateSelectButton() {
-  var currentPlayerSelected = currentPlayerSelectedCharacterId === currentCharacterId;
-  if (currentPlayerSelected) {
-    selectElement.classList.add(selectButtonSelectedClassName);
-  } else {
-    selectElement.classList.remove(selectButtonSelectedClassName);
-  }
+    var currentPlayerSelected = currentPlayerSelectedCharacterId === currentCharacterId;
+    if (currentPlayerSelected) {
+        selectElement.classList.add(selectButtonSelectedClassName);
+    } else {
+        selectElement.classList.remove(selectButtonSelectedClassName);
+    }
 
-  if (playerSelections[currentCharacterId] == undefined || playerSelections[currentCharacterId] === false) {
-    selectElement.classList.remove(buttonDisabledClassName);
-  } else {
-    selectElement.classList.add(buttonDisabledClassName);
-  }
+    if (playerSelections[currentCharacterId] === undefined || playerSelections[currentCharacterId] === false) {
+        selectElement.classList.remove(buttonDisabledClassName);
+    } else {
+        selectElement.classList.add(buttonDisabledClassName);
+    }
 
-  selectElement.textContent = currentPlayerSelected ? selectSelectedText : selectText;
+    selectElement.textContent = currentPlayerSelected ? selectSelectedText : selectText;
 }
 
 // setPlayerSelection(0, true);
 
-function setPlayerSelection(playerId, selected) {
-  playerSelections[playerId] = selected;
+function setPlayerSelection(playerId, isAvatarTaken) {
+    playerSelections[playerId] = isAvatarTaken;
 
-  if (selected) {
-    characterPreview[playerId - 1].classList.add(characterPreviewUnavailableClassName);
-  } else {
-    characterPreview[playerId - 1].classList.remove(characterPreviewUnavailableClassName);
-  }
-
-
-  updateSelectButton();
+    if (isAvatarTaken) {
+        characterPreview[playerId - 1].classList.add(characterPreviewUnavailableClassName);
+    } else {
+        characterPreview[playerId - 1].classList.remove(characterPreviewUnavailableClassName);
+    }
 }
 
 function initializeCharacters() {
-  characters.forEach(function(character, index) {
-    var characterElement = createElement("div", "character");
-    characterElement.classList.add("character-" + (index + 1));
+    characters.forEach(function (character, index) {
+        var characterElement = createElement("div", "character");
+        characterElement.classList.add("character-" + (index + 1));
 
-    var content = createElement("div", "character-content", characterElement);
-    var name = createElement("div", "character-name", content);
+        var content = createElement("div", "character-content", characterElement);
+        var name = createElement("div", "character-name", content);
 
-    var detail = createElement("div", "character-detail", content);
-    var image = createElement("div", "character-image", detail);
-    var img = createElement("img", undefined, image);
-    img.width = 270 / 3;
-    img.height = 342 / 3;
-    var information = createElement("div", "character-information", detail);
+        var detail = createElement("div", "character-detail", content);
+        var image = createElement("div", "character-image", detail);
+        var img = createElement("img", undefined, image);
+        img.width = 270 / 3;
+        img.height = 342 / 3;
+        var information = createElement("div", "character-information", detail);
 
-    var fromLabel = createElement("div", "character-label", information);
-    fromLabel.textContent = "From:";
-    var fromValue = createElement("div", "character-value", information);
+        var fromLabel = createElement("div", "character-label", information);
+        fromLabel.textContent = "From:";
+        var fromValue = createElement("div", "character-value", information);
 
-    var weightLabel = createElement("div", "character-label", information);
-    weightLabel.textContent = "Weight:";
-    var weightValue = createElement("div", "character-value", information);
+        var weightLabel = createElement("div", "character-label", information);
+        weightLabel.textContent = "Weight:";
+        var weightValue = createElement("div", "character-value", information);
 
-    var heightLabel = createElement("div", "character-label", information);
-    heightLabel.textContent = "Height:";
-    var heightValue = createElement("div", "character-value", information);
+        var heightLabel = createElement("div", "character-label", information);
+        heightLabel.textContent = "Height:";
+        var heightValue = createElement("div", "character-value", information);
 
-    var agenda = createElement("div", "character-agenda", content);
-    var agendaLabel = createElement("span", "character-label", agenda);
-    agendaLabel.textContent = "Agenda: ";
-    var agendaValue = createElement("span", "character-value", agenda);
+        var agenda = createElement("div", "character-agenda", content);
+        var agendaLabel = createElement("span", "character-label", agenda);
+        agendaLabel.textContent = "Agenda: ";
+        var agendaValue = createElement("span", "character-value", agenda);
 
-    name.textContent = character.name;
-    img.src  = "images/characters_high/" + character.imageName + "_high.png";
-    fromValue.textContent = character.from;
-    weightValue.textContent = character.weight;
-    heightValue.textContent = character.height;
-    agendaValue.textContent = character.agenda;
+        name.textContent = character.name;
+        img.src = "images/characters_high/" + character.imageName + "_high.png";
+        fromValue.textContent = character.from;
+        weightValue.textContent = character.weight;
+        heightValue.textContent = character.height;
+        agendaValue.textContent = character.agenda;
 
-    characterContainerElement.appendChild(characterElement);
+        characterContainerElement.appendChild(characterElement);
 
-    // Preview
-    var characterPreviewElement = createElement("div", "character-preview", characterPreviewsElement);
-    characterPreviewElement.classList.add("character-preview-" + (index + 1));
-  });
+        // Preview
+        var characterPreviewElement = createElement("div", "character-preview", characterPreviewsElement);
+        characterPreviewElement.classList.add("character-preview-" + (index + 1));
+    });
 }
 
 function createElement(type, className, parent) {
-  var element = document.createElement(type);
+    var element = document.createElement(type);
 
-  if (className != undefined) {
-    element.classList.add(className);
-  }
+    if (className !== undefined) {
+        element.classList.add(className);
+    }
 
-  if (parent != undefined) {
-    parent.appendChild(element);
-  }
+    if (parent !== undefined) {
+        parent.appendChild(element);
+    }
 
-  return element;
+    return element;
+}
+
+function updateCharacterSetStates(availableCharacterIndexes) {
+    for (var i = 1; i <= characterCount; i++) {
+        if (i !== currentPlayerSelectedCharacterId) {
+            setPlayerSelection(i, availableCharacterIndexes.indexOf(i) < 0);
+        } else {
+            updateCurrentlySelectedCharacter(i);
+        }
+    }
+
+    updateSelectButton();
 }
 
 // ****************************************************************
 // These are relevant functions for communicating with the game :
 
 function onPlayerSelected(characterId) {
-  console.log("Player selected character " + characterId);
+    console.log("Player selected character " + characterId);
 
-  app.sendSetAvatarIndex(characterId);
+    app.sendSetAvatarIndex(characterId);
 }
 
 function onStartGameClick() {
-  console.log("Player pressed Start Game button");
+    console.log("Player pressed Start Game button");
 
-  app.sendStartGame();
+    app.sendStartGame();
 }

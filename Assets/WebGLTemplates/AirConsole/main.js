@@ -2,7 +2,7 @@ var inGameScreenClassName = "in-game-screen";
 var characterSelectionScreenClassName = "character-selection-screen";
 var hideScreenClassName = "hide-screen";
 var playerNameClassName = "player-name";
-var backToLobbyButtonClassName = "back-to-lobby-button"
+var backToLobbyButtonClassName = "back-to-lobby-button";
 var backToLobbyScreenClassName = "back-to-lobby-screen";
 var instructionsScreenClassName = "instructions-screen";
 
