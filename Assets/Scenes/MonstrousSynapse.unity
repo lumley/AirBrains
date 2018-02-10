@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCamera: {fileID: 425008581}
-  timeToConflict: 0.5
+  timeToConflict: 0.65
   timeToArgue: 1
   timePerStickerAnim: 1
   highlightZoomWidth: 1
