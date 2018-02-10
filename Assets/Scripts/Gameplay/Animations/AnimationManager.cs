@@ -82,6 +82,9 @@ public class AnimationManager : MonoBehaviour {
 		foreach (KeyValuePair<GameObject, Tile> entry in conflictsToAnimate) {
 			GameObject gO = entry.Key;
 			gO.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Fight);
+			if(entry.Value.GetVisitorsOfTag("player").Count > 0){
+				entry.Value.GetVisitorsOfTag("player")[0].gameObject.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Fight);
+			}
 		}
 		yield return new WaitForSeconds (timeToArgue);
 		//Conflict walkers - move back!
@@ -93,8 +96,15 @@ public class AnimationManager : MonoBehaviour {
 			gO.GetComponent<CharacterAnimationController>().ApplyState(StateType.Walk, 
 				moveToDirection, 
 				gO.GetComponent<TileVisitor> ().CurrentlyVisiting.transform.position);
+			if(entry.Value.GetVisitorsOfTag("player").Count > 0){
+				entry.Value.GetVisitorsOfTag("player")[0].gameObject.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Idle);
+			}
 		}
 		yield return new WaitForSeconds (timeToConflict);
+		foreach (KeyValuePair<GameObject, Tile> entry in conflictsToAnimate) {
+			GameObject gO = entry.Key;
+			gO.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Idle);
+		}
 
 		objectsToAnimate.Clear ();
 		conflictsToAnimate.Clear ();
