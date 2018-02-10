@@ -26,7 +26,7 @@ function App() {
             displayInGameScreen();
             resetInGame();
         } else if (messageType === "gamestarted") {
-            // TODO (slumley): Block all buttons?
+            displayNoScreen();
         } else if (messageType === "backtolobby") {
             displayCharacterSelectionScreen();
         } else if (messageType === "gamefinished") {
@@ -35,7 +35,7 @@ function App() {
             var availableAvatarIndexes = parsedMessage["availableAvatarIndexes"];
             updateCharacterSetStates(availableAvatarIndexes);
         } else if (messageType === "blockround") {
-            // TODO (slumley): look at the TV!
+            blockActionSelection();
         }
     };
 
