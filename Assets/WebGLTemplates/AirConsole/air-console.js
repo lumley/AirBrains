@@ -14,7 +14,6 @@ function App() {
 
     me.airconsole.onMessage = function (from, data) {
         console.log("onMessage", from, data);
-        // document.getElementById("content").innerHTML = "device " + from + " says: " + data;
 
         var parsedMessage = JSON.parse(data);
 
