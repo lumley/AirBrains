@@ -14,6 +14,7 @@ public class AnimationManager : MonoBehaviour {
 	public float zoomSpeed = 30f;
 
 	public AudioClip stickerNoise;
+	public AudioClip rationalDiscussion;
 
 	private Vector3 defaultCameraPos;
 	private float defaultCameraWidth;
@@ -79,6 +80,9 @@ public class AnimationManager : MonoBehaviour {
 				halfPos);
 		}
 		yield return new WaitForSeconds (timeToConflict);
+		if(conflictsToAnimate.Count > 0) {
+			GetComponent<AudioSource> ().PlayOneShot (rationalDiscussion);
+		}
 		foreach (KeyValuePair<GameObject, Tile> entry in conflictsToAnimate) {
 			GameObject gO = entry.Key;
 			gO.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Fight);
