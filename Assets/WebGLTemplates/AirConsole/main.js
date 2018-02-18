@@ -14,40 +14,47 @@ var playerNameElement = document.getElementsByClassName(playerNameClassName)[0];
 var instructionsScreenElement = document.getElementsByClassName(instructionsScreenClassName)[0];
 
 function displayInGameScreen() {
-  resetInGame();
-  characterSelectionScreenElement.classList.add(hideScreenClassName);
-  inGameScreenElement.classList.remove(hideScreenClassName);
-  backToLobbyElement.classList.add(hideScreenClassName);
-  instructionsScreenElement.classList.add(hideScreenClassName);
+    resetInGame();
+    characterSelectionScreenElement.classList.add(hideScreenClassName);
+    inGameScreenElement.classList.remove(hideScreenClassName);
+    backToLobbyElement.classList.add(hideScreenClassName);
+    instructionsScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayCharacterSelectionScreen() {
-  characterSelectionScreenElement.classList.remove(hideScreenClassName);
-  inGameScreenElement.classList.add(hideScreenClassName);
-  backToLobbyElement.classList.add(hideScreenClassName);
-  instructionsScreenElement.classList.add(hideScreenClassName);
+    characterSelectionScreenElement.classList.remove(hideScreenClassName);
+    inGameScreenElement.classList.add(hideScreenClassName);
+    backToLobbyElement.classList.add(hideScreenClassName);
+    instructionsScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayBackToLobbyScreen() {
-  characterSelectionScreenElement.classList.add(hideScreenClassName);
-  inGameScreenElement.classList.add(hideScreenClassName);
-  backToLobbyElement.classList.remove(hideScreenClassName);
-  instructionsScreenElement.classList.add(hideScreenClassName);
+    characterSelectionScreenElement.classList.add(hideScreenClassName);
+    inGameScreenElement.classList.add(hideScreenClassName);
+    backToLobbyElement.classList.remove(hideScreenClassName);
+    instructionsScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayInstructionsScreen() {
-  characterSelectionScreenElement.classList.add(hideScreenClassName);
-  inGameScreenElement.classList.add(hideScreenClassName);
-  backToLobbyElement.classList.add(hideScreenClassName);
-  instructionsScreenElement.classList.remove(hideScreenClassName);
+    characterSelectionScreenElement.classList.add(hideScreenClassName);
+    inGameScreenElement.classList.add(hideScreenClassName);
+    backToLobbyElement.classList.add(hideScreenClassName);
+    instructionsScreenElement.classList.remove(hideScreenClassName);
+}
+
+function displayNoScreen() {
+    characterSelectionScreenElement.classList.add(hideScreenClassName);
+    inGameScreenElement.classList.add(hideScreenClassName);
+    backToLobbyElement.classList.add(hideScreenClassName);
+    instructionsScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayPlayerName(playerName) {
-  playerNameElement.textContent = playerName;
+    playerNameElement.textContent = playerName;
 }
 
-backToLobbyButtonElement.addEventListener("touchstart", function(){
-  app.sendStartGame();
+backToLobbyButtonElement.addEventListener("touchstart", function () {
+    app.sendStartGame();
 });
 
 // displayInGameScreen();

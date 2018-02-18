@@ -17,12 +17,17 @@ public class GameRunner : MonoBehaviour
     public GameObject victoryScreen;
 	public AudioClip countMoney;
 
+    public GameObject introScreen;
+    public GameObject secondStageScreen;
+    public GameObject deadHeatScreen;
+
     private bool gameRunning = false;
     private bool isFirstRound = false;
     private int roundNumber = 0;
     private int lastRoundNumber = -1;
     private int currentTurn = 0;
     private float moveSelectionTimeRemaining = -1f;
+    private bool showNextStageNotification = false;
 
 	private AnimationManager animationManager;
 
@@ -77,6 +82,22 @@ public class GameRunner : MonoBehaviour
             isFirstRound = roundNumber == 1;
             currentTurn = 0;
             Debug.Log("Starting Round " + roundNumber);
+            if(isFirstRound) {
+                introScreen.SetActive(true);
+                yield return new WaitForSeconds(10f);
+                introScreen.SetActive(false);
+            }
+            if(showNextStageNotification) {
+                showNextStageNotification = false;
+                secondStageScreen.SetActive(true);
+                yield return new WaitForSeconds(5f);
+                secondStageScreen.SetActive(false);
+            }
+            if(lastRoundNumber > 0 && roundNumber > lastRoundNumber) {
+                deadHeatScreen.SetActive(true);
+                yield return new WaitForSeconds(5f);
+                deadHeatScreen.SetActive(false);
+            }
             yield return StartCoroutine(WaitForReadyOrTime());
             var airConsoleBridge = AirConsoleBridge.Instance;
             if (airConsoleBridge)
@@ -215,7 +236,7 @@ public class GameRunner : MonoBehaviour
             entry.Key.ChangeScore(entry.Value);
             if (lastRoundNumber == -1 && entry.Key.Score >= scoreThreshold)
             {
-                //TODO: trigger the wrap-up notification
+                showNextStageNotification = true;
                 lastRoundNumber = roundNumber + wrapUpRounds;
             }
         }

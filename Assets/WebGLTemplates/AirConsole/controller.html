@@ -1,235 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Game</title>
+    <meta charset="UTF-8">
+    <title>Game</title>
 
-  <link rel="stylesheet" href="layout.css">
-  <link rel="stylesheet" href="in-game.css">
-  <link rel="stylesheet" href="character-selection.css">
-  <link rel="stylesheet" href="styles.css">
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="in-game.css">
+    <link rel="stylesheet" href="character-selection.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
-  <script type="text/javascript" src="air-console.js"></script>
-  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
+    <script type="text/javascript" src="air-console.js"></script>
+    <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.7.0.js"></script>
 </head>
 
 <body class="content" onload="window.app = new App()">
 
 <div class="in-game-screen hide-screen">
 
-  <div class="decorative-border">
-    <div class="decorative-border-top"> </div>
-    <div class="decorative-border-right"> </div>
-    <div class="decorative-border-bottom"> </div>
-    <div class="decorative-border-left"> </div>
-  </div>
+    <div class="decorative-border">
+        <div class="decorative-border-top"></div>
+        <div class="decorative-border-right"></div>
+        <div class="decorative-border-bottom"></div>
+        <div class="decorative-border-left"></div>
+    </div>
 
-  <main>
-    <nav class="slots">
-      <div class="slot slot-0">
-        <span class="slot-label">1st</span>
-        <button class="slot-button" type="button">
-          <img src="images/icon_random_lightblue.png" width="20px" height="20px" />
-        </button>
-      </div>
-      <div class="slot slot-1">
-        <span class="slot-label">2nd</span>
-        <button class="slot-button" type="button">
-          <img src="images/icon_random_lightblue.png"  width="20px" height="20px" />
-        </button>
-      </div>
-      <div class="slot slot-2">
-        <span class="slot-label">3rd</span>
-        <button class="slot-button" type="button">
-          <img src="images/icon_random_lightblue.png" width="20px" height="20px" />
-        </button>
-      </div>
-      <div class="slot slot-3">
-        <span class="slot-label">4th</span>
-        <button class="slot-button" type="button">
-          <img src="images/icon_random_lightblue.png" width="20px" height="20px" />
-        </button>
-      </div>
-    </nav>
-  </main>
+    <main>
+        <nav class="slots">
+            <div class="slot slot-0">
+                <span class="slot-label">1st</span>
+                <button class="slot-button" type="button">
+                    <img src="images/icon_random_lightblue.png" width="20px" height="20px"/>
+                </button>
+            </div>
+            <div class="slot slot-1">
+                <span class="slot-label">2nd</span>
+                <button class="slot-button" type="button">
+                    <img src="images/icon_random_lightblue.png" width="20px" height="20px"/>
+                </button>
+            </div>
+            <div class="slot slot-2">
+                <span class="slot-label">3rd</span>
+                <button class="slot-button" type="button">
+                    <img src="images/icon_random_lightblue.png" width="20px" height="20px"/>
+                </button>
+            </div>
+            <div class="slot slot-3">
+                <span class="slot-label">4th</span>
+                <button class="slot-button" type="button">
+                    <img src="images/icon_random_lightblue.png" width="20px" height="20px"/>
+                </button>
+            </div>
+        </nav>
 
-  <footer class="in-game">
-    <nav class="options">
-      <ul class="options-list">
-        <div class="option-space-filler"></div>
-        <li class="option option-up">
-          <button class="option-button option-button-up" type="button">
-            <img src="images/icon_up.png" width="20px" height="20px" />
-          </button>
-        </li>
-        <div class="option-space-filler"></div>
-        <li class="option option-left">
-          <button class="option-button option-button-left" type="button">
-            <img src="images/icon_left.png" width="20px" height="20px" />
-          </button>
-        </li>
-        <li class="option option-wait">
-          <button class="option-button option-button-wait" type="button">
-            <img src="images/icon_stop.png" width="20px" height="20px" />
-          </button>
-        </li>
-        <li class="option option-right">
-          <button class="option-button option-button-right" type="button">
-            <img src="images/icon_right.png" width="20px" height="20px" />
-          </button>
-        </li>
-        <div class="option-space-filler"></div>
-        <li class="option option-down">
-          <button class="option-button option-button-down" type="button">
-            <img src="images/icon_down.png" width="20px" height="20px" />
-          </button>
-        </li>
-        <div class="option-space-filler"></div>
-      </ul>
+        <div class="in-game-avatar"> </div>
+    </main>
 
-      <div class="ready">
-        <button class="ready-button button-disabled" disabled type="button">✔</button>
-      </div>
-    </nav>
-  </footer>
+    <footer class="in-game">
+        <div class="look-at-screen-text hidden">Look at the screen now!</div>
+        <nav class="options">
+            <ul class="options-list">
+                <div class="option-space-filler"></div>
+                <li class="option option-up">
+                    <button class="option-button option-button-up" type="button">
+                        <img src="images/icon_up.png" width="20px" height="20px"/>
+                    </button>
+                </li>
+                <div class="option-space-filler"></div>
+                <li class="option option-left">
+                    <button class="option-button option-button-left" type="button">
+                        <img src="images/icon_left.png" width="20px" height="20px"/>
+                    </button>
+                </li>
+                <li class="option option-wait">
+                    <button class="option-button option-button-wait" type="button">
+                        <img src="images/icon_stop.png" width="20px" height="20px"/>
+                    </button>
+                </li>
+                <li class="option option-right">
+                    <button class="option-button option-button-right" type="button">
+                        <img src="images/icon_right.png" width="20px" height="20px"/>
+                    </button>
+                </li>
+                <div class="option-space-filler"></div>
+                <li class="option option-down">
+                    <button class="option-button option-button-down" type="button">
+                        <img src="images/icon_down.png" width="20px" height="20px"/>
+                    </button>
+                </li>
+                <div class="option-space-filler"></div>
+            </ul>
+
+            <div class="ready">
+                <button class="ready-button button-disabled" disabled type="button">✔</button>
+            </div>
+        </nav>
+    </footer>
 </div>
 
 <div class="character-selection-screen">
 
-  <header>
-    <div class="character-previews-container">
-      <div class="character-previews">
-        <!--Created dynamically-->
-      </div>
+    <header>
+        <div class="character-previews-container">
+            <div class="character-previews">
+                <!--Created dynamically-->
+            </div>
 
 
-    </div>
+        </div>
 
-  </header>
+    </header>
 
-  <div class="character-preview-cursor">▲</div>
+    <div class="character-preview-cursor">▲</div>
 
-  <main>
-    <div class="decorative-border">
-      <div class="decorative-border-top"> </div>
-      <div class="decorative-border-right"> </div>
-      <div class="decorative-border-bottom"> </div>
-      <div class="decorative-border-left"> </div>
-    </div>
+    <main>
+        <div class="decorative-border">
+            <div class="decorative-border-top"></div>
+            <div class="decorative-border-right"></div>
+            <div class="decorative-border-bottom"></div>
+            <div class="decorative-border-left"></div>
+        </div>
 
-    <div class="instructions-button">
-      Help
-    </div>
+        <div class="instructions-button">
+            Help
+        </div>
 
-    <div class="start-game-button">
-      Start Game!
-    </div>
+        <div class="start-game-button">
+            Start Game!
+        </div>
 
-    <div class="characters">
-      <div class="character-container">
-        <!--Created dynamically-->
-      </div>
-    </div>
-  </main>
+        <div class="characters">
+            <div class="character-container">
+                <!--Created dynamically-->
+            </div>
+        </div>
+    </main>
 
-  <footer class="character-selection">
-    <div class="navigation">
-      <div tabindex="0" class="navigation-button previous-button">
-        Prev.
-      </div>
-      <div tabindex="1" class="selection-button select-button">
-        Select
-      </div>
-      <div tabindex="2" class="navigation-button next-button">
-        Next
-      </div>
-    </div>
-  </footer>
+    <footer class="character-selection">
+        <div class="navigation">
+            <div tabindex="0" class="navigation-button previous-button">
+                Prev.
+            </div>
+            <div tabindex="1" class="selection-button select-button">
+                Select
+            </div>
+            <div tabindex="2" class="navigation-button next-button">
+                Next
+            </div>
+        </div>
+    </footer>
 </div>
 
 <div class="player-name">Player name</div>
 
 <div class="back-to-lobby-screen">
-  <div class="decorative-border">
-    <div class="decorative-border-top"> </div>
-    <div class="decorative-border-right"> </div>
-    <div class="decorative-border-bottom"> </div>
-    <div class="decorative-border-left"> </div>
-  </div>
+    <div class="decorative-border">
+        <div class="decorative-border-top"></div>
+        <div class="decorative-border-right"></div>
+        <div class="decorative-border-bottom"></div>
+        <div class="decorative-border-left"></div>
+    </div>
 
-  <div class="back-to-lobby-button">
-    Back to lobby
-  </div>
+    <div class="back-to-lobby-button">
+        Back to lobby
+    </div>
 </div>
 
 <div class="instructions-screen">
-  <main>
-    <div class="decorative-border">
-      <div class="decorative-border-top"> </div>
-      <div class="decorative-border-right"> </div>
-      <div class="decorative-border-bottom"> </div>
-      <div class="decorative-border-left"> </div>
-    </div>
+    <main>
+        <div class="decorative-border">
+            <div class="decorative-border-top"></div>
+            <div class="decorative-border-right"></div>
+            <div class="decorative-border-bottom"></div>
+            <div class="decorative-border-left"></div>
+        </div>
 
-    <div class="slideshow">
-      <div class="instruction">
-        <img class="instruction-image" src="images/instructions/1_approach_people.png">
-        <div class="instruction-text">Meet donors</div>
-        <div class="instruction-text text-details">Each round you will be able to move. Try to intercept them and avoid other players!</div>
-      </div>
+        <div class="slideshow">
+            <div class="instruction">
+                <img class="instruction-image" src="images/instructions/1_approach_people.png">
+                <div class="instruction-text">Meet donors</div>
+                <div class="instruction-text text-details">Each round you will be able to move. Try to intercept them
+                    and avoid other players!
+                </div>
+            </div>
 
-      <div class="instruction">
-        <img class="instruction-image" src="images/instructions/2_turn_into_donors.png">
-        <div class="instruction-text">Turn them to your party.</div>
-        <div class="instruction-text text-details">Other players can steal your donors.</div>
-      </div>
+            <div class="instruction">
+                <img class="instruction-image" src="images/instructions/2_turn_into_donors.png">
+                <div class="instruction-text">Turn them to your party.</div>
+                <div class="instruction-text text-details">Other players can steal your donors.</div>
+            </div>
 
-      <div class="instruction">
-        <img class="instruction-image" src="images/instructions/3_raise_funds.png">
-        <div class="instruction-text">Each donor gives you funds at the end of each round</div>
-        <div class="instruction-text text-details">The candidate with most funds will be elected!</div>
-      </div>
+            <div class="instruction">
+                <img class="instruction-image" src="images/instructions/3_raise_funds.png">
+                <div class="instruction-text">Each donor gives you funds at the end of each round</div>
+                <div class="instruction-text text-details">The candidate with most funds will be elected!</div>
+            </div>
 
-      <div class="instruction">
-        <img class="instruction-image" src="images/instructions/4_wrap_up.png">
-        <div class="instruction-text">Once any candidate reaches the fund goals, a round countdown will start</div>
-      </div>
-  </div>
-  </main>
+            <div class="instruction">
+                <img class="instruction-image" src="images/instructions/4_wrap_up.png">
+                <div class="instruction-text">Once any candidate reaches the fund goals, a round countdown will start
+                </div>
+            </div>
+        </div>
+    </main>
 
-  <footer class="instructionsnavigation">
-    <div class="navigation">
-      <div tabindex="0" class="navigation-button" onclick="plusDivs(-1)">
-        Prev.
-      </div>
-      <div tabindex="1" class="selection-button" onclick="displayCharacterSelectionScreen()">
-        Back
-      </div>
-      <div tabindex="2" class="navigation-button" onclick="plusDivs(1)">
-        Next
-      </div>
-    </div>
-  </footer>
-  <script>
-var slideIndex = 1;
-showDivs(slideIndex);
+    <footer class="instructionsnavigation">
+        <div class="navigation">
+            <div tabindex="0" class="navigation-button" onclick="plusDivs(-1)">
+                Prev.
+            </div>
+            <div tabindex="1" class="selection-button" onclick="displayCharacterSelectionScreen()">
+                Back
+            </div>
+            <div tabindex="2" class="navigation-button" onclick="plusDivs(1)">
+                Next
+            </div>
+        </div>
+    </footer>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
 
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
 
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("instruction");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-</script>
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("instruction");
+            if (n > x.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = x.length
+            }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>
 </div>
 
 <script src="main.js"></script>
