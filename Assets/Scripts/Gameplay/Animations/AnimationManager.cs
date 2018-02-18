@@ -80,15 +80,20 @@ public class AnimationManager : MonoBehaviour {
 				halfPos);
 		}
 		yield return new WaitForSeconds (timeToConflict);
-		if(conflictsToAnimate.Count > 0) {
-			GetComponent<AudioSource> ().PlayOneShot (rationalDiscussion);
-		}
+		bool playFightNoise = false;
 		foreach (KeyValuePair<GameObject, Tile> entry in conflictsToAnimate) {
 			GameObject gO = entry.Key;
+			if(gO.GetComponent<ScoreTracker>() != null) {
+				playFightNoise = true;
+			}
 			gO.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Fight);
 			if(entry.Value.GetVisitorsOfTag("player").Count > 0){
+				playFightNoise = true;
 				entry.Value.GetVisitorsOfTag("player")[0].gameObject.GetComponent<CharacterAnimationController> ().ApplyState (StateType.Fight);
 			}
+		}
+		if(playFightNoise) {
+			GetComponent<AudioSource> ().PlayOneShot (rationalDiscussion);
 		}
 		yield return new WaitForSeconds (timeToArgue);
 		//Conflict walkers - move back!
