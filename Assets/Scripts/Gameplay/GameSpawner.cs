@@ -72,6 +72,7 @@ public class GameSpawner : MonoBehaviour
             Debug.Log("New Spawn effect! " + thisPlayer.LobbyPlayerData.Character + " " +  newPlayer + " " +  AirConsole.instance.GetNickname(thisPlayer.LobbyPlayerData.Id));
             effect.SetCharacter(thisPlayer.LobbyPlayerData.Character, newPlayer, AirConsole.instance.GetNickname(thisPlayer.LobbyPlayerData.Id), playerId * effect.displayTime);
         }
+        float totalDisplayTime = spawnPositionEffect.displayTime * playersToSpawn;
         foreach (PrefabReplacer replacer in playerSpawns)
         {
             Destroy(replacer.gameObject);
@@ -90,12 +91,12 @@ public class GameSpawner : MonoBehaviour
 
         GameObject.FindObjectOfType<LeaderboardTracker>().OnGameStart();
 
-        StartCoroutine(StartInASecond());
+        StartCoroutine(StartInASecond(totalDisplayTime));
     }
 
-    private IEnumerator StartInASecond()
+    private IEnumerator StartInASecond(float spawnDisplayTime)
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(spawnDisplayTime + .5f);
         GameObject.FindObjectOfType<GameRunner>().StartGame();
     }
 }

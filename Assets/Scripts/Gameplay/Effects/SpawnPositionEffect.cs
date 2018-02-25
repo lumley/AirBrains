@@ -19,6 +19,8 @@ public class SpawnPositionEffect : MonoBehaviour {
 
 	private GameObject targetCharacter;
 	private float delay = float.MaxValue;
+	private Vector3 targetPosition;
+	private Vector3 initialPosition;
 	
 	public void SetCharacter(CharacterType newCharacter, GameObject targetCharacter, string playersName, float delay) {
 		Debug.Log("New effect Loaded! " + newCharacter + " " + targetCharacter + " " + playerName + " " + delay);
@@ -33,23 +35,28 @@ public class SpawnPositionEffect : MonoBehaviour {
 		nameplate.gameObject.SetActive(false);
 		this.delay = delay;
 		transform.localScale = Vector3.one;
-		gameObject.GetComponent<RectTransform>().anchoredPosition3D = targetCharacter.transform.position;
-	}
-
-	void Update() {
-		if(delay >= 0) {
-			delay -= Time.deltaTime;
-			if(delay <= 0) {
-				StartCoroutine(StartEffect());
-			}
-		}
+		targetPosition = Camera.main.WorldToScreenPoint(targetCharacter.transform.position);
+		StartCoroutine(StartEffect());
 	}
 
 	private IEnumerator StartEffect() {
+		yield return new WaitForSeconds(delay);
 		portrait.gameObject.SetActive(true);
 		nameplate.gameObject.SetActive(true);
-		gameObject.GetComponent<RectTransform>().anchoredPosition3D = targetCharacter.transform.position;
-		yield return new WaitForSeconds(displayTime);
-		Destroy(this);
+		float totalTime = 0f;
+		initialPosition = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+		yield return new WaitForSeconds(displayTime / 3f);
+		while(totalTime < displayTime / 3f) {
+			gameObject.GetComponent<RectTransform>().anchoredPosition3D = Vector3.Lerp(initialPosition, targetPosition, totalTime / (displayTime / 3f));
+			totalTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		totalTime = 0f;
+		while(totalTime < displayTime / 3f) {
+			transform.localScale = Vector3.one * (1f - (totalTime / (displayTime / 3f)));
+			totalTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		Destroy(this.gameObject);
 	}
 }
