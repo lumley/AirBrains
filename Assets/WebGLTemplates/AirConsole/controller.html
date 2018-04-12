@@ -101,17 +101,10 @@
 <div class="character-selection-screen">
 
     <header>
-        <div class="character-previews-container">
-            <div class="character-previews">
-                <!--Created dynamically-->
-            </div>
-
-
-        </div>
-
+        
     </header>
 
-    <div class="character-preview-cursor">▲</div>
+    
 
     <main>
         <div class="decorative-border">
@@ -129,6 +122,17 @@
             Start Game!
         </div>
 
+        <div tabindex="0" class="navigation-button previous-button">
+                Prev.
+        </div>
+
+        <div tabindex="1" class="selection-button select-button">
+                Select
+        </div>
+        <div tabindex="2" class="navigation-button next-button">
+            Next
+        </div>
+
         <div class="characters">
             <div class="character-container">
                 <!--Created dynamically-->
@@ -137,18 +141,16 @@
     </main>
 
     <footer class="character-selection">
-        <div class="navigation">
-            <div tabindex="0" class="navigation-button previous-button">
-                Prev.
+        <div class="character-previews-container">
+            <div class="character-previews">
+                <!--Created dynamically-->
             </div>
-            <div tabindex="1" class="selection-button select-button">
-                Select
-            </div>
-            <div tabindex="2" class="navigation-button next-button">
-                Next
-            </div>
+            <div class="character-preview-cursor">▼</div>
         </div>
     </footer>
+</div>
+
+<div class="loading-screen">
 </div>
 
 <div class="player-name">Player name</div>

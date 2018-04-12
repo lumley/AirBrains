@@ -1,2 +1,0 @@
-This folder should contain the release builds.
-Placeholder file to be able to push the folder, delete it once the folder is not empty!
