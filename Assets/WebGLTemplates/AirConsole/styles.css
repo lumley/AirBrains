@@ -103,6 +103,26 @@ footer {
   z-index: 10;
 }
 
+.loading-display {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  color: white;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: normal;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top : 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
 .instruction {
   position: absolute;
   left: 50%;

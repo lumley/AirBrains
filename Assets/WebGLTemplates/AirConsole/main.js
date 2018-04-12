@@ -5,6 +5,7 @@ var playerNameClassName = "player-name";
 var backToLobbyButtonClassName = "back-to-lobby-button";
 var backToLobbyScreenClassName = "back-to-lobby-screen";
 var instructionsScreenClassName = "instructions-screen";
+var loadingScreenClassName = "loading-screen";
 
 var backToLobbyElement = document.getElementsByClassName(backToLobbyScreenClassName)[0];
 var backToLobbyButtonElement = document.getElementsByClassName(backToLobbyButtonClassName)[0];
@@ -12,6 +13,7 @@ var inGameScreenElement = document.getElementsByClassName(inGameScreenClassName)
 var characterSelectionScreenElement = document.getElementsByClassName(characterSelectionScreenClassName)[0];
 var playerNameElement = document.getElementsByClassName(playerNameClassName)[0];
 var instructionsScreenElement = document.getElementsByClassName(instructionsScreenClassName)[0];
+var loadingScreenElement = document.getElementsByClassName(loadingScreenClassName)[0];
 
 function displayInGameScreen() {
     resetInGame();
@@ -19,6 +21,7 @@ function displayInGameScreen() {
     inGameScreenElement.classList.remove(hideScreenClassName);
     backToLobbyElement.classList.add(hideScreenClassName);
     instructionsScreenElement.classList.add(hideScreenClassName);
+    loadingScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayCharacterSelectionScreen() {
@@ -26,6 +29,7 @@ function displayCharacterSelectionScreen() {
     inGameScreenElement.classList.add(hideScreenClassName);
     backToLobbyElement.classList.add(hideScreenClassName);
     instructionsScreenElement.classList.add(hideScreenClassName);
+    loadingScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayBackToLobbyScreen() {
@@ -33,6 +37,7 @@ function displayBackToLobbyScreen() {
     inGameScreenElement.classList.add(hideScreenClassName);
     backToLobbyElement.classList.remove(hideScreenClassName);
     instructionsScreenElement.classList.add(hideScreenClassName);
+    loadingScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayInstructionsScreen() {
@@ -40,9 +45,19 @@ function displayInstructionsScreen() {
     inGameScreenElement.classList.add(hideScreenClassName);
     backToLobbyElement.classList.add(hideScreenClassName);
     instructionsScreenElement.classList.remove(hideScreenClassName);
+    loadingScreenElement.classList.add(hideScreenClassName);
 }
 
 function displayNoScreen() {
+    characterSelectionScreenElement.classList.add(hideScreenClassName);
+    inGameScreenElement.classList.add(hideScreenClassName);
+    backToLobbyElement.classList.add(hideScreenClassName);
+    instructionsScreenElement.classList.add(hideScreenClassName);
+    loadingScreenElement.classList.add(hideScreenClassName);
+}
+
+function displayLoadingScreen() {
+    loadingScreenElement.classList.remove(hideScreenClassName);
     characterSelectionScreenElement.classList.add(hideScreenClassName);
     inGameScreenElement.classList.add(hideScreenClassName);
     backToLobbyElement.classList.add(hideScreenClassName);
