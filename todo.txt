@@ -4,19 +4,19 @@ Next two levels
 
 Updates to Phone UI:
 Show an intermediate screen during level loading/intro
-Tutorial image count 1/X etc
 If character selection fails, the phone shouldn't show it
-Small screen arrow tags are offset oddly
-Fix lineup so that the airconsole icon doesn't cover ther characters
-Move Prev/next buttons in line with center of screen
 Show character in background
 
 Low-prio
 Escape button to end game early
-Make the winning screen larger - difficult to do with image offsets
+Make the winning screen larger
 Swipe controls for character select screen
+Small screen arrow tags are offset oddly
 
 DONE!
+Fix lineup so that the airconsole icon doesn't cover selected character icon
+Tutorial image count 1/X etc
+Move Prev/next buttons in line with center of screen
 Show loading screen, tutorials
 We lose a whole tile in 5:4, adjust camera to fix that - Size 8.2
 Characters bumped, didn't yell at each other

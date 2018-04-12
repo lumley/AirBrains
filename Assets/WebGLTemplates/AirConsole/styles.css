@@ -136,6 +136,13 @@ footer {
   text-align: center;
 }
 
+.pagination-text {
+  margin: 20px;
+  color: #69a7a4;
+  text-align: center;
+  font-size: .8em;
+}
+
 .text-details {
   font-weight: normal;
 }

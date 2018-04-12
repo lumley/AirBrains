@@ -36,7 +36,8 @@ footer.character-selection {
 
 .in-game-screen,
 .character-selection-screen,
-.instructions-screen {
+.instructions-screen,
+.loading-screen {
   display: flex;
   flex-direction: column;
   width: 100%;
