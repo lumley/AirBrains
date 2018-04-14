@@ -36,6 +36,10 @@ function App() {
             updateCharacterSetStates(availableAvatarIndexes);
         } else if (messageType === "blockround") {
             blockActionSelection();
+        } else if (messageType === "loadingtime") {
+            var providedMessage = parsedMessage["message"];
+            document.getElementsByClassName("loading-display")[0].innerHTML = providedMessage;
+            displayLoadingScreen();
         }
     };
 

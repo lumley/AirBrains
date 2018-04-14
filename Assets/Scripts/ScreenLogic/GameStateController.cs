@@ -6,6 +6,7 @@ using ScreenLogic.Messages;
 using ScreenLogic.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NDream.AirConsole;
 
 public class GameStateController : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class GameStateController : MonoBehaviour
     public void HeadToTheLobby()
     {
         SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
+        AirConsoleBridge.Instance.BroadcastBackToLobby();
     }
 
     public void LinkExistingPlayers()
@@ -248,7 +250,8 @@ public class GameStateController : MonoBehaviour
         }
         else if (_currentGameState == GameState.OnWrapUpScreen)
         {
-            AirConsoleBridge.Instance.BroadcastBackToLobby();
+            AirConsoleBridge.Instance.BroadcastLoadingScreen("LOADING");
+            AirConsole.instance.ShowAd();
             HeadToTheLobby();
         }
     }
@@ -259,6 +262,7 @@ public class GameStateController : MonoBehaviour
         _deviceIdToGameCharacterMap.Clear();
 
         _currentGameState = GameState.LoadingGame;
+        AirConsoleBridge.Instance.BroadcastLoadingScreen("LOADING");
         SceneManager.LoadScene(_gameScreenIndex, LoadSceneMode.Single);
     }
 

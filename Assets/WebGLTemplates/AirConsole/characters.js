@@ -5,7 +5,7 @@ var characters = [
     from: "Jungle",
     weight: "120kg",
     height: "1.20m",
-    agenda: "Change main working hours to night shifts, require a gym membership for everyone."
+    agenda: "Change main working hours to night shifts, gym memberships for everyone."
   }, {
     name: "Mrs. Dylinae",
     imageName: "crocodile",
@@ -19,7 +19,7 @@ var characters = [
     from: "Deep Sea",
     weight: "680kg",
     height: "2m",
-    agenda: "Reduce taxes, restore slavery and promote tornadoes as a mean of transport."
+    agenda: "Reduce taxes and promote tornadoes as a mean of transport."
   }, {
     name: "Mr. Key",
     imageName: "monkey",
@@ -33,28 +33,28 @@ var characters = [
     from: "Kennel-tucky",
     weight: "49kg",
     height: "0.70m",
-    agenda: "Dig a hole, make the cats pay for it."
+    agenda: "Dig a big hole, make the cats pay for it."
   }, {
     name: "Rev. Harburger",
     imageName: "seal",
     from: "Stony Shores",
     weight: "None of your business",
     height: "1.85m″",
-    agenda: "Reduce taxes on fish. Legalized polygamy."
+    agenda: "Subsidized fish. Legalized polygamy. A true future."
   }, {
     name: "Ms. Huey",
     imageName: "parrot",
     from: "Jungle",
     weight: "1.85kg",
     height: "0.47m",
-    agenda: "Nobody really knows, keeps repeating her opponents' agenda."
+    agenda: "Nobody really knows, she keeps repeating her opponents' agenda."
   }, {
     name: "Rhionna",
     imageName: "rino",
     from: "Tropic",
     weight: "It's my bones, ok?",
     height: "1.70m",
-    agenda: "Transitioning to a like-based monetary policy. Increased privacy rights"
+    agenda: "Transitioning to a like-based monetary policy. Decreased privacy rights"
   }, {
     name: "Brandon Schwarz",
     imageName: "crowd",

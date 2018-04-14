@@ -3,17 +3,18 @@ Art
 Next two levels
 
 Updates to Phone UI:
-Show an intermediate screen during level loading/intro
 If character selection fails, the phone shouldn't show it
-Show character in background
+
 
 Low-prio
 Escape button to end game early
 Make the winning screen larger
 Swipe controls for character select screen
-Small screen arrow tags are offset oddly
+Iphone 5 arrow tags are offset oddly, and character lineup is high. All other tested devices look fine
 
 DONE!
+Show an intermediate screen during level loading/intro
+Show character in background
 Fix lineup so that the airconsole icon doesn't cover selected character icon
 Tutorial image count 1/X etc
 Move Prev/next buttons in line with center of screen

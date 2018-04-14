@@ -38,7 +38,6 @@ namespace ScreenLogic
         }
 
         /// <summary>
-        /// We check which one of the active players has moved the paddle.
         /// </summary>
         /// <param name="deviceId">From.</param>
         /// <param name="data">Data.</param>
@@ -156,6 +155,15 @@ namespace ScreenLogic
 
 #if !DISABLE_AIRCONSOLE
             AirConsole.instance.Broadcast(JsonConvert.SerializeObject(characterSetChangedMessage));
+#endif
+        }
+
+        public void BroadcastLoadingScreen(string message) {
+            var loadingTimeMessage = new LoadingTimeMessage();
+            loadingTimeMessage.Message = message;
+#if !DISABLE_AIRCONSOLE
+            AirConsole.instance.Broadcast(JsonConvert.SerializeObject(loadingTimeMessage));
+            Debug.Log("Sent loading time message");
 #endif
         }
 

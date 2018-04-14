@@ -19,6 +19,7 @@ public class GameSpawner : MonoBehaviour
 
     public void StartGame(List<GlobalPlayer> players)
     {
+        AirConsoleBridge.Instance.BroadcastLoadingScreen("WATCH THE MAIN SCREEN");
         if (players == null)
         {
             Debug.LogError("NO PLAYERS PROVIDED!");

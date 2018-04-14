@@ -6,9 +6,7 @@
 }
 
 footer.character-selection {
-    background-color: #d4eade;
-    margin: 5px 8px 8px 8px;
-    border-radius: 20px;
+    margin: 2px 5px 5px 5px;
 }
 
 .navigation-button {
@@ -224,6 +222,7 @@ footer.character-selection {
 .character-previews {
     position: absolute;
     left: 50%;
+    top: 0px;
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
@@ -292,6 +291,7 @@ footer.character-selection {
     display: inline-block;
     overflow: hidden;
     margin: 0 4px;
+    top: 1em;
 
     background-size: 39px 38px;
     background-position: 0 6px;
