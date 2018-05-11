@@ -6170,7 +6170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humansToSpawnPerPlayer: 0400000006000000080000000a0000000b0000000c0000000e000000100000001200000014000000
   effectCanvas: {fileID: 273615660}
-  spawnPositionEffect: {fileID: 114308087845507702, guid: b7cd857d7f9404509b613cbf66138360,
+  spawnPositionEffect: {fileID: 114708563957585334, guid: c59f916372ca2484193262005bce517d,
     type: 2}
 --- !u!4 &532304696
 Transform:

@@ -3,6 +3,7 @@ guid: aa0b9d934c43146e992c508f5ade11b2
 timeCreated: 1518278500
 licenseType: Free
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 128
   forceTextureCase: -2
@@ -16,6 +17,7 @@ TrueTypeFontImporter:
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

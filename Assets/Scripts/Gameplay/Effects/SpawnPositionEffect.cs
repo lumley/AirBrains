@@ -17,37 +17,84 @@ public class SpawnPositionEffect : MonoBehaviour {
 	public Text characterName;
 	public Text playerName;
 
+	public SpriteRenderer portraitRenderer;
+	public SpriteRenderer nameplateRenderer;
+	public TextMesh characterNameTextMesh;
+	public TextMesh playerNameTextMesh;
+
+	public string sortingLayer;
+	public int sortingLayerIndex;
+
 	private GameObject targetCharacter;
 	private float delay = float.MaxValue;
 	private Vector3 targetPosition;
 	private Vector3 initialPosition;
+
+	private List<GameObject> toRender;
 	
 	public void SetCharacter(CharacterType newCharacter, GameObject targetCharacter, string playersName, float delay) {
 		Debug.Log("New effect Loaded! " + newCharacter + " " + targetCharacter + " " + playerName + " " + delay);
 		int characterId = characterPortraitLinks.IndexOf(newCharacter);
 		Debug.Log("Character ID: " + characterId);
-		portrait.sprite = portraitCharacterLinks[characterId];
-		nameplate.sprite = portraitNameBoxLinks[characterId];
-		characterName.text = characterNameLinks[characterId];
-		playerName.text = playersName;
+		toRender = new List<GameObject>();
+		if(portrait != null){
+			portrait.sprite = portraitCharacterLinks[characterId];
+			toRender.Add(portrait.gameObject);
+		} 
+		if(nameplate != null) {
+			nameplate.sprite = portraitNameBoxLinks[characterId];
+			toRender.Add(nameplate.gameObject);
+		} 
+		if(characterName != null) {
+			characterName.text = characterNameLinks[characterId];
+			toRender.Add(characterName.gameObject);
+		} 
+		if(playerName != null) {
+			playerName.text = playersName;
+			toRender.Add(playerName.gameObject);
+		} 
+		if(portraitRenderer != null) {
+			portraitRenderer.sprite = portraitCharacterLinks[characterId];
+			toRender.Add(portraitRenderer.gameObject);
+		}
+		if(nameplateRenderer != null) {
+			nameplateRenderer.sprite = portraitNameBoxLinks[characterId];
+			toRender.Add(nameplateRenderer.gameObject);
+		}
+		if(playerNameTextMesh != null){
+			playerNameTextMesh.text = playersName;
+			playerNameTextMesh.GetComponent<MeshRenderer> ().sortingLayerName = sortingLayer;
+			playerNameTextMesh.GetComponent<MeshRenderer> ().sortingOrder = sortingLayerIndex;
+			toRender.Add(playerNameTextMesh.gameObject);
+		}
+		if(characterNameTextMesh != null) {
+			characterNameTextMesh.text = characterNameLinks[characterId];
+			characterNameTextMesh.GetComponent<MeshRenderer> ().sortingLayerName = sortingLayer;
+			characterNameTextMesh.GetComponent<MeshRenderer> ().sortingOrder = sortingLayerIndex;
+			toRender.Add(characterNameTextMesh.gameObject);
+		} 
 		this.targetCharacter = targetCharacter;
-		portrait.gameObject.SetActive(false);
-		nameplate.gameObject.SetActive(false);
+		foreach (var item in toRender)
+		{
+			item.SetActive(false);
+		}
 		this.delay = delay;
 		transform.localScale = Vector3.one;
-		targetPosition = Camera.main.WorldToScreenPoint(targetCharacter.transform.position);
+		targetPosition = new Vector3(targetCharacter.transform.position.x, targetCharacter.transform.position.y, transform.position.z);
 		StartCoroutine(StartEffect());
 	}
 
 	private IEnumerator StartEffect() {
 		yield return new WaitForSeconds(delay);
-		portrait.gameObject.SetActive(true);
-		nameplate.gameObject.SetActive(true);
+		foreach (var item in toRender)
+		{
+			item.SetActive(true);
+		}
 		float totalTime = 0f;
-		initialPosition = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+		initialPosition = transform.position;
 		yield return new WaitForSeconds(displayTime / 3f);
 		while(totalTime < displayTime / 3f) {
-			gameObject.GetComponent<RectTransform>().anchoredPosition3D = Vector3.Lerp(initialPosition, targetPosition, totalTime / (displayTime / 3f));
+			transform.position = Vector3.Lerp(initialPosition, targetPosition, totalTime / (displayTime / 3f));
 			totalTime += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
