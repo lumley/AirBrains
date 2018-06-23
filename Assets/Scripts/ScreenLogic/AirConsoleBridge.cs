@@ -31,6 +31,13 @@ namespace ScreenLogic
             AirConsole.instance.onDisconnect += OnDeviceDisconnected;
             AirConsole.instance.onAdShow += OnAdShow;
             AirConsole.instance.onAdComplete += OnAdComplete;
+            AirConsole.instance.onReady += OnReady;
+        }
+
+        private void OnReady(string code)
+        {
+            AirConsole.instance.onReady -= OnReady;
+            _gameStateController.HeadToTheLobby();
         }
 
         private void OnDestroy()

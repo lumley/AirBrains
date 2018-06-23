@@ -38,11 +38,6 @@ public class GameStateController : MonoBehaviour
     private readonly Dictionary<int, IPlayerToGameStateBridge> _deviceIdToGameCharacterMap =
         new Dictionary<int, IPlayerToGameStateBridge>(MaxAmountOfPlayersAllowed);
 
-    private void Start()
-    {
-        HeadToTheLobby();
-    }
-
     public void HeadToTheLobby()
     {
         SceneManager.LoadScene(_lobbyScreenIndex, LoadSceneMode.Single);
