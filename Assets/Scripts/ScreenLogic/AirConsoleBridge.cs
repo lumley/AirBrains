@@ -14,6 +14,9 @@ namespace ScreenLogic
         [SerializeField] private GameStateController _gameStateController;
         private static AirConsoleBridge _bridgeInstance;
 
+        private Action _onAdShownCallback;
+        private AudioSource _audioSource;
+
         public static AirConsoleBridge Instance
         {
             get { return _bridgeInstance; }
@@ -26,6 +29,8 @@ namespace ScreenLogic
             AirConsole.instance.onMessage += OnMessage;
             AirConsole.instance.onConnect += OnConnect;
             AirConsole.instance.onDisconnect += OnDeviceDisconnected;
+            AirConsole.instance.onAdShow += OnAdShow;
+            AirConsole.instance.onAdComplete += OnAdComplete;
         }
 
         private void OnDestroy()
@@ -34,6 +39,34 @@ namespace ScreenLogic
             if (AirConsole.instance != null)
             {
                 AirConsole.instance.onMessage -= OnMessage;
+            }
+        }
+
+        private void OnAdComplete(bool wasAdShown)
+        {
+            if (_audioSource && !_audioSource.enabled)
+            {
+                _audioSource.enabled = true;
+            }
+
+            if (_onAdShownCallback != null)
+            {
+                var callback = _onAdShownCallback;
+                _onAdShownCallback = null;
+                callback();
+            }
+        }
+
+        private void OnAdShow()
+        {
+            if (_audioSource == null)
+            {
+                _audioSource = FindObjectOfType<AudioSource>();
+            }
+
+            if (_audioSource)
+            {
+                _audioSource.enabled = false;
             }
         }
 
@@ -69,6 +102,7 @@ namespace ScreenLogic
                     break;
             }
         }
+
 #endif
 
         /// <summary>
@@ -147,6 +181,7 @@ namespace ScreenLogic
             {
                 characterIndexArray[arrayIndex++] = characterIndex;
             }
+
             var characterSetChangedMessage = new CharacterSetChangedMessage
             {
                 AvailableAvatarIndexes = characterIndexArray,
@@ -158,7 +193,17 @@ namespace ScreenLogic
 #endif
         }
 
-        public void BroadcastLoadingScreen(string message) {
+        public void RequestToShowAds(Action onCompletionCallback)
+        {
+            if (_onAdShownCallback == null)
+            {
+                _onAdShownCallback = onCompletionCallback;
+                AirConsole.instance.ShowAd();
+            }
+        }
+
+        public void BroadcastLoadingScreen(string message)
+        {
             var loadingTimeMessage = new LoadingTimeMessage();
             loadingTimeMessage.Message = message;
 #if !DISABLE_AIRCONSOLE

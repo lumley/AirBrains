@@ -109,6 +109,7 @@ public class GameStateController : MonoBehaviour
                             break;
                         }
                     }
+
                     if (previousKeyToRemove != 0)
                     {
                         var globalPlayer =
@@ -117,6 +118,7 @@ public class GameStateController : MonoBehaviour
                         {
                             globalPlayer.LobbyPlayerData.Id = deviceId;
                         }
+
                         _deviceIdToGameCharacterMap.Remove(previousKeyToRemove);
                     }
 
@@ -195,6 +197,7 @@ public class GameStateController : MonoBehaviour
 
                 lobbyController.OnLobbyPlayerDataChanged(globalPlayer.LobbyPlayerData);
             }
+
             AirConsoleBridge.Instance.SendOrUpdateAvatarForPlayer(globalPlayer);
             AirConsoleBridge.Instance.BroadcastCharacterSetChanged(_globalPlayers);
         }
@@ -250,9 +253,11 @@ public class GameStateController : MonoBehaviour
         }
         else if (_currentGameState == GameState.OnWrapUpScreen)
         {
-            AirConsoleBridge.Instance.BroadcastLoadingScreen("LOADING");
-            AirConsole.instance.ShowAd();
-            HeadToTheLobby();
+            AirConsoleBridge.Instance.RequestToShowAds(() =>
+            {
+                AirConsoleBridge.Instance.BroadcastLoadingScreen("LOADING");
+                HeadToTheLobby();
+            });
         }
     }
 
@@ -285,6 +290,7 @@ public class GameStateController : MonoBehaviour
                 break;
             }
         }
+
         return !isAvatarTaken;
     }
 
@@ -302,6 +308,7 @@ public class GameStateController : MonoBehaviour
                 return (CharacterType) characterValueIndex;
             }
         }
+
         return CharacterType.None;
     }
 
@@ -315,6 +322,7 @@ public class GameStateController : MonoBehaviour
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -351,6 +359,7 @@ public class GameStateController : MonoBehaviour
                 }
             }
         }
+
         return deviceIdToGrab;
     }
 
