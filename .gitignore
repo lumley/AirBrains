@@ -43,3 +43,4 @@ ehthumbs.db
 
 # Project specific references
 /Assets/Art/REFS/
+/Assets/Plugins/Editor/JetBrains*
