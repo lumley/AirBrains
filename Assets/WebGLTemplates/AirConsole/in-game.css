@@ -74,14 +74,14 @@
     padding: 0;
     list-style-type: none;
     display: flex;
-    width: 156px;
+    width: 75vw;
     flex-wrap: wrap;
 }
 
 .option-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    width: 24vw;
+    height: 24vw;
+    border-radius: 12vw;
     background-color: white;
     border: none;
     box-shadow: 5px 5px 2px #519A99;
@@ -89,13 +89,13 @@
 
 .option {
     text-align: center;
-    padding: 1px;
+    padding: 0.5vw;
 }
 
 .option-space-filler {
-    width: 50px;
-    height: 50px;
-    padding: 1px;
+    width: 24vw;
+    height: 24vw;
+    padding: 0.5vw;
 }
 
 .option-active > .option-button {
