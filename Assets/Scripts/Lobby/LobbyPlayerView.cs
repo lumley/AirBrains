@@ -1,4 +1,5 @@
 ﻿using NDream.AirConsole;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +7,10 @@ public sealed class LobbyPlayerView : MonoBehaviour
 {
     [SerializeField] private Image _portrait;
 
-    [SerializeField] private Text _playerIdText;
+    [SerializeField] private TMP_Text _playerIdText;
     [SerializeField] private Image _playerIdTextBackground;
 
-    [SerializeField] private Text _isReadyText;
+    [SerializeField] private TMP_Text _isReadyText;
 
     [SerializeField] private GameObject _isReadyContainer;
 
@@ -39,7 +40,7 @@ public sealed class LobbyPlayerView : MonoBehaviour
         _portrait.sprite = isEmpty ? null : _visualData.Portrait;
         _playerIdText.color = isEmpty ? Color.black : _visualData.TextColor;
         _playerIdTextBackground.color = isEmpty ? _defaultTextBackgroundColor : _visualData.TextBackgroundColor;
-        
+
         //_isReadyText.text = _model.IsReady ? "Ready" : "Waiting";
         // _isReadyContainer.SetActive(!isEmpty);
         //_isReadyBackground.color = _model.IsReady ? _readyColor : _notReadyColor;
