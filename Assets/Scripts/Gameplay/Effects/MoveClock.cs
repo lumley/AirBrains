@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MoveClock : MonoBehaviour
 {
     public Image fillImage;
-    public Text text;
+    public TMP_Text text;
     public float[] textTriggers;
     public Color textColor;
-	public GameObject[] toEnableWhenVisible;
+    public GameObject[] toEnableWhenVisible;
 
     private float lastValue;
     private GameRunner runner;
@@ -29,10 +30,12 @@ public class MoveClock : MonoBehaviour
             {
                 fillImage.enabled = true;
                 text.enabled = true;
-				foreach (GameObject go in toEnableWhenVisible) {
-					go.SetActive (true);
-				}
+                foreach (GameObject go in toEnableWhenVisible)
+                {
+                    go.SetActive(true);
+                }
             }
+
             fillImage.fillAmount = runner.TimeLeft / runner.secondsToWaitForInput;
             if (Math.Abs(lastValue - -1f) > Mathf.Epsilon)
             {
@@ -45,6 +48,7 @@ public class MoveClock : MonoBehaviour
                     }
                 }
             }
+
             text.color = Color.Lerp(text.color, clearColor, .01f);
             lastValue = runner.TimeLeft;
         }
@@ -53,9 +57,10 @@ public class MoveClock : MonoBehaviour
             fillImage.enabled = false;
             text.enabled = false;
             lastValue = -1f;
-			foreach (GameObject go in toEnableWhenVisible) {
-				go.SetActive (false);
-			}
+            foreach (GameObject go in toEnableWhenVisible)
+            {
+                go.SetActive(false);
+            }
         }
     }
 }
