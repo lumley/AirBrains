@@ -37,7 +37,11 @@ namespace ScreenLogic
         private void OnReady(string code)
         {
             AirConsole.instance.onReady -= OnReady;
-            _gameStateController.HeadToTheLobby();
+            RequestToShowAds(() =>
+            {
+                BroadcastLoadingScreen("LOADING");
+                _gameStateController.HeadToTheLobby();
+            });
         }
 
         private void OnDestroy()
@@ -211,8 +215,7 @@ namespace ScreenLogic
 
         public void BroadcastLoadingScreen(string message)
         {
-            var loadingTimeMessage = new LoadingTimeMessage();
-            loadingTimeMessage.Message = message;
+            var loadingTimeMessage = new LoadingTimeMessage {Message = message};
 #if !DISABLE_AIRCONSOLE
             AirConsole.instance.Broadcast(JsonConvert.SerializeObject(loadingTimeMessage));
             Debug.Log("Sent loading time message");
